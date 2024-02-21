@@ -16,10 +16,32 @@ import { ResourcesAddComponent } from './components/resources/resources-add/reso
 import { ResourcesDatabaseComponent } from './components/resources/resources-database/resources-database.component';
 import { ProcessesAddComponent } from './components/processes/processes-add/processes-add.component';
 import { ProcessesDatabaseComponent } from './components/processes/processes-database/processes-database.component';
+import { PrescriptionComponent } from './components/prescription/prescription.component';
+import { PrescriptionAddComponent } from './components/prescription/prescription-add/prescription-add.component';
+import { PrescriptionDatabaseComponent } from './components/prescription/prescription-database/prescription-database.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent, NavbarComponent, ProductsComponent, ResourcesComponent, ProcessesComponent, ProductsAddComponent, ProductsDatabaseComponent, ResourcesAddComponent, ResourcesDatabaseComponent, ProcessesAddComponent, ProcessesDatabaseComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    HeaderComponent,
+    NavbarComponent,
+    ProductsComponent,
+    ResourcesComponent,
+    ProcessesComponent,
+    ProductsAddComponent,
+    ProductsDatabaseComponent,
+    ResourcesAddComponent,
+    ResourcesDatabaseComponent,
+    ProcessesAddComponent,
+    ProcessesDatabaseComponent,
+    PrescriptionComponent,
+    PrescriptionAddComponent,
+    PrescriptionDatabaseComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

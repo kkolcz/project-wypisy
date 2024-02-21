@@ -26,8 +26,8 @@
                         Zasoby
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Dodaj zasób</a></li>
-                        <li><a class="dropdown-item" href="#">Baza zasobów</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/resources', 'add']">Dodaj zasób</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/resources', 'database']">Baza zasobów</a></li>
                     </ul>
                 </li>
 
@@ -38,8 +38,8 @@
                         Wypisy
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Dodaj wypis</a></li>
-                        <li><a class="dropdown-item" href="#">Baza wypisów</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/prescription', 'add']">Dodaj wypis</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/prescription', 'database']">Baza wypisów</a></li>
                     </ul>
                 </li>
 
@@ -50,8 +50,8 @@
                         Procesy
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Dodaj proces</a></li>
-                        <li><a class="dropdown-item" href="#">Baza procesów</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/processes', 'add']">Dodaj proces</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/processes', 'database']">Baza procesów</a></li>
                     </ul>
                 </li>
 
