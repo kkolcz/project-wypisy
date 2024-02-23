@@ -11,9 +11,9 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { ProcessesComponent } from './components/processes/processes.component';
 import { ProcessesAddComponent } from './components/processes/processes-add/processes-add.component';
 import { ProcessesDatabaseComponent } from './components/processes/processes-database/processes-database.component';
-import { PrescriptionComponent } from './components/prescription/prescription.component';
-import { PrescriptionAddComponent } from './components/prescription/prescription-add/prescription-add.component';
-import { PrescriptionDatabaseComponent } from './components/prescription/prescription-database/prescription-database.component';
+import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
+import { PrescriptionsAddComponent } from './components/prescriptions/prescriptions-add/prescriptions-add.component';
+import { PrescriptionsDatabaseComponent } from './components/prescriptions/prescriptions-database/prescriptions-database.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,10 +36,10 @@ const routes: Routes = [
   },
   {
     path: 'prescription',
-    component: PrescriptionComponent,
+    component: PrescriptionsComponent,
     children: [
-      { path: 'add', component: PrescriptionAddComponent },
-      { path: 'database', component: PrescriptionDatabaseComponent },
+      { path: 'add', component: PrescriptionsAddComponent },
+      { path: 'database', component: PrescriptionsDatabaseComponent },
     ],
   },
   {

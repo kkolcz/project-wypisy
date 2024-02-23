@@ -16,9 +16,9 @@ import { ResourcesAddComponent } from './components/resources/resources-add/reso
 import { ResourcesDatabaseComponent } from './components/resources/resources-database/resources-database.component';
 import { ProcessesAddComponent } from './components/processes/processes-add/processes-add.component';
 import { ProcessesDatabaseComponent } from './components/processes/processes-database/processes-database.component';
-import { PrescriptionComponent } from './components/prescription/prescription.component';
-import { PrescriptionAddComponent } from './components/prescription/prescription-add/prescription-add.component';
-import { PrescriptionDatabaseComponent } from './components/prescription/prescription-database/prescription-database.component';
+import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
+import { PrescriptionsAddComponent } from './components/prescriptions/prescriptions-add/prescriptions-add.component';
+import { PrescriptionsDatabaseComponent } from './components/prescriptions/prescriptions-database/prescriptions-database.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -37,9 +37,9 @@ import { FormsModule } from '@angular/forms';
     ResourcesDatabaseComponent,
     ProcessesAddComponent,
     ProcessesDatabaseComponent,
-    PrescriptionComponent,
-    PrescriptionAddComponent,
-    PrescriptionDatabaseComponent,
+    PrescriptionsComponent,
+    PrescriptionsAddComponent,
+    PrescriptionsDatabaseComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
