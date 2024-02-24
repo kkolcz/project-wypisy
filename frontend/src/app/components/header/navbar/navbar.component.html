@@ -58,9 +58,9 @@
 
 
             </ul>
-            <form class="d-flex" role="search">
-                <button class="btn btn-danger">Wyloguj</button>
-            </form>
+            <div>
+                <button class="btn btn-danger" (click)="onSignOut()" *ngIf="isLogin">Wyloguj</button>
+            </div>
         </div>
     </div>
 </nav>
