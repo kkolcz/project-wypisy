@@ -1,0 +1,19 @@
+<div class="container mt-5">
+
+    <!-- Inputs -->
+    <div class="input-outline mb-3">
+        <select [(ngModel)]="user" class="form-select" aria-label="Default select example">
+            <option value='' selected>Wybierz użytkownika</option>
+            <option value="jankowalski">Jan Kowalski</option>
+            <option value="michalkowal">Michał Kowal</option>
+            <option value="mateuszdrwal">Mateusz Drwal</option>
+        </select>
+    </div>
+    <div class="input-outline mb-3">
+        <input type="password" id="password" class="form-control" placeholder="Hasło" [(ngModel)]="password">
+    </div>
+
+    <!-- Buttons -->
+    <button type="button" class="btn btn-primary" (click)="onLogin()">Zaloguj</button>
+
+</div>

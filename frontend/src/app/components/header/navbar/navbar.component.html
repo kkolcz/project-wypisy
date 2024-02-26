@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Start</a>
+                </li>
+
+                <!-- Produkty -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Produkty
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" [routerLink]="['/products', 'add']">Dodaj produkt</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/products', 'database']">Baza produktów</a></li>
+                    </ul>
+                </li>
+
+                <!-- Zasoby -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Zasoby
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" [routerLink]="['/resources', 'add']">Dodaj zasób</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/resources', 'database']">Baza zasobów</a></li>
+                    </ul>
+                </li>
+
+                <!-- Wypisy -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Wypisy
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" [routerLink]="['/prescription', 'add']">Dodaj wypis</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/prescription', 'database']">Baza wypisów</a></li>
+                    </ul>
+                </li>
+
+                <!-- Procesy -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Procesy
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" [routerLink]="['/processes', 'add']">Dodaj proces</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/processes', 'database']">Baza procesów</a></li>
+                    </ul>
+                </li>
+
+
+
+            </ul>
+            <div>
+                <button class="btn btn-danger" (click)="onSignOut()" *ngIf="isLogin">Wyloguj</button>
+            </div>
+        </div>
+    </div>
+</nav>
