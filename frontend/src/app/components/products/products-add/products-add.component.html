@@ -1,4 +1,4 @@
-<h3>Dodaj produkt</h3>
+<h3 class="mb-5">Dodaj produkt</h3>
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
 
@@ -6,7 +6,27 @@
             <div class="input-group mb-3">
                 <input type="text" formControlName="productName" class="form-control" placeholder="Nazwa produktu">
             </div>
-            <div>
+
+            <!-- <div class="input-group mb-3">
+                <select id="resource" class="form-control" name="resource">
+                    <option [value]="resource.name" *ngFor="let resource of resourcesList">{{resource.name}}</option>
+                </select>
+            </div> -->
+
+            <div formArrayName="resourcesForm">
+                <span>Dodaj zasób<button class="btn btn-primary m-1" type="button"
+                        (click)="onAddResource()">+</button></span>
+                <div class="form-group" *ngFor=" let resourceControl of getControls(); let i = index">
+                    <select id="resource" class="form-control mt-2" name="resource" [formControlName]="i">
+                        <option [value]="resource.name" *ngFor="let resource of resourcesList">{{resource.name}}
+                        </option>
+                    </select>
+
+
+                </div>
+            </div>
+
+            <div class="mt-5">
                 <button class="btn btn-primary" type="submit">Dodaj produkt</button>
             </div>
         </form>

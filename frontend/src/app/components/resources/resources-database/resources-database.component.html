@@ -1,1 +1,8 @@
 <h3>Baza zasobów</h3>
+<ul>
+    <li *ngFor="let resource of resourcesList">{{resource.name}}</li>
+</ul>
+
+<div>
+    <button class="btn btn-primary" (click)="onAddNew()">Dodaj zasób</button>
+</div>
