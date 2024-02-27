@@ -14,6 +14,7 @@ import { ProcessesDatabaseComponent } from './components/processes/processes-dat
 import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
 import { PrescriptionsAddComponent } from './components/prescriptions/prescriptions-add/prescriptions-add.component';
 import { PrescriptionsDatabaseComponent } from './components/prescriptions/prescriptions-database/prescriptions-database.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent,
+    canActivate: [authGuard],
     children: [
       { path: 'add', component: ProductsAddComponent },
       { path: 'database', component: ProductsDatabaseComponent },
