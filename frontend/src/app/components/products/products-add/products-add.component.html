@@ -2,12 +2,13 @@
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
 
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Nazwa produktu" [(ngModel)]="newProduct.name">
-        </div>
-        <div>
-            <button class="btn btn-primary" (click)="onAddProduct()">Dodaj produkt</button>
-        </div>
-
+        <form [formGroup]="productForm" (ngSubmit)="onAddProduct()">
+            <div class="input-group mb-3">
+                <input type="text" formControlName="productName" class="form-control" placeholder="Nazwa produktu">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Dodaj produkt</button>
+            </div>
+        </form>
     </div>
 </div>
