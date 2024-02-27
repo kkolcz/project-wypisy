@@ -59,7 +59,8 @@
 
             </ul>
             <div>
-                <button class="btn btn-danger" (click)="onSignOut()" *ngIf="isLogin">Wyloguj</button>
+                <button class="btn btn-danger" (click)="onSignInOut()">{{isLogin ? 'Wyloguj' :
+                    'Zaloguj'}}</button>
             </div>
         </div>
     </div>

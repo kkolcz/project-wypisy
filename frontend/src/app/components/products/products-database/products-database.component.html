@@ -1,1 +1,8 @@
 <h3>Baza produktów</h3>
+<ul>
+    <li *ngFor="let product of productsList">{{product.name}}</li>
+</ul>
+
+<div>
+    <button class="btn btn-primary" (click)="onAddNew()">Dodaj produkt</button>
+</div>
