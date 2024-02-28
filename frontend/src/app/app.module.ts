@@ -19,7 +19,7 @@ import { ProcessesDatabaseComponent } from './components/processes/processes-dat
 import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
 import { PrescriptionsAddComponent } from './components/prescriptions/prescriptions-add/prescriptions-add.component';
 import { PrescriptionsDatabaseComponent } from './components/prescriptions/prescriptions-database/prescriptions-database.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { FormsModule } from '@angular/forms';
     PrescriptionsAddComponent,
     PrescriptionsDatabaseComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
