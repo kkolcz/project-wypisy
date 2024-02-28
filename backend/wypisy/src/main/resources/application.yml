@@ -1,9 +1,12 @@
 spring:
   datasource:
-    password: Us8gmGeWGx9S
-    url: jdbc:postgresql://frog01.mikr.us:40350/pwypisy
+    hikari:
+      maximum-pool-size: 2
+    password: hNUmb6pIAgE3
+    url: jdbc:postgresql://ep-royal-fog-a2dwl67l.eu-central-1.aws.neon.tech:5432/pwypisy
     username: pwypisy
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: create-drop
