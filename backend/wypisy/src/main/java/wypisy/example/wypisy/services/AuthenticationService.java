@@ -18,7 +18,7 @@ public class AuthenticationService {
     private final JWTService  jwtService;
     private final AuthenticationManager authenticationManager;
 
-    private AuthenticationResponse authenticate(AuthenticationRequest request){
+    public AuthenticationResponse authenticate(AuthenticationRequest request){
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
