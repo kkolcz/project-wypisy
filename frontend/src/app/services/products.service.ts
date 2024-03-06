@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { IProduct } from '../models/product.model';
 import { Product } from '../models/product.model';
+import { HttpApiService } from './http-api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService {
+export class ProductsService implements OnInit {
+  constructor(private httpApi: HttpApiService) {}
   // test = new Product(11, '23');
 
   // productsList = [
@@ -26,6 +28,7 @@ export class ProductsService {
 
   getProducts(): IProduct[] {
     // console.log(this.productsList);
+    this.dlProducts();
     return this.productsList.slice();
   }
 
@@ -44,5 +47,14 @@ export class ProductsService {
 
   removeProduct() {}
 
-  constructor() {}
+  ngOnInit(): void {}
+
+  dlProducts(): void {
+    const data = this.httpApi.getProducts();
+    console.log(data);
+
+    // data.forE((product) => {
+    //   this.productsList.push(product);
+    // });
+  }
 }

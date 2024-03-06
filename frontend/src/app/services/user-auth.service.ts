@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserAuthService implements OnInit {
   userIsLoginSubject = new Subject<boolean>();
-  userIsLogin: boolean = false;
+  userIsLogin: boolean = true;
   token: string = null;
 
   API_URL = 'http://localhost:8080/api/v1';

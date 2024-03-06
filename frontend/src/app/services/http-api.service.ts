@@ -10,7 +10,8 @@ interface IToken {
   providedIn: 'root',
 })
 export class HttpApiService {
-  API_URL = 'http://localhost:8080/api/v1';
+  // API_URL = 'http://localhost:8080/api/v1';
+  API_URL = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
   verifyToken(token: IToken): boolean {
@@ -23,7 +24,11 @@ export class HttpApiService {
     return false;
   }
 
-  getProducts(): IProduct[] {
-    this.http.get(this.API_URL).subscribe((res) => {});
+  getProducts(): any {
+    const data = this.http.get(`${this.API_URL}/products`).subscribe((res) => {
+      return res;
+    });
+
+    return data;
   }
 }
