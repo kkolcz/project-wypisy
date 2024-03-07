@@ -2,12 +2,16 @@ import { Injectable, OnInit } from '@angular/core';
 import { IProduct } from '../models/product.model';
 import { Product } from '../models/product.model';
 import { HttpApiService } from './http-api.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService implements OnInit {
-  constructor(private httpApi: HttpApiService) {}
+  // API_URL = 'http://localhost:8080/api/v1';
+  API_URL = 'http://localhost:3000';
+  constructor(private httpApi: HttpApiService, private http: HttpClient) {}
   // test = new Product(11, '23');
 
   // productsList = [
@@ -26,10 +30,11 @@ export class ProductsService implements OnInit {
     // new Product(4, 'product4'),
   ];
 
-  getProducts(): IProduct[] {
+  getProducts(): Observable<IProduct[]> {
     // console.log(this.productsList);
-    this.dlProducts();
-    return this.productsList.slice();
+    return this.http.get<IProduct[]>(`${this.API_URL}/products`);
+    // this.dlProducts();
+    // return this.productsList.slice();
   }
 
   getProduct(id: number): IProduct {
@@ -50,8 +55,18 @@ export class ProductsService implements OnInit {
   ngOnInit(): void {}
 
   dlProducts(): void {
-    const data = this.httpApi.getProducts();
+    let data = [];
+    this.httpApi.getProducts().subscribe((res) => {
+      data = Array.from(res);
+      console.log(res);
+    });
+    const data2 = Array.from(data);
+
+    data.map((product) => {
+      console.log(product);
+    });
     console.log(data);
+    console.log('product');
 
     // data.forE((product) => {
     //   this.productsList.push(product);

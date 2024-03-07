@@ -1,7 +1,24 @@
 {
   "products": [
-    { "id": 0, "name": "product0", "resources": [] },
-    { "id": 1, "name": "product1", "resources": [] },
-    { "id": 2, "name": "product2", "resources": [] }
+    {
+      "id": 0,
+      "name": "stol",
+      "resources": [
+        { "id": 0, "name": "blat", "psc": 1 },
+        { "id": 1, "name": "noga", "psc": 4 }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "stolik",
+      "resources": [
+        { "id": 0, "name": "blat", "psc": 1 },
+        { "id": 1, "name": "noga", "psc": 4 }
+      ]
+    }
+  ],
+  "resources": [
+    { "id": 0, "name": "blat" },
+    { "id": 1, "name": "noga" }
   ]
 }

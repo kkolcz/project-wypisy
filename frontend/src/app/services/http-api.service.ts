@@ -24,10 +24,10 @@ export class HttpApiService {
     return false;
   }
 
+  dane = {};
+
   getProducts(): any {
-    const data = this.http.get(`${this.API_URL}/products`).subscribe((res) => {
-      return res;
-    });
+    const data = this.http.get(`${this.API_URL}/products`);
 
     return data;
   }
