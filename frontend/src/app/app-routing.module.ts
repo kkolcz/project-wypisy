@@ -30,6 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'resources',
+    canActivate: [authGuard],
     component: ResourcesComponent,
     children: [
       { path: 'add', component: ResourcesAddComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'prescription',
+    canActivate: [authGuard],
     component: PrescriptionsComponent,
     children: [
       { path: 'add', component: PrescriptionsAddComponent },
@@ -46,6 +48,7 @@ const routes: Routes = [
   },
   {
     path: 'processes',
+    canActivate: [authGuard],
     component: ProcessesComponent,
     children: [
       { path: 'add', component: ProcessesAddComponent },

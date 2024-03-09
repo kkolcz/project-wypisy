@@ -20,7 +20,10 @@ export class ProductsDatabaseComponent implements OnInit {
     // const newProduct: Product = { id: 25, name: 'Produkt numer 25' };
     // this.productsService.addProduct(newProduct);
 
-    this.productsList = this.productsService.getProducts();
+    // this.productsList = this.productsService.getProducts();
+    this.productsService.getProducts().subscribe((products) => {
+      this.productsList = products;
+    });
 
     // console.log(this.productsService.getProduct(1));
   }
