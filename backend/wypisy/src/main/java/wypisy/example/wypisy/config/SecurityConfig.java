@@ -36,7 +36,9 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private static final String[] WHITE_LIST_URL = {
-            "/api/v1/auth/**"
+            "/api/v1/auth/**",
+            "/api/v1/Product/**"
+
     };
 
 
@@ -50,6 +52,7 @@ public class SecurityConfig {
                     requests
                             .requestMatchers(WHITE_LIST_URL).permitAll()
                             .requestMatchers("/api/v1/demo").hasAnyRole("USER")
+                            .requestMatchers("/api/v1/Product/**").permitAll()
                             .anyRequest()
                             .authenticated();
                 })
