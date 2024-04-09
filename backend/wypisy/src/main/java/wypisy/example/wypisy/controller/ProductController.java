@@ -1,5 +1,7 @@
 package wypisy.example.wypisy.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,7 +29,7 @@ public class ProductController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("addProduct",productService.createProduct()))
+                            .data(of("addProduct",productService.createProduct(product)))
                             .message("addition Product was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -71,11 +73,32 @@ public class ProductController {
         }
 
 
-
     }
+        @GetMapping("/")
+        public ResponseEntity<Response>getProductsById(@RequestParam Long productId) {
+            try {
 
+                return ResponseEntity.ok(
+                        Response.builder()
+                                .timeStamp(now())
+                                .data(of("Products", productService.getProductById(productId)))
+                                .message("Returned Products")
+                                .status(HttpStatus.OK)
+                                .statusCode(HttpStatus.OK.value())
+                                .build()
+                );
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(
+                        Response.builder()
+                                .timeStamp(now())
+                                .data(of(" Product", false))
+                                .message(e.getMessage())
+                                .status(HttpStatus.BAD_REQUEST)
+                                .statusCode(HttpStatus.BAD_REQUEST.value())
+                                .build());
+            }
 
-
+        }
 
 
 

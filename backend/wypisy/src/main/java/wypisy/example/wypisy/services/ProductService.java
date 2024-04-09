@@ -15,16 +15,18 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Product createProduct(){
+    public Product createProduct(Product product){
 
-//        Product newProduct=new Product(null,product.getName(),product.getNrM3(),product.getNameM3(),product.getDescription());
-        Product newProduct=new Product(null,"222","222","222","222");
+        Product newProduct=new Product(null,product.getName(),product.getNrM3(),product.getNameM3(),product.getDescription());
+//        Product newProduct=new Product(null,"222","222","222","222");
         productRepository.save(newProduct);
 
         return newProduct;
     }
 
-public List<Product>getAllProduct(){return productRepository.findAll();}
+    public List<Product>getAllProduct(){return productRepository.findAll();}
+
+    public Product getProductById(Long id){return productRepository.findById(id).orElseThrow(()->new IllegalStateException("Product don't exist"));}
 
 
 }

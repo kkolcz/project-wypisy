@@ -1,4 +1,4 @@
 package wypisy.example.wypisy.model;
 
-public class Wypis {
+public class Wypis  {
 }
