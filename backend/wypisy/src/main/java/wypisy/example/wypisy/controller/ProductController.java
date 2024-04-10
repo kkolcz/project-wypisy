@@ -2,6 +2,7 @@ package wypisy.example.wypisy.controller;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,38 @@ import static java.util.Map.of;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/Product")
+@RequestMapping("api/v1/product")
 @Slf4j
 public class ProductController {
 
     private final ProductService productService;
+
+    @PostMapping("/addelement")
+    public ResponseEntity<Response> addElement(@Valid @NotNull @RequestParam Long id_product,
+                                               @Valid @NotNull @RequestParam Long id_element){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("addElementToProduct",productService.addElementToProduct(id_product,id_element)))
+                            .message("addition Element to product was successfully")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("addElementToProduct", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Response> addProduct(@RequestBody  Product product){
@@ -99,6 +127,13 @@ public class ProductController {
             }
 
         }
+
+
+
+
+
+
+
 
 
 
