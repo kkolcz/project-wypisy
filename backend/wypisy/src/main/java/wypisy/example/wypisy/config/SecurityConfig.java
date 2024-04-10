@@ -37,7 +37,10 @@ public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
-            "/api/v1/Product/**"
+            "/api/v1/product/**",
+            "/api/v1/element/**",
+            "/api/v1/melement/**",
+            "/api/v1/tool/**"
 
     };
 
@@ -53,6 +56,7 @@ public class SecurityConfig {
                             .requestMatchers(WHITE_LIST_URL).permitAll()
                             .requestMatchers("/api/v1/demo").hasAnyRole("USER")
                             .requestMatchers("/api/v1/Product/**").permitAll()
+                            .requestMatchers("/api/v1/Element/**").permitAll()
                             .anyRequest()
                             .authenticated();
                 })

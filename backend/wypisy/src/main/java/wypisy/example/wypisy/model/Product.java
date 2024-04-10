@@ -1,14 +1,16 @@
 package wypisy.example.wypisy.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +26,15 @@ public class Product {
     private String nrM3;
     private String nameM3;
     private String description;
+
+    @ManyToMany
+    @JoinTable(name="PRODUCT_ELEMENT",
+            joinColumns={@JoinColumn(name="PRODUCT_ID")},
+            inverseJoinColumns={@JoinColumn(name="ELEMENT_ID")}
+    )
+
+    private Collection<Element> elementList=new ArrayList<>();
+
 
 
 
