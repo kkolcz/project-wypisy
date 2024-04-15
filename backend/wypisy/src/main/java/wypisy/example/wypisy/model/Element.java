@@ -28,6 +28,33 @@ public class Element {
     @NotEmpty
     private String name;
 
+
+    @NotNull
+    @Column(name = "length" ,columnDefinition = "DECIMAL(7,2)")
+    @Digits(integer=9, fraction=2)
+    private BigDecimal length;
+
+    @NotNull
+    @Column(name = "width" ,columnDefinition = "DECIMAL(7,2)")
+    @Digits(integer=9, fraction=2)
+    private BigDecimal width;
+
+
+    @NotNull
+    @Column(name = "height" ,columnDefinition = "DECIMAL(7,2)")
+    @Digits(integer=9, fraction=2)
+    private BigDecimal height;
+
+
+
+
+
+
+
+
+
+
+
     @NotNull
     @Column(name = "unit" ,columnDefinition = "DECIMAL(7,2)")
     @Digits(integer=9, fraction=2)

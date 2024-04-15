@@ -1,36 +1,36 @@
 package wypisy.example.wypisy.controller;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wypisy.example.wypisy.model.Product;
+import wypisy.example.wypisy.model.Location;
+import wypisy.example.wypisy.model.Material;
 import wypisy.example.wypisy.model.Response;
-import wypisy.example.wypisy.model.Tool;
-import wypisy.example.wypisy.services.ToolService;
+import wypisy.example.wypisy.services.LocationService;
 
 import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/tool")
+@RequestMapping("api/v1/location")
 @Slf4j
-public class ToolController {
+public class LocationController {
 
-    private final ToolService toolService;
+    private final LocationService locationService;
+
 
     @GetMapping("/all")
-    public ResponseEntity<Response>getAllTool(){
+    public ResponseEntity<Response> getAllLocation(){
         try {
 
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Products",toolService.getAll()))
-                            .message("Returned all Tools")
+                            .data(of("Locations",locationService.getAll()))
+                            .message("Returned all Locations")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .build()
@@ -39,7 +39,7 @@ public class ToolController {
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("all Tools", false))
+                            .data(of("all Locations", false))
                             .message(e.getMessage())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -48,16 +48,15 @@ public class ToolController {
 
 
     }
-
     @GetMapping("/")
-    public ResponseEntity<Response>getToolById(@RequestParam Long toolId) {
+    public ResponseEntity<Response>getById(@RequestParam Long locationId) {
         try {
 
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Tool", toolService.getById(toolId)))
-                            .message("Returned Tool")
+                            .data(of("Location", locationService.getById(locationId)))
+                            .message("Returned Location")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .build()
@@ -66,7 +65,7 @@ public class ToolController {
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Tool", false))
+                            .data(of("Location", false))
                             .message(e.getMessage())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -74,16 +73,15 @@ public class ToolController {
         }
 
     }
-
     @PostMapping("/add")
-    public ResponseEntity<Response> addTool(@RequestBody  Tool tool){
+    public ResponseEntity<Response> addLocation(@RequestBody Location location){
 
         try {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("add Tool",toolService.createTool(tool)))
-                            .message("addition Tool was successfully")
+                            .data(of("add Location",locationService.create(location) ))
+                            .message("addition Location was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .build()
@@ -92,7 +90,7 @@ public class ToolController {
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("add Tool", false))
+                            .data(of("add Location", false))
                             .message(e.getMessage())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -100,17 +98,16 @@ public class ToolController {
         }
 
     }
-
     @DeleteMapping("/")
-    public ResponseEntity<Response>delateMaterial(@RequestParam Long toolId){
+    public ResponseEntity<Response>delateLocation(@RequestParam Long locationId){
 
         try {
 
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("delete tool",toolService.deleteById(toolId)))
-                            .message("Tool was deleted")
+                            .data(of("delete Location",locationService.deleteById(locationId)))
+                            .message("Location was deleted")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .build()
@@ -119,7 +116,7 @@ public class ToolController {
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("deleteTool", false))
+                            .data(of("deleteLocation", false))
                             .message(e.getMessage())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -128,14 +125,14 @@ public class ToolController {
 
     }
     @PutMapping("/")
-    public ResponseEntity<Response> putTool(@RequestBody  Tool tool){
+    public ResponseEntity<Response> putLocation(@RequestBody Location location){
 
         try {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Change Tool",toolService.changeById(tool)))
-                            .message("addition Tool was successfully")
+                            .data(of("Change Location",locationService.changeById(location)))
+                            .message("changed Location was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .build()
@@ -144,7 +141,7 @@ public class ToolController {
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Change Tool", false))
+                            .data(of("Change Location", false))
                             .message(e.getMessage())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
@@ -152,11 +149,6 @@ public class ToolController {
         }
 
     }
-
-
-
-
-
 
 
 

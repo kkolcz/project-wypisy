@@ -24,10 +24,13 @@ public class ElementService {
         Element newElement=new Element(
                 null,
                 element.getName(),
+                element.getLength(),
+                element.getWidth(),
+                element.getHeight(),
                 element.getUnit(),
                 element.getDescription(),
-                null,
-                null
+                element.getProductList(),
+                element.getMaterial()
         );
         elementRepository.save(newElement);
 
@@ -36,11 +39,15 @@ public class ElementService {
             ManufacturingElement manufacturingElement=new ManufacturingElement(
                     null,
                     element.getName(),
+                    element.getLength(),
+                    element.getWidth(),
+                    element.getHeight(),
                     element.getUnit(),
                     element.getDescription(),
                     new ArrayList<>(),
-                    null,
-                    null
+                    new ArrayList<>(),
+                    new ArrayList<>(),
+                    element.getMaterial()
 
 
             );
