@@ -23,11 +23,17 @@ public class ManufacturingElementService {
 
                 null,
                 element.getName(),
+                element.getLength(),
+                element.getWidth(),
+                element.getHeight(),
                 element.getUnit(),
                 element.getDescription(),
-                null,
-                null,
-                null
+                element.getToolList(),
+                element.getProcessesList(),
+                element.getMachinePrograms(),
+                element.getMaterial()
+
+
 
         );
 

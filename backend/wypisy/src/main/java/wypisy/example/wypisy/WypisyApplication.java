@@ -27,29 +27,77 @@ public class WypisyApplication {
 			ToolRepository toolRepository,
 			ManufacturingProcessRepository manufacturingProcessRepository,
 			ManufacturingElementRepository manufacturingElementRepository,
-			MachineProgramRepository machineProgramRepository
+			MachineProgramRepository machineProgramRepository,
+			LocationRepository locationRepository
 
 	) {
 
 
 		return args -> {
 
-			Tool tool=new Tool(null,"Q12-T6",null,null,null);
-			toolRepository.save(tool);
-			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC","CNC","",null);
-			manufacturingProcessRepository.save(manufacturingProcess);
-			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",null,null);
-			machineProgramRepository.save(machineProgram);
-			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("2"),"",null,null,null);
-			manufacturingElementRepository.save(manufacturingElement);
+			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>(),new ArrayList<>());
 
-			Material material= new Material(null,"Sklajka","1500x1500",null);
-			materialRepository.save(material);
+			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC","CNC",new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>());
+
+			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",new ArrayList<>(),new ArrayList<>());
+
+
+			Location location=new Location(null,"CNC","MaszynaCNC",new ArrayList<>());
+
+
+
+			Material material= new Material(null,"Sklajka","1500x1500",new BigDecimal("1500"),new BigDecimal("1500"),new BigDecimal("15"),new ArrayList<>(),new ArrayList<>());
+
+
+
+
+
+
+			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),new BigDecimal("2"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
+
+
+
 
 			Product newProduct = new Product(null, "222", "222", "222", "222",new ArrayList<>());
-			productRepository.save(newProduct);
 
-			Element newElement=new Element(null,"Element1",new BigDecimal("1.00"),"Opis",new ArrayList<>(),material);
+
+			Element newElement=new Element(null,"Element1",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),new BigDecimal("1.00"),"Opis",new ArrayList<>(),material);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			tool.getMachinePrograms().add(machineProgram);
+			machineProgram.getToolList().add(tool);
+
+			manufacturingProcess.getLocationList().add(location);
+			location.getManufacturingProcesses().add(manufacturingProcess);
+
+
+
+
+
+
+
+			toolRepository.save(tool);
+			locationRepository.save(location);
+			materialRepository.save(material);
+
+			machineProgramRepository.save(machineProgram);
+
+
+			manufacturingProcessRepository.save(manufacturingProcess);
+			manufacturingElementRepository.save(manufacturingElement);
+			productRepository.save(newProduct);
 			elementRepository.save(newElement);
 
 
