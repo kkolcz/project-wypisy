@@ -26,13 +26,15 @@ public class ManufacturingProcess {
     @NotEmpty
     private String name;
 
-    private String description;
+    @ManyToOne()
+    @JoinColumn(name = "CATEGORY")
+    private ProcessCategory category;
+
 
     @NotNull
     @Column(name = "time" ,columnDefinition = "DECIMAL(7,2)")
     @Digits(integer=9, fraction=2)
     private BigDecimal time;
-
 
 
 

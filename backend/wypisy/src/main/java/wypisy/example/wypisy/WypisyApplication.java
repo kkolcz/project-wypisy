@@ -28,7 +28,8 @@ public class WypisyApplication {
 			ManufacturingProcessRepository manufacturingProcessRepository,
 			ManufacturingElementRepository manufacturingElementRepository,
 			MachineProgramRepository machineProgramRepository,
-			LocationRepository locationRepository
+			LocationRepository locationRepository,
+			ProcessCategoryRepository categoryRepository
 
 	) {
 
@@ -37,7 +38,12 @@ public class WypisyApplication {
 
 			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>(),new ArrayList<>());
 
-			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC","CNC",new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>());
+
+			ProcessCategory category=new ProcessCategory(null,"CNC","CNC",new ArrayList<>());
+
+
+
+			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>());
 
 			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",new ArrayList<>(),new ArrayList<>());
 
@@ -69,13 +75,20 @@ public class WypisyApplication {
 
 
 
+//
+//		manufacturingElement.getProcessesList().add(manufacturingProcess);
+//		manufacturingProcess.getManufacturingElements().add(manufacturingElement);
+//
+//		manufacturingElement.getToolList().add(tool);
+//		tool.getManufacturingElements().add(manufacturingElement);
+//
+//		manufacturingElement.getMachinePrograms().add(machineProgram);
+//		machineProgram.getManufacturingElements().add(manufacturingElement);
 
 
 
 
-
-
-
+			categoryRepository.save(category);
 			tool.getMachinePrograms().add(machineProgram);
 			machineProgram.getToolList().add(tool);
 

@@ -45,11 +45,9 @@ public class ProductService {
         Element element= elementRepository.findById(elementId).orElseThrow(()->new IllegalStateException("Exist don't exist"));
 
 
-        if (!product.getElementList().contains(element)){
-
             product.getElementList().add(element);
             productRepository.save(product);
-        }
+
         return product;
 
 
