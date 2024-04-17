@@ -36,7 +36,12 @@ public class Product {
     private Collection<Element> elementList=new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "product")
 
+    private Collection<ProductLineMElement> productLineMElements=new ArrayList<>();
 
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private Collection<WypisLine> wypisLines=new ArrayList<>();
 
 }

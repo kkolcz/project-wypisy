@@ -30,8 +30,8 @@ public class ManufacturingElementService {
                 element.getLength(),
                 element.getWidth(),
                 element.getHeight(),
-                element.getUnit(),
                 element.getDescription(),
+                element.getProductLineMElements(),
                 element.getToolList(),
                 element.getProcessesList(),
                 element.getMachinePrograms(),
@@ -89,7 +89,6 @@ public class ManufacturingElementService {
         element.setLength(newElement.getLength());
         element.setWidth(newElement.getWidth());
         element.setHeight(newElement.getHeight());
-        element.setUnit(newElement.getUnit());
         element.setDescription(newElement.getDescription());
 
         elementRepository.save(element);

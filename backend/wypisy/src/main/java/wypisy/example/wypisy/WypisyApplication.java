@@ -9,6 +9,7 @@ import wypisy.example.wypisy.repository.*;
 import wypisy.example.wypisy.services.ProductService;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @SpringBootApplication
@@ -29,12 +30,18 @@ public class WypisyApplication {
 			ManufacturingElementRepository manufacturingElementRepository,
 			MachineProgramRepository machineProgramRepository,
 			LocationRepository locationRepository,
-			ProcessCategoryRepository categoryRepository
+			ProcessCategoryRepository categoryRepository,
+			ProductLineMElementRepository productLineMElementRepository,
+			WypisLineRepository wypisLineRepository,
+			WypisRepository wypisRepository
 
 	) {
 
 
 		return args -> {
+
+			Wypis wypis=new Wypis(null, LocalDateTime.now(),new ArrayList<>());
+
 
 			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>(),new ArrayList<>());
 
@@ -59,12 +66,12 @@ public class WypisyApplication {
 
 
 
-			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),new BigDecimal("2"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
+			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
 
 
 
 
-			Product newProduct = new Product(null, "222", "222", "222", "222",new ArrayList<>());
+			Product newProduct = new Product(null, "222", "222", "222", "222",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
 
 			Element newElement=new Element(null,"Element1",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),new BigDecimal("1.00"),"Opis",new ArrayList<>(),material);
@@ -100,7 +107,7 @@ public class WypisyApplication {
 
 
 
-
+			wypisRepository.save(wypis);
 			toolRepository.save(tool);
 			locationRepository.save(location);
 			materialRepository.save(material);
