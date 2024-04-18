@@ -4,10 +4,10 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class LandingPageComponent implements OnInit {
   isLogin: boolean = this.userAuthService.isLogin();
 
   constructor(
