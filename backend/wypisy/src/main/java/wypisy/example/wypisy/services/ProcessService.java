@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import wypisy.example.wypisy.model.Location;
 import wypisy.example.wypisy.model.ManufacturingProcess;
 import wypisy.example.wypisy.model.Material;
+import wypisy.example.wypisy.model.ProcessCategory;
 import wypisy.example.wypisy.repository.LocationRepository;
 import wypisy.example.wypisy.repository.ManufacturingElementRepository;
 import wypisy.example.wypisy.repository.ManufacturingProcessRepository;
+import wypisy.example.wypisy.repository.ProcessCategoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ public class ProcessService {
     private final ManufacturingProcessRepository processRepository;
     private final LocationRepository locationRepository;
     private final ManufacturingElementRepository manufacturingElementRepository;
+    private final ProcessCategoryRepository categoryRepository;
+
+
 
     public ManufacturingProcess create(ManufacturingProcess process){
 
@@ -28,9 +33,9 @@ public class ProcessService {
         ManufacturingProcess newProcess =new ManufacturingProcess(
                 null,
                 process.getName(),
-                process.getDescription(),
+                process.getCategory(),
                 process.getTime(),
-                new ArrayList<>(),
+                process.getManufacturingElements(),
                 process.getLocationList()
 
         );
@@ -70,7 +75,6 @@ public class ProcessService {
 
 
         process.setName(newProcess.getName());
-        process.setDescription(newProcess.getDescription());
         process.setTime(newProcess.getTime());
 
         processRepository.save(process);
@@ -107,6 +111,23 @@ public class ProcessService {
         return true;
 
     }
+
+    public boolean deleteCategory( Long processid){//From process
+        ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        process.setCategory(null);
+        processRepository.save(process);
+        return true;
+    }
+    public boolean changeAddCategory(Long categoryId,Long processid){//From process
+        ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        ProcessCategory processCategory=categoryRepository.findById(categoryId).orElseThrow(()->new IllegalStateException("Process Category don't exist"));
+        process.setCategory(processCategory);
+        processRepository.save(process);
+        return true;
+    }
+
+
+
 
 
 

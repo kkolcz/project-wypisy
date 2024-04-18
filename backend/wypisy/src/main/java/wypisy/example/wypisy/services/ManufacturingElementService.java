@@ -3,9 +3,8 @@ package wypisy.example.wypisy.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import wypisy.example.wypisy.model.Element;
-import wypisy.example.wypisy.model.ManufacturingElement;
-import wypisy.example.wypisy.repository.ManufacturingElementRepository;
+import wypisy.example.wypisy.model.*;
+import wypisy.example.wypisy.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,11 @@ import java.util.List;
 public class ManufacturingElementService {
 
     private final ManufacturingElementRepository elementRepository;
+    private final ToolRepository toolRepository;
+    private final ManufacturingProcessRepository processRepository;
+    private final MachineProgramRepository programRepository;
+
+    private final MaterialRepository materialRepository;
 
     public ManufacturingElement createMElement(ManufacturingElement element){
 
@@ -26,8 +30,8 @@ public class ManufacturingElementService {
                 element.getLength(),
                 element.getWidth(),
                 element.getHeight(),
-                element.getUnit(),
                 element.getDescription(),
+                element.getProductLineMElements(),
                 element.getToolList(),
                 element.getProcessesList(),
                 element.getMachinePrograms(),
@@ -51,7 +55,161 @@ public class ManufacturingElementService {
 
     public List<ManufacturingElement> getAll(){return elementRepository.findAll();}
 
-    public ManufacturingElement getElementById(Long id){return elementRepository.findById(id).orElseThrow(()->new IllegalStateException("Element don't exist"));}
+    public ManufacturingElement getElementById(Long id){return elementRepository.findById(id).orElseThrow(()->new IllegalStateException("M Element don't exist"));}
+
+    public boolean deleteById(Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+
+        element.getMachinePrograms().forEach(p->p.getManufacturingElements().remove(element));
+
+        element.getProcessesList().forEach(p->p.getManufacturingElements().remove(element));
+
+        element.getToolList().forEach(tool -> tool.getManufacturingElements().remove(element));
+
+        element.setMaterial(null);
+
+        programRepository.saveAll(element.getMachinePrograms());
+        processRepository.saveAll(element.getProcessesList());
+        toolRepository.saveAll(element.getToolList());
+        elementRepository.deleteById(mElementId);
+
+
+        return true;
+    }
+
+
+
+
+    public ManufacturingElement changeById (ManufacturingElement newElement){
+
+        ManufacturingElement element=elementRepository.findById(newElement.getId()).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+
+        element.setName(newElement.getName());
+        element.setLength(newElement.getLength());
+        element.setWidth(newElement.getWidth());
+        element.setHeight(newElement.getHeight());
+        element.setDescription(newElement.getDescription());
+
+        elementRepository.save(element);
+
+        return element;
+    }
+
+    public boolean addTool(Long toolId,Long mElementId){
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        Tool tool=toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
+
+
+        element.getToolList().add(tool);
+        tool.getManufacturingElements().add(element);
+
+        elementRepository.save(element);
+        toolRepository.save(tool);
+
+        return true;
+    }
+    public boolean deleteTool(Long toolId,Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        Tool tool=toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
+
+        element.getToolList().remove(tool);
+        tool.getManufacturingElements().remove(element);
+
+        elementRepository.save(element);
+        toolRepository.save(tool);
+
+        return true;
+    }
+
+    public boolean addProcess(Long processId,Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        ManufacturingProcess process=processRepository.findById(processId).orElseThrow(()->new IllegalStateException("Process don't exist"));
+
+        element.getProcessesList().add(process);
+        process.getManufacturingElements().add(element);
+
+        elementRepository.save(element);
+        processRepository.save(process);
+
+        return true;
+    }
+
+    public boolean deleteProcess(Long processId,Long mElementId){
+
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        ManufacturingProcess process=processRepository.findById(processId).orElseThrow(()->new IllegalStateException("Process don't exist"));
+
+        element.getProcessesList().remove(process);
+        process.getManufacturingElements().remove(element);
+
+        elementRepository.save(element);
+        processRepository.save(process);
+
+        return true;
+    }
+
+    public boolean addProgram(Long programId,Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        MachineProgram program=programRepository.findById(programId).orElseThrow(()->new IllegalStateException("Program don't exist"));
+
+        element.getMachinePrograms().add(program);
+        program.getManufacturingElements().add(element);
+
+        elementRepository.save(element);
+        programRepository.save(program);
+
+        return true;
+    }
+
+    public boolean deleteProgram(Long programId,Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        MachineProgram program=programRepository.findById(programId).orElseThrow(()->new IllegalStateException("Program don't exist"));
+
+        element.getMachinePrograms().remove(program);
+        program.getManufacturingElements().remove(element);
+
+        elementRepository.save(element);
+        programRepository.save(program);
+
+        return true;
+    }
+
+
+    public boolean delateMaterial(Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+
+        element.setMaterial(null);
+        elementRepository.save(element);
+
+        return true;
+    }
+
+    public boolean changeAddMaterial(Long materialId,Long mElementId){
+
+        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
+        Material material=materialRepository.findById(materialId).orElseThrow(()->new IllegalStateException("Material don't exist"));
+
+        element.setMaterial(material);
+        elementRepository.save(element);
+
+        return true;
+    }
+
+
+
+
+
+
+
+
+
 
 
 

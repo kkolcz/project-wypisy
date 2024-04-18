@@ -202,6 +202,57 @@ public class ProcessController {
         }
 
     }
+    @PatchMapping("/category/delete")
+    public ResponseEntity<Response> removeCategory(@RequestParam Long processId){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("RemoveCategoryProcessFromProcess",processService.deleteCategory(processId)))
+                            .message("RemoveCategoryProcessFromProcess")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("RemoveCategoryProcessFromProcess", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
+    @PatchMapping("/category/add")
+    public ResponseEntity<Response> changeAddCategory(@RequestParam Long categoryId,@RequestParam Long processId){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("AddCategoryProcessToProcess",processService.changeAddCategory(categoryId,processId)))
+                            .message("AddCategoryProcessToProcess")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("AddCategoryProcessToProcess", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
+
 
 
 

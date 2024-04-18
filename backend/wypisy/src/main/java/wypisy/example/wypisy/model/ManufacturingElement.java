@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -48,13 +47,15 @@ public class ManufacturingElement {
     private BigDecimal height;
 
 
-
-    @Column(name = "unit" ,columnDefinition = "DECIMAL(7,2)")
-    @Digits(integer=9, fraction=2)
-    @NotNull
-    private BigDecimal unit;
-
     private String description;
+
+
+    @OneToMany(mappedBy = "manufacturingElement")
+    @JsonIgnore
+    private Collection<ProductLineMElement> productLineMElements=new ArrayList<>();
+
+
+
 
     @ManyToMany
     @JoinTable(name="MELEMENT_TOOL",

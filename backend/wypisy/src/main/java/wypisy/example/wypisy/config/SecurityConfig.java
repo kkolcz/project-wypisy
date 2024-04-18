@@ -44,7 +44,9 @@ public class SecurityConfig {
             "/api/v1/program/**",
             "/api/v1/material/**",
             "/api/v1/location/**",
-            "/api/v1/process/**"
+            "/api/v1/process/**",
+            "/api/v1/process-category/**",
+            "/api/v1/wypis/**"
 
     };
 
