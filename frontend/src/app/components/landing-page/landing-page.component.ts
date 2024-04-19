@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from 'src/app/models/user.model';
 import { HttpApiService } from 'src/app/services/http-api.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
@@ -8,7 +9,7 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
-  isLogin: boolean = this.userAuthService.isLogin();
+  isLogin = this.userAuthService.isLogin();
 
   constructor(
     private userAuthService: UserAuthService,
@@ -17,7 +18,7 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpApi.getProducts();
-    this.userAuthService.userIsLoginSubject.subscribe((isLogin) => {
+    this.userAuthService.user.subscribe((isLogin) => {
       this.isLogin = isLogin;
     });
   }

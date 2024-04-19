@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserAuthService } from './services/user-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,12 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  constructor(private userAuthService: UserAuthService) {}
+
   ngOnInit(): void {
-    const savedToken: string = localStorage.getItem('token');
-    if (savedToken) {
-      console.log(savedToken);
-    } else {
-      console.log('Nie zalogowano');
-    }
+    this.userAuthService.autoLogin();
   }
 }

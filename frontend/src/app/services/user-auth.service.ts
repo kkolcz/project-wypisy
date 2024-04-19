@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -11,21 +11,23 @@ import { IAuthRequest, IAuthResponse } from '../models/auth.model';
   providedIn: 'root',
 })
 export class UserAuthService implements OnInit {
-  userIsLoginSubject = new Subject<boolean>();
-  userIsLogin: boolean = false;
+  user = new BehaviorSubject(null);
   token: string = null;
+
+  // userIsLoginSubject = new Subject<boolean>();
+  userIsLogin: boolean = false;
 
   API_URL = 'http://localhost:8080/api/v1';
 
   constructor(private router: Router, private http: HttpClient) {}
 
   isLogin() {
-    return this.userIsLogin;
+    return this.user;
   }
 
   signIn(loginData) {
     this.userIsLogin = true;
-    this.userIsLoginSubject.next(true);
+    // this.userIsLoginSubject.next(true);
     // console.log(loginData);
 
     const requestData: IAuthRequest = {
@@ -39,16 +41,24 @@ export class UserAuthService implements OnInit {
       .subscribe((res) => {
         console.log(res.token);
         this.token = res.token;
+        this.user.next(new User(loginData.email, res.token));
         this.router.navigate(['/']);
         localStorage.setItem('token', res.token);
-        this.userIsLogin = true;
-        this.userIsLoginSubject.next(this.userIsLogin);
+        // this.userIsLogin = true;
+        // this.userIsLoginSubject.next(this.userIsLogin);
       });
   }
 
+  autoLogin() {
+    const saveToken = localStorage.getItem('token');
+    if (saveToken) {
+      this.user.next(new User('todo@todo.com', saveToken));
+    }
+  }
+
   signOut() {
-    this.userIsLogin = false;
-    this.userIsLoginSubject.next(this.userIsLogin);
+    localStorage.removeItem('token');
+    this.user.next(null);
   }
 
   ngOnInit(): void {}
