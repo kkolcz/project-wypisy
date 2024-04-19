@@ -1,6 +1,6 @@
 <h3>Baza produktów</h3>
 <ul>
-    <li *ngFor="let product of productsList">{{product.name}} <= <span *ngFor="let resource of product.resources">
+    <li *ngFor="let product of productsList2">{{product.name}} <= <span *ngFor="let resource of product.elementList">
             {{resource.name}} - </span></li>
 </ul>
 

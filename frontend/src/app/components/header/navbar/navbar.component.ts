@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/models/user.model';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  isLogin: boolean = this.userAuthService.isLogin();
+  isLogin = this.userAuthService.isLogin();
 
   constructor(
     private userAuthService: UserAuthService,
@@ -25,8 +26,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userAuthService.userIsLoginSubject.subscribe((isLogin) => {
+    this.userAuthService.user.subscribe((isLogin) => {
       this.isLogin = isLogin;
+      // console.log(this.isLogin);
     });
   }
 }

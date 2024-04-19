@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductsAddComponent } from './components/products/products-add/products-add.component';
@@ -17,7 +17,7 @@ import { PrescriptionsDatabaseComponent } from './components/prescriptions/presc
 import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'products',

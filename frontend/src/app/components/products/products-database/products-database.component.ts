@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/models/product.model';
+import { IProductt, Product } from 'src/app/models/product.model';
+import { IProductsRes } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsDatabaseComponent implements OnInit {
   productsList: Product[] = [];
+  productsList2: IProductt[] = [];
 
   constructor(
     private productsService: ProductsService,
@@ -17,15 +19,9 @@ export class ProductsDatabaseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // const newProduct: Product = { id: 25, name: 'Produkt numer 25' };
-    // this.productsService.addProduct(newProduct);
-
-    // this.productsList = this.productsService.getProducts();
-    this.productsService.getProducts().subscribe((products) => {
-      this.productsList = products;
+    this.productsService.getProducts().subscribe((products: IProductsRes) => {
+      this.productsList2 = products.data['Products'];
     });
-
-    // console.log(this.productsService.getProduct(1));
   }
 
   onAddNew() {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IProduct } from '../models/product.model';
+import { IProduct, IProductsRes } from '../models/product.model';
 
 interface IToken {
   token: string;
@@ -10,8 +10,8 @@ interface IToken {
   providedIn: 'root',
 })
 export class HttpApiService {
-  // API_URL = 'http://localhost:8080/api/v1';
-  API_URL = 'http://localhost:3000';
+  API_URL = 'http://localhost:8080/api/v1';
+
   constructor(private http: HttpClient) {}
 
   verifyToken(token: IToken): boolean {

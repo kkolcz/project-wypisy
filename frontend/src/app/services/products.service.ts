@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { IProduct } from '../models/product.model';
-import { Product } from '../models/product.model';
+import { Product, IProductsRes } from '../models/product.model';
 import { HttpApiService } from './http-api.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductsService implements OnInit {
-  // API_URL = 'http://localhost:8080/api/v1';
-  API_URL = 'http://localhost:3000';
+  API_URL = 'http://localhost:8080/api/v1';
+
   constructor(private httpApi: HttpApiService, private http: HttpClient) {}
   // test = new Product(11, '23');
 
@@ -30,11 +30,8 @@ export class ProductsService implements OnInit {
     // new Product(4, 'product4'),
   ];
 
-  getProducts(): Observable<IProduct[]> {
-    // console.log(this.productsList);
-    return this.http.get<IProduct[]>(`${this.API_URL}/products`);
-    // this.dlProducts();
-    // return this.productsList.slice();
+  getProducts(): Observable<IProductsRes> {
+    return this.http.get<IProductsRes>(`${this.API_URL}/product/all`);
   }
 
   getProduct(id: number): IProduct {
@@ -47,29 +44,28 @@ export class ProductsService implements OnInit {
 
   addProduct(product: IProduct): void {
     this.productsList.push(product);
-    // console.log(this.productsList);
   }
 
   removeProduct() {}
 
   ngOnInit(): void {}
 
-  dlProducts(): void {
-    let data = [];
-    this.httpApi.getProducts().subscribe((res) => {
-      data = Array.from(res);
-      console.log(res);
-    });
-    const data2 = Array.from(data);
+  // dlProducts(): void {
+  //   let data = [];
+  //   this.httpApi.getProducts().subscribe((res) => {
+  //     data = Array.from(res);
+  //     console.log(res);
+  //   });
+  //   const data2 = Array.from(data);
 
-    data.map((product) => {
-      console.log(product);
-    });
-    console.log(data);
-    console.log('product');
+  //   data.map((product) => {
+  //     console.log(product);
+  //   });
+  //   console.log(data);
+  //   console.log('product');
 
-    // data.forE((product) => {
-    //   this.productsList.push(product);
-    // });
-  }
+  //   // data.forE((product) => {
+  //   //   this.productsList.push(product);
+  //   // });
+  // }
 }
