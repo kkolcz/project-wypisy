@@ -4,7 +4,7 @@ package wypisy.example.wypisy.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
+
 import wypisy.example.wypisy.model.DTO.WypisLineDTO;
 import wypisy.example.wypisy.model.Product;
 import wypisy.example.wypisy.model.Tool;
@@ -97,18 +97,18 @@ public class WypisService {
         return true;
     }
 
-    public Context setData() {
-
-        Context context = new Context();
-
-//        Map<String, Object> data = new HashMap<>();
+//    public Context setData() {
 //
-//        data.put("employees", empolyeeList);
+//        Context context = new Context();
 //
-//        context.setVariables(data);
-
-        return context;
-    }
+////        Map<String, Object> data = new HashMap<>();
+////
+////        data.put("employees", empolyeeList);
+////
+////        context.setVariables(data);
+//
+//        return context;
+//    }
 
 
 

@@ -31,7 +31,7 @@ public class ProgramService {
                 program.getNameMachine(),
                 program.getNrProgram(),
                 program.getDescription(),
-                new ArrayList<>(),
+                program.getToolList(),
                 new ArrayList<>()
         );
 
