@@ -1,18 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IResource, Resource } from '../models/resource.model';
+import { IResource, Resource, IResourceRes } from '../models/resource.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResourcesService {
-  resourcesList = [
-    new Resource(0, 'Resource 0'),
-    new Resource(1, 'Resource 1'),
-    new Resource(2, 'Resource 2'),
-  ];
+  resourcesList = [];
+
+  API_URL = 'http://localhost:8080/api/v1';
+
+  constructor(private http: HttpClient) {}
+
+  fetchResource(): Observable<IResourceRes> {
+    return this.http.get<IResourceRes>(`${this.API_URL}/material/all`);
+  }
 
   getResources(): IResource[] {
-    // console.log(this.resourcesList);
+    this.fetchResource();
+    console.log(this.resourcesList);
     return this.resourcesList.slice();
   }
 
@@ -25,10 +32,15 @@ export class ResourcesService {
 
   addResource(resource: IResource): void {
     this.resourcesList.push(resource);
+
+    this.http
+      .post(`${this.API_URL}/material/add`, resource)
+      .subscribe((res) => {
+        console.log(res);
+        return res;
+      });
   }
 
   setResource() {}
   removeResource() {}
-
-  constructor() {}
 }

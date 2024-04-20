@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IResource } from 'src/app/models/resource.model';
+import { IResource, IResourceRes } from 'src/app/models/resource.model';
 import { ResourcesService } from 'src/app/services/resources.service';
 
 @Component({
@@ -17,7 +17,10 @@ export class ResourcesDatabaseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.resourcesList = this.resourcesService.getResources();
+    this.resourcesService.fetchResource().subscribe((res) => {
+      this.resourcesList = res.data['Materials'];
+    });
+    console.log(this.resourcesList);
   }
 
   onAddNew() {

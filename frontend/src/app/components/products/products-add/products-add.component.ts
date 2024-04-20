@@ -38,7 +38,7 @@ export class ProductsAddComponent implements OnInit {
     ];
 
     this.productForm.value.resourcesForm.map((resource) => {
-      resources.push(new Resource(Math.random() * 1000, resource));
+      // resources.push(new Resource(Math.random() * 1000, resource));
     });
     // console.log(resources);
     // console.log(this.productForm.value.resourcesForm);
