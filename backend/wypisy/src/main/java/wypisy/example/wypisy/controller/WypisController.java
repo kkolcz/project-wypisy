@@ -15,6 +15,9 @@ import wypisy.example.wypisy.services.WypisService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
@@ -175,6 +178,19 @@ private final WypisService wypisService;
                             .statusCode(HttpStatus.BAD_REQUEST.value())
                             .build());
         }
+
+    }
+
+    @GetMapping("/PDF/")
+    public  void changeProductFromWypis(HttpServletResponse response ,@RequestParam Long wypisId) {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        this.wypisService.export(response,wypisId);
 
     }
 
