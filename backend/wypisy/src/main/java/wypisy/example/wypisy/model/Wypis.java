@@ -25,6 +25,7 @@ public class Wypis  {
 
     @OneToMany(mappedBy = "wypis")
     private List<WypisLine> wypisLines=new ArrayList<>();
+    //todo
 
 
 
