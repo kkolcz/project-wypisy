@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,7 +24,8 @@ public class Wypis  {
     protected LocalDateTime createDate;
 
     @OneToMany(mappedBy = "wypis")
-    private Collection<WypisLine> wypisLines=new ArrayList<>();
+    private List<WypisLine> wypisLines=new ArrayList<>();
+    //todo
 
 
 

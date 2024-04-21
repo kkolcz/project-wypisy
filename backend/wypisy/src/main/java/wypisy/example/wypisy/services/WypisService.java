@@ -1,10 +1,18 @@
 package wypisy.example.wypisy.services;
 
 
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import wypisy.example.wypisy.PDF.Generator;
+import wypisy.example.wypisy.PDF.Pdf;
 import wypisy.example.wypisy.model.DTO.WypisLineDTO;
 import wypisy.example.wypisy.model.Product;
 import wypisy.example.wypisy.model.Tool;
@@ -97,18 +105,49 @@ public class WypisService {
         return true;
     }
 
-//    public Context setData() {
-//
-//        Context context = new Context();
-//
-////        Map<String, Object> data = new HashMap<>();
-////
-////        data.put("employees", empolyeeList);
-////
-////        context.setVariables(data);
-//
-//        return context;
-//    }
+    public void export(HttpServletResponse response, long wypisId)  {
+        Wypis wypis=wypisRepository.findById(wypisId).orElseThrow(()->new IllegalStateException("WYPISY don't exist"));
+
+        Document document = new Document(PageSize.A4);
+        //document.setMargins(60F,60F,10F,10F);
+        document.setMargins(36, 36, 110, 36);
+        try {
+            PdfWriter writer =PdfWriter.getInstance(document, response.getOutputStream());
+
+            Generator generator=new Generator();
+            generator.setNr(wypis.getId().toString());
+
+            writer.setPageEvent(generator);
+            document.open();
+
+            Font fontTitle= FontFactory.getFont((FontFactory.HELVETICA));
+            Font font8 = FontFactory.getFont(FontFactory.HELVETICA, 8);
+            fontTitle.setSize(18);
+
+            Pdf pdf=new Pdf();
+            pdf.ProductList(wypis,document);
+
+
+
+
+
+
+
+            document.close();
+            writer.close();
+
+
+
+        }catch (Exception e){
+            System.out.println("Error");
+        }
+
+
+
+
+    }
+
+
 
 
 
