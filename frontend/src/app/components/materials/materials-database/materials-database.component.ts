@@ -17,12 +17,16 @@ export class MaterialsDatabaseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.materialsService.materialsListSub.subscribe((materialsList) => {
+      this.fetchMaterials();
+    });
+  }
+
+  fetchMaterials() {
     this.materialsService.fetchMaterials().subscribe((res) => {
       this.materialsList = res.data['Materials'];
     });
-    console.log(this.materialsList);
   }
-
   onAddNew() {
     this.router.navigate(['/', 'materials', 'add']);
   }

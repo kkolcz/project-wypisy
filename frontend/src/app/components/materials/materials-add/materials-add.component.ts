@@ -28,7 +28,7 @@ export class MaterialsAddComponent implements OnInit {
   }
 
   onAddMaterial() {
-    console.log(this.materialForm.value);
+    // console.log(this.materialForm.value);
 
     if (this.materialForm.valid) {
       const newmaterial = new Material(
