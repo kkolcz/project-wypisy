@@ -9,12 +9,12 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { ProductsComponent } from './components/products/products.component';
-import { ResourcesComponent } from './components/resources/resources.component';
+import { MaterialsComponent } from './components/materials/materials.component';
 import { ProcessesComponent } from './components/processes/processes.component';
 import { ProductsAddComponent } from './components/products/products-add/products-add.component';
 import { ProductsDatabaseComponent } from './components/products/products-database/products-database.component';
-import { ResourcesAddComponent } from './components/resources/resources-add/resources-add.component';
-import { ResourcesDatabaseComponent } from './components/resources/resources-database/resources-database.component';
+import { MaterialsAddComponent } from './components/materials/materials-add/materials-add.component';
+import { MaterialsDatabaseComponent } from './components/materials/materials-database/materials-database.component';
 import { ProcessesAddComponent } from './components/processes/processes-add/processes-add.component';
 import { ProcessesDatabaseComponent } from './components/processes/processes-database/processes-database.component';
 import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
@@ -30,12 +30,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     NavbarComponent,
     ProductsComponent,
-    ResourcesComponent,
+    MaterialsComponent,
     ProcessesComponent,
     ProductsAddComponent,
     ProductsDatabaseComponent,
-    ResourcesAddComponent,
-    ResourcesDatabaseComponent,
+    MaterialsAddComponent,
+    MaterialsDatabaseComponent,
     ProcessesAddComponent,
     ProcessesDatabaseComponent,
     PrescriptionsComponent,

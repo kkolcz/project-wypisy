@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="mb-5">
+        <h3>Dodaj zasób</h3>
+    </div>
+    <div class="row">
+        <!-- col-xs-12 col-md-8 col-sm-offset-1 col-md-offset-2 col-sm-10 -->
+        <div class="col-md-8">
+            <form [formGroup]="materialForm" (ngSubmit)="onAddMaterial()">
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="materialName">Nazwa zasobu: </label>
+                    <input type="text" formControlName="materialName" class="form-control" placeholder="Nazwa zasobu">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="materialDescription">Opis: </label>
+                    <input type="text" formControlName="materialDescription" class="form-control" placeholder="Opis">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="materialLength">Długość: </label>
+                    <input type="number" step="0.01" formControlName="materialLength" class="form-control"
+                        placeholder="Długość">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="materialWidth">Szerokość: </label>
+                    <input type="number" step="0.01" formControlName="materialWidth" class="form-control"
+                        placeholder="Szerokość">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="materialHeight">Wysokość: </label>
+                    <input type="number" step="0.01" id="materialHeight" formControlName="materialHeight"
+                        class="form-control" placeholder="Wysokość">
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Dodaj zasób</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

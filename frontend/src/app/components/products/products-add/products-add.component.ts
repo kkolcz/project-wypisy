@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IProduct, Product } from 'src/app/models/product.model';
-import { IResource, Resource } from 'src/app/models/resource.model';
+import { IMaterial, Material } from 'src/app/models/material.model';
 import { ProductsService } from 'src/app/services/products.service';
-import { ResourcesService } from 'src/app/services/resources.service';
+import { MaterialsService } from 'src/app/services/materials.service';
 
 @Component({
   selector: 'app-products-add',
@@ -13,31 +13,31 @@ import { ResourcesService } from 'src/app/services/resources.service';
 })
 export class ProductsAddComponent implements OnInit {
   productForm: FormGroup;
-  resourcesList: IResource[] = [];
+  materialsList: IMaterial[] = [];
 
   constructor(
     private productsService: ProductsService,
-    private resourcesService: ResourcesService,
+    private materialService: MaterialsService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.resourcesList = this.resourcesService.getResources();
+    this.materialsList = this.materialService.getMaterials();
 
     this.productForm = new FormGroup({
       productName: new FormControl(null, Validators.required),
-      resourcesForm: new FormArray([]),
+      materialsForm: new FormArray([]),
     });
   }
 
   onAddProduct(): void {
-    const resources: IResource[] = [
+    const resources: IMaterial[] = [
       // new Resource(0, 'sdf'),
       // new Resource(1, 'fgf'),
       // new Resource(2, 'dfgdfg'),
     ];
 
-    this.productForm.value.resourcesForm.map((resource) => {
+    this.productForm.value.resourcesForm.map((material) => {
       // resources.push(new Resource(Math.random() * 1000, resource));
     });
     // console.log(resources);
@@ -46,7 +46,7 @@ export class ProductsAddComponent implements OnInit {
     const newProduct = new Product(
       Math.random() * 1000,
       this.productForm.value.productName,
-      resources
+      this.materialsList
       // this.productForm.value.resource
     );
 
