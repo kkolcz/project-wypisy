@@ -1,1 +1,37 @@
-<h3>Dodaj proces</h3>
+<div class="container">
+    <div class="mb-5">
+        <h3>Dodaj proces</h3>
+    </div>
+    <div class="row">
+        <!-- col-xs-12 col-md-8 col-sm-offset-1 col-md-offset-2 col-sm-10 -->
+        <div class="col-md-8">
+            <form [formGroup]="processForm" (ngSubmit)="onAddProcess()">
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="processName">Nazwa procesu: </label>
+                    <input type="text" formControlName="processName" class="form-control" placeholder="Nazwa procesu">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="processCategory">Kategoria: </label>
+                    <input type="select" formControlName="processCategory" class="form-control" placeholder="Kategoria">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="processLocalization">Lokalizacja: </label>
+                    <input type="select" formControlName="processLocalization" class="form-control"
+                        placeholder="Lokalizacja">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="processTime">Długość procesu: </label>
+                    <input type="time" id="processTime" formControlName="processTime" class="form-control"
+                        placeholder="Długość procesu" min="09:00" max="18:00">
+
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Dodaj proces</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

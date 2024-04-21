@@ -31,7 +31,7 @@ export class MaterialsAddComponent implements OnInit {
     // console.log(this.materialForm.value);
 
     if (this.materialForm.valid) {
-      const newmaterial = new Material(
+      const newMaterial = new Material(
         Math.random() * 1000,
         this.materialForm.value.materialName,
         this.materialForm.value.materialDescription,
@@ -40,7 +40,7 @@ export class MaterialsAddComponent implements OnInit {
         this.materialForm.value.materialHeight
       );
 
-      this.materialsService.addMaterial(newmaterial);
+      this.materialsService.addMaterial(newMaterial);
       this.router.navigate(['/', 'materials', 'database']);
     }
 
