@@ -227,13 +227,13 @@ public class ManufacturingElementController {
 
     }
     @PatchMapping("/process/delete")
-    public ResponseEntity<Response> deleteProcessFromElement(@RequestParam Long processId,@RequestParam Long elementId){
+    public ResponseEntity<Response> deleteProcessFromElement(@RequestParam Long processLineId,@RequestParam Long elementId){
 
         try {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("deleteProcessFromElement",elementService.deleteProcess(processId,elementId)))
+                            .data(of("deleteProcessFromElement",elementService.deleteProcess(processLineId,elementId)))
                             .message("deleteProcessFromElement successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())

@@ -18,7 +18,7 @@ import java.util.Date;
 public class Generator extends PdfPageEventHelper {
 
     public String nr="";
-
+    public String nazwa="";
 
 
 
@@ -82,11 +82,14 @@ public class Generator extends PdfPageEventHelper {
 
 
         Font cellFont = new Font(Font.HELVETICA, 15);
+        Font cellFont2 = new Font(Font.HELVETICA, 10);
 
-        table.addCell(new Paragraph("", cellFont));
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(new Paragraph(nazwa, cellFont2));
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(new Paragraph("Nr. "+nr, cellFont));
-        table.addCell(new Paragraph("", cellFont));
 
+        table.addCell(new Paragraph("", cellFont));
 
         table.writeSelectedRows(0, -1, 34, 828, writer.getDirectContent());
     }

@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -52,7 +53,7 @@ public class ManufacturingElement {
 
     @OneToMany(mappedBy = "manufacturingElement")
     @JsonIgnore
-    private Collection<ProductLineMElement> productLineMElements=new ArrayList<>();
+    private List<ProductLineMElement> productLineMElements=new ArrayList<>();
 
 
 
@@ -62,21 +63,18 @@ public class ManufacturingElement {
             joinColumns={@JoinColumn(name="MANUELEMENT_ID")},
             inverseJoinColumns={@JoinColumn(name="TOOL_ID")}
     )
-    private Collection<Tool> toolList=new ArrayList<>();
+    private List<Tool> toolList=new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name="MELEMENT_PROCESS",
-            joinColumns={@JoinColumn(name="MANUELEMENT_ID")},
-            inverseJoinColumns={@JoinColumn(name="PROCESS_ID")}
-    )
-    private Collection<ManufacturingProcess> processesList=new ArrayList<>();
+    @OneToMany(mappedBy = "manufacturingElement")
+
+    private List<ProcessLine> processLines=new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name="MELEMENT_PROGRAM",
             joinColumns={@JoinColumn(name="MANUELEMENT_ID")},
             inverseJoinColumns={@JoinColumn(name="PROGRAM_ID")}
     )
-    private Collection<MachineProgram> machinePrograms=new ArrayList<>();
+    private List<MachineProgram> machinePrograms=new ArrayList<>();
 
 
     @ManyToOne()

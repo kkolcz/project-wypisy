@@ -2,27 +2,21 @@ package wypisy.example.wypisy.services;
 
 
 import com.lowagie.text.*;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import wypisy.example.wypisy.PDF.Generator;
 import wypisy.example.wypisy.PDF.Pdf;
+import wypisy.example.wypisy.model.*;
 import wypisy.example.wypisy.model.DTO.WypisLineDTO;
-import wypisy.example.wypisy.model.Product;
-import wypisy.example.wypisy.model.Tool;
-import wypisy.example.wypisy.model.Wypis;
-import wypisy.example.wypisy.model.WypisLine;
+import wypisy.example.wypisy.repository.LocationRepository;
 import wypisy.example.wypisy.repository.ProductRepository;
 import wypisy.example.wypisy.repository.WypisLineRepository;
 import wypisy.example.wypisy.repository.WypisRepository;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,6 +30,8 @@ public class WypisService {
     private final WypisRepository wypisRepository;
     private final WypisLineRepository wypisLineRepository;
     private final ProductRepository productRepository;
+
+    private final LocationRepository locationRepository;
 
 
 
@@ -107,6 +103,8 @@ public class WypisService {
 
     public void export(HttpServletResponse response, long wypisId)  {
         Wypis wypis=wypisRepository.findById(wypisId).orElseThrow(()->new IllegalStateException("WYPISY don't exist"));
+        List<Location> locations=locationRepository.findAll();
+//        List<ManufacturingElement> test=wypisRepository.getMelement();
 
         Document document = new Document(PageSize.A4);
         //document.setMargins(60F,60F,10F,10F);
@@ -126,6 +124,7 @@ public class WypisService {
 
             Pdf pdf=new Pdf();
             pdf.ProductList(wypis,document);
+            pdf.categoryMelement(wypis,document,"all",locations,generator);
 
 
 

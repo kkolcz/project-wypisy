@@ -33,15 +33,15 @@ public class Product {
             inverseJoinColumns={@JoinColumn(name="ELEMENT_ID")}
     )
 
-    private Collection<Element> elementList=new ArrayList<>();
+    private List<Element> elementList=new ArrayList<>();
 
 
     @OneToMany(mappedBy = "product")
 
-    private Collection<ProductLineMElement> productLineMElements=new ArrayList<>();
+    private List<ProductLineMElement> productLineMElements=new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private Collection<WypisLine> wypisLines=new ArrayList<>();
+    private List<WypisLine> wypisLines=new ArrayList<>();
 
 }

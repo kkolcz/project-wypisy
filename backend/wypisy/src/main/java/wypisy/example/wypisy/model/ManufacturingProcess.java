@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -40,19 +41,16 @@ public class ManufacturingProcess {
 
 
 
-
-
-    @ManyToMany(mappedBy = "processesList")
+    @OneToMany(mappedBy = "process")
     @JsonIgnore
-    private Collection<ManufacturingElement>manufacturingElements=new ArrayList<>();
+    private List<ProcessLine> processLines=new ArrayList<>();
 
 
-    @ManyToMany
-    @JoinTable(name="PROCESS_LOCATION",
-            joinColumns={@JoinColumn(name="PROCESS_ID")},
-            inverseJoinColumns={@JoinColumn(name="LOCATION_ID")}
-    )
-    private Collection<Location> locationList=new ArrayList<>();
+    @ManyToOne()
+    @JoinColumn(name = "LOCATION")
+    private Location location;
+
+
 
 
 
