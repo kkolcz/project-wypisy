@@ -350,6 +350,7 @@ public class Pdf {
 
                             table.getDefaultCell().setPaddingBottom(7);
                             table.getDefaultCell().setPaddingTop(7);
+
                             table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             table.addCell(tableConteiner);
 
