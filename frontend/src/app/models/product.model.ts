@@ -1,10 +1,7 @@
 import { IMaterial } from './material.model';
+import { IResponse } from './response.model';
 
-export interface IProductsRes {
-  timeStamp: string;
-  statusCode: number;
-  status: string;
-  message: string;
+export interface IProductsRes extends IResponse {
   data: any;
 }
 

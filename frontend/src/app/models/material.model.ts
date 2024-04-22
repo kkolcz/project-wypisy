@@ -1,3 +1,5 @@
+import { IResponse } from './response.model';
+
 export interface IMaterial {
   id: number;
   name: string;
@@ -8,10 +10,6 @@ export interface IMaterial {
 }
 
 export interface IMaterialRes {
-  timeStamp: string;
-  statusCode: number;
-  status: string;
-  message: string;
   data: any;
 }
 
