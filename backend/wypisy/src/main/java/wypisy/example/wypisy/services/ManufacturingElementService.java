@@ -20,6 +20,7 @@ public class ManufacturingElementService {
     private final MachineProgramRepository programRepository;
 
     private final MaterialRepository materialRepository;
+    private final ProcessLineRepository processLineRepository;
 
     public ManufacturingElement createMElement(ManufacturingElement element){
 
@@ -33,7 +34,7 @@ public class ManufacturingElementService {
                 element.getDescription(),
                 element.getProductLineMElements(),
                 element.getToolList(),
-                element.getProcessesList(),
+                element.getProcessLines(),
                 element.getMachinePrograms(),
                 element.getMaterial()
 
@@ -63,14 +64,13 @@ public class ManufacturingElementService {
 
         element.getMachinePrograms().forEach(p->p.getManufacturingElements().remove(element));
 
-        element.getProcessesList().forEach(p->p.getManufacturingElements().remove(element));
+        processLineRepository.deleteAll(element.getProcessLines());
 
         element.getToolList().forEach(tool -> tool.getManufacturingElements().remove(element));
 
         element.setMaterial(null);
 
         programRepository.saveAll(element.getMachinePrograms());
-        processRepository.saveAll(element.getProcessesList());
         toolRepository.saveAll(element.getToolList());
         elementRepository.deleteById(mElementId);
 
@@ -128,26 +128,20 @@ public class ManufacturingElementService {
         ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
         ManufacturingProcess process=processRepository.findById(processId).orElseThrow(()->new IllegalStateException("Process don't exist"));
 
-        element.getProcessesList().add(process);
-        process.getManufacturingElements().add(element);
+        ProcessLine processLine=new ProcessLine(null,element,process);
+        processLineRepository.save(processLine);
 
-        elementRepository.save(element);
-        processRepository.save(process);
 
         return true;
     }
 
-    public boolean deleteProcess(Long processId,Long mElementId){
+    public boolean deleteProcess(Long processLineId,Long mElementId){
 
 
         ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
-        ManufacturingProcess process=processRepository.findById(processId).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        ProcessLine processLine=processLineRepository.findById(processLineId).orElseThrow(()->new IllegalStateException("Process Line don't exist"));
+        processLineRepository.deleteById(processLineId);
 
-        element.getProcessesList().remove(process);
-        process.getManufacturingElements().remove(element);
-
-        elementRepository.save(element);
-        processRepository.save(process);
 
         return true;
     }

@@ -33,7 +33,8 @@ public class WypisyApplication {
 			ProcessCategoryRepository categoryRepository,
 			ProductLineMElementRepository productLineMElementRepository,
 			WypisLineRepository wypisLineRepository,
-			WypisRepository wypisRepository
+			WypisRepository wypisRepository,
+			ProcessLineRepository processLineRepository
 
 	) {
 
@@ -45,17 +46,21 @@ public class WypisyApplication {
 
 			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>(),new ArrayList<>());
 
-
+			Location location=new Location(null,"CNC","MaszynaCNC",new ArrayList<>());
 			ProcessCategory category=new ProcessCategory(null,"CNC","CNC",new ArrayList<>());
 
 
 
-			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>());
+			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess1= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess2= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess3= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
+
 
 			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",new ArrayList<>(),new ArrayList<>());
 
 
-			Location location=new Location(null,"CNC","MaszynaCNC",new ArrayList<>());
+
 
 
 
@@ -77,8 +82,12 @@ public class WypisyApplication {
 			Element newElement=new Element(null,"Element1",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),new BigDecimal("1.00"),"Opis",new ArrayList<>(),material);
 
 
+			ProductLineMElement productLineMElement=new ProductLineMElement(null,newProduct,manufacturingElement,new BigDecimal("10"));
 
-
+			ProcessLine processLine=new ProcessLine(null,manufacturingElement,manufacturingProcess);
+			ProcessLine processLine1=new ProcessLine(null,manufacturingElement,manufacturingProcess1);
+			ProcessLine processLine2=new ProcessLine(null,manufacturingElement,manufacturingProcess2);
+			ProcessLine processLine3=new ProcessLine(null,manufacturingElement,manufacturingProcess3);
 
 
 
@@ -92,17 +101,21 @@ public class WypisyApplication {
 //		manufacturingElement.getMachinePrograms().add(machineProgram);
 //		machineProgram.getManufacturingElements().add(manufacturingElement);
 
-
+		WypisLine wypisLine=new WypisLine(null,wypis,newProduct,new BigDecimal("50"));
 
 
 			categoryRepository.save(category);
 			tool.getMachinePrograms().add(machineProgram);
 			machineProgram.getToolList().add(tool);
 
-			manufacturingProcess.getLocationList().add(location);
-			location.getManufacturingProcesses().add(manufacturingProcess);
+			manufacturingProcess.setLocation(location);
+			location.getProcess().add(manufacturingProcess);
+
+			manufacturingElement.getProductLineMElements();
 
 
+
+			newProduct.getProductLineMElements().add(productLineMElement);
 
 
 
@@ -115,12 +128,28 @@ public class WypisyApplication {
 			machineProgramRepository.save(machineProgram);
 
 
-			manufacturingProcessRepository.save(manufacturingProcess);
-			manufacturingElementRepository.save(manufacturingElement);
-			productRepository.save(newProduct);
 			elementRepository.save(newElement);
+			manufacturingProcessRepository.save(manufacturingProcess);
+			manufacturingProcessRepository.save(manufacturingProcess1);
+			manufacturingProcessRepository.save(manufacturingProcess2);
+			manufacturingProcessRepository.save(manufacturingProcess3);
 
 
+
+
+
+			manufacturingElementRepository.save(manufacturingElement);
+
+			productRepository.save(newProduct);
+			productLineMElementRepository.save(productLineMElement);
+			wypisLineRepository.save(wypisLine);
+
+
+
+			processLineRepository.save(processLine);
+			processLineRepository.save(processLine1);
+			processLineRepository.save(processLine2);
+			processLineRepository.save(processLine3);
 
 		};
 	}

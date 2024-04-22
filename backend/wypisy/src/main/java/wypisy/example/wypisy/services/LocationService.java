@@ -27,7 +27,7 @@ public class LocationService {
                 null,
                 location.getName(),
                 location.getDescription(),
-                location.getManufacturingProcesses()
+                location.getProcess()
         );
 
         locationRepository.save(newLocation);
@@ -43,8 +43,8 @@ public class LocationService {
 
         Location location =locationRepository.findById(id).orElseThrow(()->new IllegalStateException("Location don't exist"));
 
-        location.getManufacturingProcesses().forEach(l->l.getLocationList().remove(location));
-        manufacturingProcessRepository.saveAll(location.getManufacturingProcesses());
+        location.getProcess().forEach(l->l.setLocation(null));
+        manufacturingProcessRepository.saveAll(location.getProcess());
 
         locationRepository.deleteById(location.getId());
         return true;

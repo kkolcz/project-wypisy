@@ -7,10 +7,7 @@ import wypisy.example.wypisy.model.Location;
 import wypisy.example.wypisy.model.ManufacturingProcess;
 import wypisy.example.wypisy.model.Material;
 import wypisy.example.wypisy.model.ProcessCategory;
-import wypisy.example.wypisy.repository.LocationRepository;
-import wypisy.example.wypisy.repository.ManufacturingElementRepository;
-import wypisy.example.wypisy.repository.ManufacturingProcessRepository;
-import wypisy.example.wypisy.repository.ProcessCategoryRepository;
+import wypisy.example.wypisy.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,7 @@ public class ProcessService {
     private final LocationRepository locationRepository;
     private final ManufacturingElementRepository manufacturingElementRepository;
     private final ProcessCategoryRepository categoryRepository;
+    private final ProcessLineRepository processLineRepository;
 
 
 
@@ -35,8 +33,8 @@ public class ProcessService {
                 process.getName(),
                 process.getCategory(),
                 process.getTime(),
-                process.getManufacturingElements(),
-                process.getLocationList()
+                process.getProcessLines(),
+                process.getLocation()
 
         );
 
@@ -57,11 +55,12 @@ public class ProcessService {
 
         ManufacturingProcess process =processRepository.findById(id).orElseThrow(()->new IllegalStateException("Process don't exist"));
 
-        process.getLocationList().forEach(p->p.getManufacturingProcesses().remove(process));
-        locationRepository.saveAll(process.getLocationList());
+        Location location=process.getLocation();
+        location.getProcess().remove(process);
 
-        process.getManufacturingElements().forEach(p->p.getProcessesList().remove(process));
-        manufacturingElementRepository.saveAll(process.getManufacturingElements());
+        locationRepository.save(location);
+
+       processLineRepository.deleteAll(process.getProcessLines());
 
         processRepository.deleteById(process.getId());
 
@@ -88,8 +87,8 @@ public class ProcessService {
         ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
         Location location =locationRepository.findById(locationId).orElseThrow(()->new IllegalStateException("Location don't exist"));
 
-        process.getLocationList().add(location);
-        location.getManufacturingProcesses().add(process);
+        process.setLocation(location);
+        location.getProcess().add(process);
 
         locationRepository.save(location);
         processRepository.save(process);
@@ -102,8 +101,8 @@ public class ProcessService {
         Location location =locationRepository.findById(locationId).orElseThrow(()->new IllegalStateException("Location don't exist"));
 
 
-        process.getLocationList().remove(location);
-        location.getManufacturingProcesses().remove(process);
+        process.setLocation(null);
+        location.getProcess().remove(process);
 
         locationRepository.save(location);
         processRepository.save(process);
