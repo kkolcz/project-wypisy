@@ -17,6 +17,7 @@ import wypisy.example.wypisy.repository.ProductRepository;
 import wypisy.example.wypisy.repository.WypisLineRepository;
 import wypisy.example.wypisy.repository.WypisRepository;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
