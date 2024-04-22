@@ -348,8 +348,8 @@ public class Pdf {
                             tableConteiner.addCell(tablData);
                             tableConteiner.addCell(tablAuthor);
 
-                            table.getDefaultCell().setPaddingBottom(5);
-                            table.getDefaultCell().setPaddingTop(5);
+                            table.getDefaultCell().setPaddingBottom(7);
+                            table.getDefaultCell().setPaddingTop(7);
                             table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
                             table.addCell(tableConteiner);
 
