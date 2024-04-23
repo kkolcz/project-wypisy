@@ -15,12 +15,11 @@ import java.util.List;
 public class ManufacturingElementService {
 
     private final ManufacturingElementRepository elementRepository;
-    private final ToolRepository toolRepository;
     private final ManufacturingProcessRepository processRepository;
-    private final MachineProgramRepository programRepository;
-
     private final MaterialRepository materialRepository;
     private final ProcessLineRepository processLineRepository;
+    private final ProductLineMElementRepository productLineMElementRepository;
+
 
     public ManufacturingElement createMElement(ManufacturingElement element){
 
@@ -33,9 +32,7 @@ public class ManufacturingElementService {
                 element.getHeight(),
                 element.getDescription(),
                 element.getProductLineMElements(),
-                element.getToolList(),
                 element.getProcessLines(),
-                element.getMachinePrograms(),
                 element.getMaterial()
 
 
@@ -62,16 +59,12 @@ public class ManufacturingElementService {
 
         ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
 
-        element.getMachinePrograms().forEach(p->p.getManufacturingElements().remove(element));
 
+        productLineMElementRepository.deleteAll(element.getProductLineMElements());
         processLineRepository.deleteAll(element.getProcessLines());
-
-        element.getToolList().forEach(tool -> tool.getManufacturingElements().remove(element));
 
         element.setMaterial(null);
 
-        programRepository.saveAll(element.getMachinePrograms());
-        toolRepository.saveAll(element.getToolList());
         elementRepository.deleteById(mElementId);
 
 
@@ -96,32 +89,6 @@ public class ManufacturingElementService {
         return element;
     }
 
-    public boolean addTool(Long toolId,Long mElementId){
-        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
-        Tool tool=toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
-
-
-        element.getToolList().add(tool);
-        tool.getManufacturingElements().add(element);
-
-        elementRepository.save(element);
-        toolRepository.save(tool);
-
-        return true;
-    }
-    public boolean deleteTool(Long toolId,Long mElementId){
-
-        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
-        Tool tool=toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
-
-        element.getToolList().remove(tool);
-        tool.getManufacturingElements().remove(element);
-
-        elementRepository.save(element);
-        toolRepository.save(tool);
-
-        return true;
-    }
 
     public boolean addProcess(Long processId,Long mElementId){
 
@@ -145,35 +112,6 @@ public class ManufacturingElementService {
 
         return true;
     }
-
-    public boolean addProgram(Long programId,Long mElementId){
-
-        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
-        MachineProgram program=programRepository.findById(programId).orElseThrow(()->new IllegalStateException("Program don't exist"));
-
-        element.getMachinePrograms().add(program);
-        program.getManufacturingElements().add(element);
-
-        elementRepository.save(element);
-        programRepository.save(program);
-
-        return true;
-    }
-
-    public boolean deleteProgram(Long programId,Long mElementId){
-
-        ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
-        MachineProgram program=programRepository.findById(programId).orElseThrow(()->new IllegalStateException("Program don't exist"));
-
-        element.getMachinePrograms().remove(program);
-        program.getManufacturingElements().remove(element);
-
-        elementRepository.save(element);
-        programRepository.save(program);
-
-        return true;
-    }
-
 
     public boolean delateMaterial(Long mElementId){
 

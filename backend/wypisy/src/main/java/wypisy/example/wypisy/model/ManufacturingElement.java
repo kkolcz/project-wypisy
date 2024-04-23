@@ -56,25 +56,9 @@ public class ManufacturingElement {
     private List<ProductLineMElement> productLineMElements=new ArrayList<>();
 
 
-
-
-    @ManyToMany
-    @JoinTable(name="MELEMENT_TOOL",
-            joinColumns={@JoinColumn(name="MANUELEMENT_ID")},
-            inverseJoinColumns={@JoinColumn(name="TOOL_ID")}
-    )
-    private List<Tool> toolList=new ArrayList<>();
-
     @OneToMany(mappedBy = "manufacturingElement")
 
     private List<ProcessLine> processLines=new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name="MELEMENT_PROGRAM",
-            joinColumns={@JoinColumn(name="MANUELEMENT_ID")},
-            inverseJoinColumns={@JoinColumn(name="PROGRAM_ID")}
-    )
-    private List<MachineProgram> machinePrograms=new ArrayList<>();
 
 
     @ManyToOne()

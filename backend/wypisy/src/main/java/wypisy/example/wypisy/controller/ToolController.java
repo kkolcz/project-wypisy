@@ -29,7 +29,7 @@ public class ToolController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Products",toolService.getAll()))
+                            .data(of("Tools",toolService.getAll()))
                             .message("Returned all Tools")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -102,14 +102,14 @@ public class ToolController {
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<Response>delateMaterial(@RequestParam Long toolId){
+    public ResponseEntity<Response>delateTool(@RequestParam Long toolId){
 
         try {
 
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("delete tool",toolService.deleteById(toolId)))
+                            .data(of("deleteTool",toolService.deleteById(toolId)))
                             .message("Tool was deleted")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -134,7 +134,7 @@ public class ToolController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Change Tool",toolService.changeById(tool)))
+                            .data(of("changeTool",toolService.changeById(tool)))
                             .message("addition Tool was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())

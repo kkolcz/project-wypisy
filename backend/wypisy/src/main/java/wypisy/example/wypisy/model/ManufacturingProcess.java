@@ -38,6 +38,23 @@ public class ManufacturingProcess {
     private BigDecimal time;
 
 
+    @ManyToMany
+    @JoinTable(name="PROCESS_TOOL",
+            joinColumns={@JoinColumn(name="PROCESS_ID")},
+            inverseJoinColumns={@JoinColumn(name="TOOL_ID")}
+    )
+    private List<Tool> toolList=new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name="PROCESS_PROGRAM",
+            joinColumns={@JoinColumn(name="PROCESS_ID")},
+            inverseJoinColumns={@JoinColumn(name="PROGRAM_ID")}
+    )
+    private List<MachineProgram> machinePrograms=new ArrayList<>();
+
+
+
+
 
 
 

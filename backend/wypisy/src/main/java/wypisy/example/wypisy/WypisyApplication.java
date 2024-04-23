@@ -44,20 +44,20 @@ public class WypisyApplication {
 			Wypis wypis=new Wypis(null, LocalDateTime.now(),new ArrayList<>());
 
 
-			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>(),new ArrayList<>());
+			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>());
 
 			Location location=new Location(null,"CNC","MaszynaCNC",new ArrayList<>());
 			ProcessCategory category=new ProcessCategory(null,"CNC","CNC",new ArrayList<>());
 
 
 
-			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
-			ManufacturingProcess manufacturingProcess1= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
-			ManufacturingProcess manufacturingProcess2= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
-			ManufacturingProcess manufacturingProcess3= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess1= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess2= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess3= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
 
 
-			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",new ArrayList<>(),new ArrayList<>());
+			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",new BigDecimal("0"),new ArrayList<>());
 
 
 
@@ -71,7 +71,7 @@ public class WypisyApplication {
 
 
 
-			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
+			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),material);
 
 
 
@@ -105,8 +105,11 @@ public class WypisyApplication {
 
 
 			categoryRepository.save(category);
-			tool.getMachinePrograms().add(machineProgram);
-			machineProgram.getToolList().add(tool);
+
+			manufacturingProcess.getMachinePrograms().add(machineProgram);
+			manufacturingProcess.getToolList().add(tool);
+
+
 
 			manufacturingProcess.setLocation(location);
 			location.getProcess().add(manufacturingProcess);

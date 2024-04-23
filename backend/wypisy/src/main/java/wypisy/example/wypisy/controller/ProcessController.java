@@ -252,7 +252,106 @@ public class ProcessController {
         }
 
     }
+    @PatchMapping("/tool/add")
+    public ResponseEntity<Response> addTool(@RequestParam Long toolId,@RequestParam Long processId){
 
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("AddToolToProcess",processService.addTool(toolId,processId)))
+                            .message("AddToolToProcess")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("AddToolToProcess", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
+    @PatchMapping("/tool/delete")
+    public ResponseEntity<Response> deleteTool(@RequestParam Long toolId,@RequestParam Long processId){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("deleteToolToProcess",processService.deleteTool(toolId,processId)))
+                            .message("deleteToolToProcess")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("deleteToolToProcess", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
+    @PatchMapping("/program/add")
+    public ResponseEntity<Response> addProgram(@RequestParam Long programId,@RequestParam Long processId){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("addProgramToProcess",processService.addProgram(programId,processId)))
+                            .message("addProgramToProcess")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("addProgramToProcess", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
+    @PatchMapping("/program/delete")
+    public ResponseEntity<Response> deleteProgram(@RequestParam Long programId,@RequestParam Long processId){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("deleteProgramToProcess",processService.deleteProgram(programId,processId)))
+                            .message("deleteProgramToProcess")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("deleteProgramToProcess", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
 
 
 

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -30,11 +31,8 @@ public class Tool {
 
     @ManyToMany(mappedBy = "toolList")
     @JsonIgnore
-    private Collection<ManufacturingElement>manufacturingElements=new ArrayList<>();
+    private List<ManufacturingProcess> processList=new ArrayList<>();
 
 
-    @ManyToMany(mappedBy = "toolList")
-    @JsonIgnore
-    private Collection<MachineProgram>machinePrograms=new ArrayList<>();
 
 }

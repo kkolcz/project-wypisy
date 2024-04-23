@@ -3,12 +3,10 @@ package wypisy.example.wypisy.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import wypisy.example.wypisy.model.MachineProgram;
-import wypisy.example.wypisy.model.ManufacturingElement;
-import wypisy.example.wypisy.model.Product;
-import wypisy.example.wypisy.model.Tool;
+import wypisy.example.wypisy.model.*;
 import wypisy.example.wypisy.repository.MachineProgramRepository;
 import wypisy.example.wypisy.repository.ManufacturingElementRepository;
+import wypisy.example.wypisy.repository.ManufacturingProcessRepository;
 import wypisy.example.wypisy.repository.ToolRepository;
 
 import java.util.ArrayList;
@@ -20,8 +18,7 @@ import java.util.List;
 public class ProgramService {
 
     private final MachineProgramRepository machineProgramRepository;
-    private final ToolRepository toolRepository;
-    private final ManufacturingElementRepository elementRepository;
+    private final ManufacturingProcessRepository processRepository;
 
     public MachineProgram create(MachineProgram program){
 
@@ -31,7 +28,7 @@ public class ProgramService {
                 program.getNameMachine(),
                 program.getNrProgram(),
                 program.getDescription(),
-                program.getToolList(),
+                program.getQtyForProgram(),
                 new ArrayList<>()
         );
 
@@ -52,46 +49,15 @@ public class ProgramService {
     public boolean deleteById(Long id){
 
         MachineProgram program=machineProgramRepository.findById(id).orElseThrow(()->new IllegalStateException("Program don't exist"));
-        program.getToolList().forEach(t->t.getMachinePrograms().remove(program));
-        toolRepository.saveAll(program.getToolList());
 
-        program.getManufacturingElements().forEach(e->e.getMachinePrograms().remove(program));
-        elementRepository.saveAll(program.getManufacturingElements());
 
+
+        program.getProcessList().forEach(p -> p.getMachinePrograms().remove(program));
+
+        processRepository.saveAll(program.getProcessList());
         machineProgramRepository.deleteById(program.getId());
 
         return true;
-    }
-
-    public MachineProgram addToolToProgram(Long toolId,Long programID){
-
-        MachineProgram program=machineProgramRepository.findById(programID).orElseThrow(()->new IllegalStateException("Program don't exist"));
-        Tool tool =toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
-
-        if (!program.getToolList().contains(tool)){
-            program.getToolList().add(tool);
-            tool.getMachinePrograms().add(program);
-        }
-
-        toolRepository.save(tool);
-        machineProgramRepository.save(program);
-
-        return program;
-    }
-    public MachineProgram delateToolToProgram(Long toolId,Long programID){
-
-        MachineProgram program=machineProgramRepository.findById(programID).orElseThrow(()->new IllegalStateException("Program don't exist"));
-        Tool tool =toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
-
-        if (program.getToolList().contains(tool)){
-            program.getToolList().remove(tool);
-            tool.getMachinePrograms().remove(program);
-        }
-
-        toolRepository.save(tool);
-        machineProgramRepository.save(program);
-
-        return program;
     }
 
 
@@ -102,6 +68,7 @@ public class ProgramService {
         program.setNameMachine(newProgram.getNameMachine());
         program.setNrProgram(newProgram.getNrProgram());
         program.setDescription(newProgram.getDescription());
+        program.setQtyForProgram(newProgram.getQtyForProgram());
 
 
 

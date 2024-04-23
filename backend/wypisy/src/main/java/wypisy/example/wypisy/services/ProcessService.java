@@ -3,10 +3,7 @@ package wypisy.example.wypisy.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import wypisy.example.wypisy.model.Location;
-import wypisy.example.wypisy.model.ManufacturingProcess;
-import wypisy.example.wypisy.model.Material;
-import wypisy.example.wypisy.model.ProcessCategory;
+import wypisy.example.wypisy.model.*;
 import wypisy.example.wypisy.repository.*;
 
 import java.util.ArrayList;
@@ -23,6 +20,9 @@ public class ProcessService {
     private final ProcessCategoryRepository categoryRepository;
     private final ProcessLineRepository processLineRepository;
 
+    private final ToolRepository toolRepository;
+    private final MachineProgramRepository programRepository;
+
 
 
     public ManufacturingProcess create(ManufacturingProcess process){
@@ -33,8 +33,11 @@ public class ProcessService {
                 process.getName(),
                 process.getCategory(),
                 process.getTime(),
+                process.getToolList(),
+                process.getMachinePrograms(),
                 process.getProcessLines(),
                 process.getLocation()
+
 
         );
 
@@ -57,11 +60,14 @@ public class ProcessService {
 
         Location location=process.getLocation();
         location.getProcess().remove(process);
+        process.getMachinePrograms().forEach(program -> program.getProcessList().remove(process));
+        process.getToolList().forEach(tool -> tool.getProcessList().remove(process));
 
+        toolRepository.saveAll( process.getToolList());
+        programRepository.saveAll(process.getMachinePrograms());
         locationRepository.save(location);
 
-       processLineRepository.deleteAll(process.getProcessLines());
-
+        processLineRepository.deleteAll(process.getProcessLines());
         processRepository.deleteById(process.getId());
 
         return true;
@@ -124,8 +130,56 @@ public class ProcessService {
         processRepository.save(process);
         return true;
     }
+    public boolean addTool(Long toolId,Long processid){
+        ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        Tool tool=toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
+
+        process.getToolList().add(tool);
+        tool.getProcessList().add(process);
+
+        processRepository.save(process);
+        toolRepository.save(tool);
+
+        return true;
+    }
+    public boolean deleteTool(Long toolId,Long processid){
+        ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        Tool tool=toolRepository.findById(toolId).orElseThrow(()->new IllegalStateException("Tool don't exist"));
+
+        process.getToolList().remove(tool);
+        tool.getProcessList().remove(process);
+
+        processRepository.save(process);
+        toolRepository.save(tool);
+
+        return true;
+    }
+    public boolean addProgram(Long programId,Long processid){
+        ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        MachineProgram program=programRepository.findById(programId).orElseThrow(()->new IllegalStateException("Program don't exist"));
 
 
+        process.getMachinePrograms().add(program);
+        program.getProcessList().add(process);
+
+        processRepository.save(process);
+        programRepository.save(program);
+
+        return true;
+    }
+    public boolean deleteProgram(Long programId,Long processid){
+        ManufacturingProcess process =processRepository.findById(processid).orElseThrow(()->new IllegalStateException("Process don't exist"));
+        MachineProgram program=programRepository.findById(programId).orElseThrow(()->new IllegalStateException("Program don't exist"));
+
+
+        process.getMachinePrograms().remove(program);
+        program.getProcessList().remove(process);
+
+        processRepository.save(process);
+        programRepository.save(program);
+
+        return true;
+    }
 
 
 

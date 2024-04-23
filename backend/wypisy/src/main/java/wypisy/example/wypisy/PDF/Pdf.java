@@ -206,7 +206,7 @@ public class Pdf {
 
                         Font fontTitle= FontFactory.getFont((FontFactory.HELVETICA));
                         Font font8 = FontFactory.getFont(FontFactory.HELVETICA, 8);
-                        Font font10 = FontFactory.getFont(FontFactory.HELVETICA, 10);
+                        Font font10 = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
                         fontTitle.setSize(18);
 
 
@@ -215,6 +215,8 @@ public class Pdf {
 
                         float[] columnDefinitionSize = {99.99F};
                         float[] row = {10F,80.99F};
+                        float[] row2 = {4F,82.99F};
+                        float[] row3 = {10F,40.95F,40.95F};
                         float[] rowInfo = {25F,70.99F};
                         float[] rowAuthor = {58.99F,7,20F};
                         float[] rowData = {19.99F,19.99F,19.99F,19.99F,19.99F,};
@@ -225,6 +227,7 @@ public class Pdf {
                         float[] columnDefinitionSize3 = {49.99F};
 
                         PdfPTable table ;
+                        PdfPTable table_Id ;
                         PdfPTable tableConteiner ;
 
 
@@ -232,7 +235,13 @@ public class Pdf {
                         PdfPTable tableInfo ;
                         PdfPTable tablDataLable ;
                         PdfPTable tablData ;
+                        PdfPTable tablToolProgram ;
+                        PdfPTable tablTool;
+                        PdfPTable tablProgram ;
+
+
                         PdfPTable tablAuthor ;
+
 
 
 
@@ -247,7 +256,7 @@ public class Pdf {
 
                         table = new PdfPTable(columnDefinitionSize);
 
-                        PdfPTable tableMid = new PdfPTable(3);
+
                         table.setHorizontalAlignment(0);
                         table.setTotalWidth(width - 70);
 
@@ -276,11 +285,11 @@ public class Pdf {
 //
 
                             //id -Info
+                            table_Id=new PdfPTable(row2);
                             tableConteiner=new PdfPTable(columnDefinitionSize);
 
-                            tableId=new PdfPTable(row);
+                            tableId=new PdfPTable(columnDefinitionSize);
                             tableId.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                            tableId.addCell(new Phrase(Integer.toString(i+1), font8));
                             tableId.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
                             tableId.addCell(new Phrase("Element", font8));
 
@@ -342,17 +351,94 @@ public class Pdf {
 
 
 
+
+
+
                             tableConteiner.addCell(tableId);
                             tableConteiner.addCell(tableInfo);
                             tableConteiner.addCell(tablDataLable);
                             tableConteiner.addCell(tablData);
+
+                            if (!l.getProcess().getToolList().isEmpty() || !l.getProcess().getMachinePrograms().isEmpty()){
+                                tablToolProgram=new PdfPTable(2);
+
+                                if (!l.getProcess().getMachinePrograms().isEmpty()){
+                                    tablProgram=new PdfPTable(row3);
+                                    tablProgram.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
+                                    tablProgram.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                                    tablProgram.addCell(new Phrase("nr", font8));
+                                    tablProgram.addCell(new Phrase("Program", font8));
+                                    tablProgram.addCell(new Phrase("Opis", font8));
+                                    tablProgram.getDefaultCell().setBackgroundColor(Color.WHITE);
+                                    for (int k = 0; k < l.getProcess().getMachinePrograms().size(); k++) {
+                                        tablProgram.addCell(new Phrase(Integer.toString(k+1), font8));
+                                        tablProgram.addCell(new Phrase(l.getProcess().getMachinePrograms().get(k).getNrProgram(), font8));
+                                        tablProgram.addCell(new Phrase(l.getProcess().getMachinePrograms().get(k).getDescription(), font8));
+
+                                    }
+
+                                    tablToolProgram.addCell(tablProgram);
+
+                                }else {
+                                    tablToolProgram.addCell(new Phrase(" ", font8));
+                                }
+
+
+                                if (!l.getProcess().getToolList().isEmpty()){
+                                    tablTool=new PdfPTable(row3);
+                                    tablTool.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
+                                    tablTool.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                                    tablTool.addCell(new Phrase("nr", font8));
+                                    tablTool.addCell(new Phrase("Narzadzia", font8));
+                                    tablTool.addCell(new Phrase("Opis", font8));
+                                    tablTool.getDefaultCell().setBackgroundColor(Color.WHITE);
+                                    for (int j = 0; j < l.getProcess().getToolList().size(); j++) {
+                                        tablTool.addCell(new Phrase(Integer.toString(j+1), font8));
+                                        tablTool.addCell(new Phrase(l.getProcess().getToolList().get(j).getName(), font8));
+                                        tablTool.addCell(new Phrase(l.getProcess().getToolList().get(j).getDescription(), font8));
+                                    }
+                                    tablToolProgram.addCell(tablTool);
+
+                                }else {
+                                    tablToolProgram.addCell(new Phrase(" ", font8));
+
+                                }
+
+
+
+                                tableConteiner.addCell(tablToolProgram);
+                            }
+
+
+
+
+
+
                             tableConteiner.addCell(tablAuthor);
+
+
+
+
+
+
+
+
+
+
+
+                            table_Id.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                            table_Id.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                            table_Id.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
+
+                            table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+
+                            table_Id.addCell(new Phrase(Integer.toString(i+1), font10));
+                            table_Id.getDefaultCell().setBackgroundColor(Color.WHITE);
+                            table_Id.addCell(tableConteiner);
 
                             table.getDefaultCell().setPaddingBottom(7);
                             table.getDefaultCell().setPaddingTop(7);
-
-                            table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-                            table.addCell(tableConteiner);
+                            table.addCell(table_Id);
 
 
 

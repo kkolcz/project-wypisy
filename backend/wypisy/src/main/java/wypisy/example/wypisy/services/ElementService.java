@@ -45,8 +45,6 @@ public class ElementService {
                     element.getDescription(),
                     new ArrayList<>(),
                     new ArrayList<>(),
-                    new ArrayList<>(),
-                    new ArrayList<>(),
                     element.getMaterial()
 
 

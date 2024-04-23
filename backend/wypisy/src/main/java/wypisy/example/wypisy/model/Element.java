@@ -49,12 +49,6 @@ public class Element {
 
 
 
-
-
-
-
-
-
     @NotNull
     @Column(name = "unit" ,columnDefinition = "DECIMAL(7,2)")
     @Digits(integer=9, fraction=2)

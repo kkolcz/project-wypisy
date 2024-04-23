@@ -8,8 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -26,19 +29,12 @@ public class MachineProgram {
     @NotEmpty
     private String nrProgram;
     private String description;
+    private BigDecimal qtyForProgram;
 
-
-
-    @ManyToMany
-    @JoinTable(name="PROGRAM_TOOL",
-            joinColumns={@JoinColumn(name="PROGRAM_ID")},
-            inverseJoinColumns={@JoinColumn(name="TOOL_ID")}
-    )
-    private Collection<Tool> toolList=new ArrayList<>();
 
     @ManyToMany(mappedBy = "machinePrograms")
     @JsonIgnore
-    private Collection<ManufacturingElement>manufacturingElements=new ArrayList<>();
+    private List<ManufacturingProcess> processList=new ArrayList<>();
 
 
 
