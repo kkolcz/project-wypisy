@@ -28,7 +28,7 @@ public class ProgramController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Machine Programs",programService.getAll()))
+                            .data(of("MachinePrograms",programService.getAll()))
                             .message("Returned all Machine programs")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -54,7 +54,7 @@ public class ProgramController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("add MachineProgram",programService.create(program) ))
+                            .data(of("addMachineProgram",programService.create(program) ))
                             .message("addition Program was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -73,35 +73,6 @@ public class ProgramController {
 
     }
 
-
-
-
-
-    @GetMapping("/")
-    public ResponseEntity<Response>getToolById(@RequestParam Long toolId) {
-        try {
-
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("Tool", programService.getProductById(toolId)))
-                            .message("Returned Program Machine")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("Program Machine", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
     @DeleteMapping("/")
     public ResponseEntity<Response>delateProgram(@RequestParam Long programId){
 
@@ -154,58 +125,7 @@ public class ProgramController {
         }
 
     }
-    @PatchMapping("/tool/add")
-    public ResponseEntity<Response>addToolToProgram(@RequestParam Long toolId,@RequestParam Long programId){
 
-        try {
-
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("addTooltoMachineProgram",programService.addToolToProgram(toolId,programId)))
-                            .message("Tool was add ")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("addTooltoMachineProgram", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
-    @PatchMapping("/tool/delete")
-    public ResponseEntity<Response>deleteToolFromProgram(@RequestParam Long toolId,@RequestParam Long programId){
-
-        try {
-
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("deleteTooltoMachineProgram",programService.delateToolToProgram(toolId,programId)))
-                            .message("Tool was deleted ")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("deleteTooltoMachineProgram", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
 
 
 

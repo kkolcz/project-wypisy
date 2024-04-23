@@ -9,6 +9,7 @@ import wypisy.example.wypisy.model.Product;
 import wypisy.example.wypisy.model.Tool;
 import wypisy.example.wypisy.repository.MachineProgramRepository;
 import wypisy.example.wypisy.repository.ManufacturingElementRepository;
+import wypisy.example.wypisy.repository.ManufacturingProcessRepository;
 import wypisy.example.wypisy.repository.ToolRepository;
 
 import java.util.ArrayList;
@@ -19,15 +20,13 @@ import java.util.List;
 @Slf4j
 public class ToolService {
     private final ToolRepository toolRepository;
-    private final MachineProgramRepository machineProgramRepository;
-    private final ManufacturingElementRepository manufacturingElementRepository;
+    private final ManufacturingProcessRepository processRepository;
 
     public Tool createTool(Tool tool){
             Tool newTool=new Tool(
                     null,
                     tool.getName(),
                     tool.getDescription(),
-                    new ArrayList<>(),
                     new ArrayList<>()
             );
 
@@ -36,26 +35,15 @@ public class ToolService {
             return newTool;
     }
 
-
-
-
-
-
     public List<Tool> getAll(){return toolRepository.findAll();}
 
     public Tool getById(Long id){return toolRepository.findById(id).orElseThrow(()->new IllegalStateException("Tool don't exist"));}
 
     public boolean deleteById(Long id){
 
-
         Tool tool =toolRepository.findById(id).orElseThrow(()->new IllegalStateException("Tool don't exist"));
-        //Save all Machine Program
-        tool.getMachinePrograms().forEach(p->p.getToolList().remove(tool));
-        machineProgramRepository.saveAll(tool.getMachinePrograms());
-        //Save ALl mElement
-        tool.getManufacturingElements().forEach(m->m.getToolList().remove(tool));
-        manufacturingElementRepository.saveAll(tool.getManufacturingElements());
-
+        tool.getProcessList().forEach(p ->p.getToolList().remove(tool) );
+        processRepository.saveAll(tool.getProcessList());
         toolRepository.deleteById(id)
 
         ;return true;}

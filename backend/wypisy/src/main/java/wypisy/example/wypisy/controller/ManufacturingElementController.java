@@ -149,57 +149,6 @@ public class ManufacturingElementController {
 
     }
 
-    @PatchMapping("/tool/add")
-    public ResponseEntity<Response> addToolToElement(@RequestParam Long toolId,@RequestParam Long elementId){
-
-        try {
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("AddToolToElement",elementService.addTool(toolId,elementId)))
-                            .message("AddToolToElement successfully")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("AddToolToElement", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
-
-    @PatchMapping("/tool/delete")
-    public ResponseEntity<Response> deleteToolFromElement(@RequestParam Long toolId,@RequestParam Long elementId){
-
-        try {
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("deleteToolFromElement",elementService.deleteTool(toolId,elementId)))
-                            .message("deleteToolFromElement successfully")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("deleteToolFromElement", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
 
     @PatchMapping("/process/add")
     public ResponseEntity<Response> addProcessToElement(@RequestParam Long processId,@RequestParam Long elementId){
@@ -251,56 +200,7 @@ public class ManufacturingElementController {
         }
 
     }
-    @PatchMapping("/program/add")
-    public ResponseEntity<Response> addProgramToElement(@RequestParam Long programId,@RequestParam Long elementId){
 
-        try {
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("addProgramToElement",elementService.addProgram(programId,elementId)))
-                            .message("addProgramToElement successfully")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("addProgramToElement", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
-    @PatchMapping("/program/delete")
-    public ResponseEntity<Response> deleteProgramFromElement(@RequestParam Long programId,@RequestParam Long elementId){
-
-        try {
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("deleteProgramFromElement",elementService.deleteProgram(programId,elementId)))
-                            .message("deleteProgramFromElement successfully")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("deleteProgramFromElement", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
     @PatchMapping("/material/add")
     public ResponseEntity<Response> setMaterialOfElement(@RequestParam Long materialId,@RequestParam Long elementId){
 
