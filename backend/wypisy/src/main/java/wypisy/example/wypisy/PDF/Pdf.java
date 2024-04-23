@@ -130,7 +130,7 @@ public class Pdf {
 
         public void categoryMelement(Wypis wypis , Document document, String categoryName, List<Location> locations, Generator generator){
 
-        HashMap<String,ArrayList> mapElemen=new HashMap<>();
+        HashMap<String,ArrayList<LocationElement>> mapElemen=new HashMap<>();
 
         locations.forEach(loc->mapElemen.put(loc.getName(),new ArrayList()));
 
@@ -177,8 +177,35 @@ public class Pdf {
                                                 after
 
                                         );
+                                         //Logika dodawania w obrębie kilku produktów
+                                        //jeżeli array jest pusty dodaj
 
-                                        mapElemen.get(process.getLocation().getName()).add(locationElement);
+
+                                         if (mapElemen.get(process.getLocation().getName()).size()==0){
+                                             mapElemen.get(process.getLocation().getName()).add(locationElement);
+                                         }
+                                         else {
+
+
+                                             boolean test=mapElemen.get(process.getLocation().getName()).stream().anyMatch(e->e.getElement().equals(element) && e.getProcess().equals(process));
+
+                                             if (test==true){
+                                                 mapElemen.get(process.getLocation().getName() )
+                                                     .forEach(e->{
+                                                         if (e.getElement().equals(element) && e.getProcess().equals(process)){
+                                                             e.setUnit(e.getUnit().add(wypisLine.getUnit().multiply(productLine.getUnit())));
+
+                                                         }
+
+                                                     });
+
+                                             }else {mapElemen.get(process.getLocation().getName()).add(locationElement);}
+
+                                         }
+
+
+
+
 
                                     }
 
@@ -196,7 +223,7 @@ public class Pdf {
 
             if (categoryName.equals("all")){
 
-                for(Map.Entry<String, ArrayList> entry : mapElemen.entrySet()) {
+                for(Map.Entry<String, ArrayList<LocationElement>> entry : mapElemen.entrySet()) {
                     ArrayList<LocationElement> list=entry.getValue();
 
 

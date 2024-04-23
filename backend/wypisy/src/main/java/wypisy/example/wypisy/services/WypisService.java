@@ -20,6 +20,7 @@ import wypisy.example.wypisy.repository.WypisRepository;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +74,8 @@ public class WypisService {
                     null,
                     wypis,
                     product,
-                    wypisLineDTO.getUnit()
+                    wypisLineDTO.getUnit(),
+                    wypisLineDTO.getLocalDate()
             );
             wypis.getWypisLines().add(wypisLine);
             wypisLineRepository.save(wypisLine);
@@ -113,8 +115,11 @@ public class WypisService {
         try {
             PdfWriter writer =PdfWriter.getInstance(document, response.getOutputStream());
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
             Generator generator=new Generator();
             generator.setNr(wypis.getId().toString());
+            generator.setData(wypis.getCreateDate().format(formatter).toString());
 
             writer.setPageEvent(generator);
             document.open();
