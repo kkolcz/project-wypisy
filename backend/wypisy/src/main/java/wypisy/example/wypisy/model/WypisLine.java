@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -31,12 +33,13 @@ public class WypisLine {
     private Product product;
 
 
-
-
     @NotNull
     @Column(name = "unit" ,columnDefinition = "DECIMAL(7,2)")
     @Digits(integer=9, fraction=2)
     private BigDecimal unit;
+
+    @NotNull
+    private LocalDate localDate;
 
 
 

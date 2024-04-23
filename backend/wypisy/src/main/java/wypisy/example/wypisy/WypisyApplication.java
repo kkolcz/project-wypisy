@@ -9,6 +9,7 @@ import wypisy.example.wypisy.repository.*;
 import wypisy.example.wypisy.services.ProductService;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -101,7 +102,7 @@ public class WypisyApplication {
 //		manufacturingElement.getMachinePrograms().add(machineProgram);
 //		machineProgram.getManufacturingElements().add(manufacturingElement);
 
-		WypisLine wypisLine=new WypisLine(null,wypis,newProduct,new BigDecimal("50"));
+		WypisLine wypisLine=new WypisLine(null,wypis,newProduct,new BigDecimal("50"),LocalDate.now());
 
 
 			categoryRepository.save(category);

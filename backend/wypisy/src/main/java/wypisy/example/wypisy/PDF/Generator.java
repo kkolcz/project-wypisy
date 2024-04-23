@@ -11,6 +11,7 @@ import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class Generator extends PdfPageEventHelper {
 
     public String nr="";
     public String nazwa="";
+    public String data="";
 
 
 
@@ -88,8 +90,8 @@ public class Generator extends PdfPageEventHelper {
         table.addCell(new Paragraph(nazwa, cellFont2));
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(new Paragraph("Nr. "+nr, cellFont));
-
-        table.addCell(new Paragraph("", cellFont));
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(new Paragraph("Data: "+data, cellFont2));
 
         table.writeSelectedRows(0, -1, 34, 828, writer.getDirectContent());
     }
