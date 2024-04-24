@@ -21,6 +21,11 @@ public class LocationElement {
     private BigDecimal Unit;
     private String before;
     private String after;
-    private HashMap<String, List<WypisLineDate>> mapWypisDat;
+    private HashMap<String, LocProd> mapWypisDat;
+
+
+
+
+
 
 }

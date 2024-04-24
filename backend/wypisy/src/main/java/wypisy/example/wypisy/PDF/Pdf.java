@@ -175,7 +175,7 @@ public class Pdf {
                                                 wypisLine.getUnit().multiply(productLine.getUnit()),
                                                 before,
                                                 after,
-                                                new HashMap<String,List<WypisLineDate>>()
+                                                new HashMap<String,LocProd>()
 
                                         );
                                          //Logika dodawania w obrębie kilku produktów
@@ -185,7 +185,7 @@ public class Pdf {
 
                                          if (mapElemen.get(process.getLocation().getName()).size()==0){
 
-                                             locationElement.getMapWypisDat().put(product.getName(),wypisLine.getWypisLineDates());
+                                             locationElement.getMapWypisDat().put(product.getName(),new LocProd(productLine.getUnit(),wypisLine.getWypisLineDates()));
 
                                              mapElemen.get(process.getLocation().getName()).add(locationElement);
 
@@ -199,8 +199,34 @@ public class Pdf {
                                              if (test==true){
                                                  mapElemen.get(process.getLocation().getName() )
                                                      .forEach(e->{
+                                                         //znalezienie elementu i procesu
                                                          if (e.getElement().equals(element) && e.getProcess().equals(process)){
+                                                             //dodanie sumarycznej ilości
                                                              e.setUnit(e.getUnit().add(wypisLine.getUnit().multiply(productLine.getUnit())));
+                                                                //jeżeli się znajduje produkt w mapie dat
+                                                                if (e.getMapWypisDat().containsKey(product.getName())){
+
+                                                                wypisLine.getWypisLineDates().forEach(l-> {
+
+                                                                    if (e.getMapWypisDat().get(product.getName()).getMapWypisDat()
+                                                                            .stream().anyMatch(lw->lw.getLocalDate()
+                                                                                    .equals(l.getLocalDate()))){
+
+                                                                        e.getMapWypisDat().get(product.getName()).getMapWypisDat()
+                                                                                .forEach(f->{
+                                                                                    if (f.getLocalDate().equals(l.getLocalDate()))
+                                                                                    {f.setUnit(f.getUnit().add(l.getUnit()));}
+
+                                                                                });
+
+
+                                                                    }else {e.getMapWypisDat().get(product.getName()).getMapWypisDat().add(l);}
+
+                                                                });
+                                                                }else {
+                                                                    e.getMapWypisDat().put(product.getName(),new LocProd(productLine.getUnit(),wypisLine.getWypisLineDates()));
+                                                                };
+
 
 
 
@@ -210,7 +236,9 @@ public class Pdf {
 
                                                      });
 
-                                             }else {mapElemen.get(process.getLocation().getName()).add(locationElement);}
+                                             }else {
+                                                 locationElement.getMapWypisDat().put(product.getName(),new LocProd(productLine.getUnit(),wypisLine.getWypisLineDates()));
+                                                 mapElemen.get(process.getLocation().getName()).add(locationElement);}
 
                                          }
 
@@ -255,9 +283,11 @@ public class Pdf {
                         float[] row = {10F,80.99F};
                         float[] row2 = {4F,82.99F};
                         float[] row3 = {10F,40.95F,40.95F};
+                        float[] row4 = {4F,40.95F,13.29F,20.49F,13.29F};
                         float[] rowInfo = {25F,70.99F};
                         float[] rowAuthor = {58.99F,7,20F};
                         float[] rowData = {19.99F,19.99F,19.99F,19.99F,19.99F,};
+
 
 
 
@@ -276,6 +306,7 @@ public class Pdf {
                         PdfPTable tablToolProgram ;
                         PdfPTable tablTool;
                         PdfPTable tablProgram ;
+                        PdfPTable tablProduct ;
 
 
                         PdfPTable tablAuthor ;
@@ -448,11 +479,37 @@ public class Pdf {
                             }
 
 
+                            tablProduct=new PdfPTable(row4);
+
+                            tablProduct.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                            tablProduct.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
+                            tablProduct.addCell(new Phrase("Nr.", font8));
+                            tablProduct.addCell(new Phrase("Produkt", font8));
+                            tablProduct.addCell(new Phrase("Ilsc(Ele)", font8));
+                            tablProduct.addCell(new Phrase("Data", font8));
+                            tablProduct.addCell(new Phrase("Ilosc(Prod)", font8));
+                            tablProduct.getDefaultCell().setBackgroundColor(Color.WHITE);
+                            for (var entryWypis : l.getMapWypisDat().entrySet()) {
+                                for (int j = 0; j <entryWypis.getValue().getMapWypisDat().size() ; j++) {
+
+                                    tablProduct.addCell(new Phrase(Integer.toString(j+1), font8));
+                                    tablProduct.addCell(new Phrase(entryWypis.getKey(), font8));
+                                    tablProduct.addCell(new Phrase(entryWypis.getValue().getUnitProd().toString(), font8));
+                                    tablProduct.addCell(new Phrase(entryWypis.getValue().getMapWypisDat().get(j).getLocalDate().toString(), font8));
+                                    tablProduct.addCell(new Phrase(entryWypis.getValue().getMapWypisDat().get(j).getUnit().toString(), font8));
+
+
+
+                                }
+
+                            }
 
 
 
 
+                            tableConteiner.addCell(tablProduct);
                             tableConteiner.addCell(tablAuthor);
+
 
 
 
