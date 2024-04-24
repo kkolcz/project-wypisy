@@ -35,7 +35,8 @@ public class WypisyApplication {
 			ProductLineMElementRepository productLineMElementRepository,
 			WypisLineRepository wypisLineRepository,
 			WypisRepository wypisRepository,
-			ProcessLineRepository processLineRepository
+			ProcessLineRepository processLineRepository,
+			WypisLineDateRepository wypisLineDateRepository
 
 	) {
 
@@ -102,7 +103,10 @@ public class WypisyApplication {
 //		manufacturingElement.getMachinePrograms().add(machineProgram);
 //		machineProgram.getManufacturingElements().add(manufacturingElement);
 
-		WypisLine wypisLine=new WypisLine(null,wypis,newProduct,new BigDecimal("50"),LocalDate.now());
+
+		WypisLine wypisLine=new WypisLine(null,wypis,newProduct,new BigDecimal("50"),new ArrayList<>());
+		WypisLineDate wypisLineDate=new WypisLineDate(null,wypisLine,new BigDecimal("50"),LocalDate.now());
+		wypisLine.getWypisLineDates().add(wypisLineDate);
 
 
 			categoryRepository.save(category);
@@ -147,6 +151,7 @@ public class WypisyApplication {
 			productRepository.save(newProduct);
 			productLineMElementRepository.save(productLineMElement);
 			wypisLineRepository.save(wypisLine);
+			wypisLineDateRepository.save(wypisLineDate);
 
 
 
