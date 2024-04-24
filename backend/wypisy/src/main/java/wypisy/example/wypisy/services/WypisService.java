@@ -12,10 +12,7 @@ import wypisy.example.wypisy.PDF.Generator;
 import wypisy.example.wypisy.PDF.Pdf;
 import wypisy.example.wypisy.model.*;
 import wypisy.example.wypisy.model.DTO.WypisLineDTO;
-import wypisy.example.wypisy.repository.LocationRepository;
-import wypisy.example.wypisy.repository.ProductRepository;
-import wypisy.example.wypisy.repository.WypisLineRepository;
-import wypisy.example.wypisy.repository.WypisRepository;
+import wypisy.example.wypisy.repository.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -31,6 +28,7 @@ public class WypisService {
 
     private final WypisRepository wypisRepository;
     private final WypisLineRepository wypisLineRepository;
+    private final WypisLineDateRepository wypisLineDateRepository;
     private final ProductRepository productRepository;
 
     private final LocationRepository locationRepository;
@@ -38,7 +36,7 @@ public class WypisService {
 
 
 
-    public Wypis create(Wypis wypis){
+    public Wypis create(List<WypisLineDTO> wypisLineDTOList){
 
         Wypis newWypis=new Wypis(
                 null ,
@@ -46,8 +44,8 @@ public class WypisService {
                 new ArrayList<>()
 
         );
-        wypisRepository.save(wypis);
-        return wypis;
+        wypisRepository.save(newWypis);
+        return addListofProducts(newWypis,wypisLineDTOList);
 
     }
 
@@ -57,40 +55,161 @@ public class WypisService {
 
     public Wypis getById(Long id){return wypisRepository.findById(id).orElseThrow(()->new IllegalStateException("Wypis don't exist"));}
 
-    public Wypis addProductToWypis(WypisLineDTO wypisLineDTO){
 
-        //.orElseThrow(()->new IllegalStateException("Tool don't exist"));
-        Wypis wypis=wypisRepository.findById(wypisLineDTO.getWypisId()).orElseThrow(()->new IllegalStateException("WYPISY don't exist"));
-        Product product=productRepository.findById(wypisLineDTO.getProductId()).orElseThrow(()->new IllegalStateException("Product don't exist"));
+    public Wypis addProducts (Long wypisID,List<WypisLineDTO> wypisLineDTOList){
+        Wypis wypis=wypisRepository.findById(wypisID).orElseThrow(()->new IllegalStateException("WYPISY don't exist"));
 
-        boolean i=wypis.getWypisLines()
-                .stream()
-                .anyMatch(
-                        p->p.getProduct().equals(product)&&p.getWypis().equals(wypis)
-                );
 
-        if(i==false){
-            WypisLine wypisLine =new WypisLine(
-                    null,
-                    wypis,
-                    product,
-                    wypisLineDTO.getUnit(),
-                    wypisLineDTO.getLocalDate()
-            );
-            wypis.getWypisLines().add(wypisLine);
-            wypisLineRepository.save(wypisLine);
-        }else {
-            wypis.getWypisLines().forEach(p->{
-                if (p.getProduct().equals(product)&&p.getWypis().equals(wypis)){
+        return addListofProducts(wypis,wypisLineDTOList);
+    }
 
-                    p.setUnit(p.getUnit().add(wypisLineDTO.getUnit()));
-                    wypisLineRepository.save(p);
+
+
+
+
+
+
+
+
+    public Wypis addListofProducts(Wypis wypis,List<WypisLineDTO> wypisLineDTOList){
+
+        ArrayList<WypisLine> wypisLines=new ArrayList<>();
+        if(wypis.getWypisLines().size()!=0){wypis.getWypisLines().forEach(w->wypisLines.add(w));}
+
+
+            wypisLineDTOList.forEach(wl -> {
+
+                Product product=productRepository.findById(wl.getProductId()).orElseThrow(()->new IllegalStateException("Product don't exist"));
+
+                if(wypisLines.size()==0){
+                    WypisLine wypisLine=new WypisLine(null,wypis,product,wl.getUnit(),new ArrayList<>());
+                    wypisLine.getWypisLineDates().add(new WypisLineDate(null,wypisLine,wl.getUnit(),wl.getLocalDate()));
+                    wypisLines.add(wypisLine);
+                }
+                else {
+
+                  boolean f=wypisLines.stream().anyMatch(p->p.getProduct().equals(product)&&p.getWypis().equals(wypis));
+
+                  if (f==false){
+
+                      WypisLine wypisLine =new WypisLine(null, wypis, product, wl.getUnit(), new ArrayList<>());
+                      wypisLine.getWypisLineDates().add(new WypisLineDate(null,wypisLine,wl.getUnit(),wl.getLocalDate()));
+                      wypisLines.add(wypisLine);
+
+                  }else {
+
+                      wypisLines.forEach(p->{
+                          if (p.getProduct().equals(product)&&p.getWypis().equals(wypis)){
+
+                              p.setUnit(p.getUnit().add(wl.getUnit()));
+
+                              //Sprawdzenie wy w wypis Line znajduje się taka data
+                              boolean t= p.getWypisLineDates().stream().anyMatch(d->d.getLocalDate().equals(wl.getLocalDate()));
+
+                              if (t==true){
+                                  p.getWypisLineDates().forEach(d->{
+                                      // TAK DODAJ DO DATY ILOSC
+                                      if (d.getLocalDate().equals(wl.getLocalDate())){d.setUnit(d.getUnit().add(wl.getUnit()));}});
+                              } else {
+                                  //NIE DODAJ NOWA DATE
+                                  WypisLineDate wypisLineDate=new WypisLineDate(null,p,wl.getUnit(),wl.getLocalDate());
+                                  p.getWypisLineDates().add(wypisLineDate);
+
+                              }
+
+                          }
+                      });
+                  }
                 }
             });
-        }
+
+        wypis.setWypisLines(wypisLines);
+        wypisLineRepository.saveAll(wypisLines);
+
+
 
         return wypis;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public Wypis addProductToWypis(WypisLineDTO wypisLineDTO){
+//
+//        //.orElseThrow(()->new IllegalStateException("Tool don't exist"));
+//        Wypis wypis=wypisRepository.findById(wypisLineDTO.getWypisId()).orElseThrow(()->new IllegalStateException("WYPISY don't exist"));
+//        Product product=productRepository.findById(wypisLineDTO.getProductId()).orElseThrow(()->new IllegalStateException("Product don't exist"));
+//
+//        boolean i=wypis.getWypisLines()
+//                .stream()
+//                .anyMatch(
+//                        p->p.getProduct().equals(product)&&p.getWypis().equals(wypis)
+//                );
+//
+//        if(i==false){
+//            ArrayList data=new ArrayList();
+//
+//
+//            WypisLine wypisLine =new WypisLine(
+//                    null,
+//                    wypis,
+//                    product,
+//                    wypisLineDTO.getUnit(),
+//                    new ArrayList<>()
+//
+//            );
+//            wypisLine.getWypisLineDates().add(new WypisLineDate(null,wypisLine,wypisLineDTO.getUnit(),wypisLineDTO.getLocalDate()));
+//
+//
+//
+//
+//            wypis.getWypisLines().add(wypisLine);
+//            wypisLineRepository.save(wypisLine);
+//        }else {
+//            wypis.getWypisLines().forEach(p->{
+//                if (p.getProduct().equals(product)&&p.getWypis().equals(wypis)){
+//
+//                    p.setUnit(p.getUnit().add(wypisLineDTO.getUnit()));
+//
+//                    //Sprawdzenie wy w wypis Line znajduje się taka data
+//                boolean t= p.getWypisLineDates().stream().anyMatch(d->d.getLocalDate().equals(wypisLineDTO.getLocalDate()));
+//
+//               if (t==true){
+//                   p.getWypisLineDates().forEach(d->{
+//                       // TAK DODAJ DO DATY ILOSC
+//                       if (d.getLocalDate().equals(wypisLineDTO.getLocalDate())){d.setUnit(d.getUnit().add(wypisLineDTO.getUnit()));}});
+//               } else {
+//                   //NIE DODAJ NOWA DATE
+//                   WypisLineDate wypisLineDate=new WypisLineDate(null,p,wypisLineDTO.getUnit(),wypisLineDTO.getLocalDate());
+//                   wypisLineDateRepository.save(wypisLineDate);
+//                   p.getWypisLineDates().add(wypisLineDate);
+//
+//               }
+//
+//
+//                    wypisLineRepository.save(p);
+//                }
+//            });
+//        }
+//
+//        return wypis;
+//    }
     public boolean delateProductFromWypis(Long wypisLineId){
         WypisLine wypisLine=wypisLineRepository.findById(wypisLineId).orElseThrow(()->new IllegalStateException("Wypis Line don't exist"));
         wypisLineRepository.deleteById(wypisLineId);

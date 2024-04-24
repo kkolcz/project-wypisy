@@ -3,22 +3,24 @@ package wypisy.example.wypisy.PDF;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import wypisy.example.wypisy.model.ManufacturingElement;
-import wypisy.example.wypisy.model.ManufacturingProcess;
-import wypisy.example.wypisy.model.Product;
-import wypisy.example.wypisy.model.Wypis;
+import wypisy.example.wypisy.model.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class LocationElement {
 
-    private Product product;
+
     private ManufacturingElement element;
     private ManufacturingProcess process;
     private BigDecimal Unit;
     private String before;
     private String after;
+    private HashMap<String, List<WypisLineDate>> mapWypisDat;
 
 }

@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
@@ -81,13 +82,13 @@ private final WypisService wypisService;
 
     }
     @PostMapping("/add")
-    public ResponseEntity<Response>addWypis(@RequestBody Wypis wypis) {
+    public ResponseEntity<Response>addWypis(@RequestBody List<WypisLineDTO> wypisLineDTOs) {
         try {
 
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("CREATE NEW WYPIS",wypisService.create(wypis)))
+                            .data(of("CREATE NEW WYPIS",wypisService.create(wypisLineDTOs)))
                             .message("CREATE NEW WYPIS")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -105,31 +106,7 @@ private final WypisService wypisService;
         }
 
     }
-    @PostMapping("/line/")
-    public ResponseEntity<Response>addProductToWypis(@RequestBody WypisLineDTO wypisLineDTO) {
-        try {
 
-            return ResponseEntity.ok(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("AddProductToWypis",wypisService.addProductToWypis(wypisLineDTO)))
-                            .message("AddProductToWypis")
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .build()
-            );
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(
-                    Response.builder()
-                            .timeStamp(now())
-                            .data(of("AddProductToWypis", false))
-                            .message(e.getMessage())
-                            .status(HttpStatus.BAD_REQUEST)
-                            .statusCode(HttpStatus.BAD_REQUEST.value())
-                            .build());
-        }
-
-    }
     @DeleteMapping("/line/")
     public ResponseEntity<Response>delateProductFromWypis(@RequestParam Long lineId) {
         try {
@@ -191,6 +168,32 @@ private final WypisService wypisService;
         response.setHeader(headerKey, headerValue);
 
         this.wypisService.export(response,wypisId);
+
+    }
+
+    @PostMapping("/addProducts")
+    public ResponseEntity<Response>addProductsToWypis(@RequestParam Long wypisId,@RequestBody List<WypisLineDTO> wypisLineDTOs ) {
+        try {
+
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("addProductsToWypis",wypisService.addProducts(wypisId,wypisLineDTOs)))
+                            .message("addProductsToWypis")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("addProductsToWypis", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
 
     }
 

@@ -11,28 +11,24 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-public class WypisLine {
+public class WypisLineDate {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne()
-    @JoinColumn(name = "WYPIS")
-    @JsonIgnore
-    private Wypis wypis;
 
     @ManyToOne()
-    @JoinColumn(name = "PRODUCT")
-    private Product product;
+    @JoinColumn(name = "WYPISLINE")
+    @JsonIgnore
+    private WypisLine wypisLine;
 
 
     @NotNull
@@ -40,9 +36,10 @@ public class WypisLine {
     @Digits(integer=9, fraction=2)
     private BigDecimal unit;
 
-    @OneToMany(mappedBy = "wypisLine",cascade = CascadeType.ALL)
 
-    private List<WypisLineDate> wypisLineDates=new ArrayList<>();
+    @NotNull
+    private LocalDate localDate;
+
 
 
 }

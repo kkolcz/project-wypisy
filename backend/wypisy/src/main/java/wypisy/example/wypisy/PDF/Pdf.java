@@ -169,31 +169,42 @@ public class Pdf {
 
 
                                         LocationElement locationElement=new LocationElement(
-                                                product,
+
                                                 element,
                                                 process,
                                                 wypisLine.getUnit().multiply(productLine.getUnit()),
                                                 before,
-                                                after
+                                                after,
+                                                new HashMap<String,List<WypisLineDate>>()
 
                                         );
                                          //Logika dodawania w obrębie kilku produktów
                                         //jeżeli array jest pusty dodaj
 
 
+
                                          if (mapElemen.get(process.getLocation().getName()).size()==0){
+
+                                             locationElement.getMapWypisDat().put(product.getName(),wypisLine.getWypisLineDates());
+
                                              mapElemen.get(process.getLocation().getName()).add(locationElement);
+
                                          }
                                          else {
 
 
-                                             boolean test=mapElemen.get(process.getLocation().getName()).stream().anyMatch(e->e.getElement().equals(element) && e.getProcess().equals(process));
+                                             boolean test=mapElemen.get(process.getLocation().getName())
+                                                     .stream().anyMatch(e->e.getElement().equals(element) && e.getProcess().equals(process));
 
                                              if (test==true){
                                                  mapElemen.get(process.getLocation().getName() )
                                                      .forEach(e->{
                                                          if (e.getElement().equals(element) && e.getProcess().equals(process)){
                                                              e.setUnit(e.getUnit().add(wypisLine.getUnit().multiply(productLine.getUnit())));
+
+
+
+
 
                                                          }
 
