@@ -24,6 +24,7 @@ public class ProcessCategoryService {
         ProcessCategory newCategory=new ProcessCategory(
                 null,
                 processCategory.getName(),
+                processCategory.getDepartment(),
                 processCategory.getDescription(),
                 new ArrayList<>()
         );

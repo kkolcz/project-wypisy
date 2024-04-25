@@ -1,15 +1,14 @@
 package wypisy.example.wypisy.PDF;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
 import com.lowagie.text.*;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import jdk.jfr.Category;
 import wypisy.example.wypisy.model.*;
+import wypisy.example.wypisy.model.Line.ProductLineMElement;
+import wypisy.example.wypisy.model.Line.WypisLine;
 
 import java.awt.*;
 import java.math.BigDecimal;
@@ -142,11 +141,11 @@ public class Pdf {
                     for (int j = 0; j < product.getProductLineMElements().size(); j++) {
                         ProductLineMElement productLine=product.getProductLineMElements().get(j);
                         ManufacturingElement element=product.getProductLineMElements().get(j).getManufacturingElement();
-                        if (!element.getProcessLines().isEmpty()){
-                            for (int k = 0; k < element.getProcessLines().size(); k++) {
+                        if (!element.getProcessLineMS().isEmpty()){
+                            for (int k = 0; k < element.getProcessLineMS().size(); k++) {
 
 
-                                ManufacturingProcess process=element.getProcessLines().get(k).getProcess();
+                                ManufacturingProcess process=element.getProcessLineMS().get(k).getProcess();
                                 if (!process.getLocation().equals(null)){
 
                                     if (mapElemen.containsKey(process.getLocation().getName())){
@@ -154,17 +153,17 @@ public class Pdf {
                                         String before="";
                                         String after="";
                                         int s=k+1;
-                                        if (k==0 && element.getProcessLines().size()==1){before="BRAK";after="BRAK";}
-                                        else if  (k==0 && element.getProcessLines().size()>1){
+                                        if (k==0 && element.getProcessLineMS().size()==1){before="BRAK";after="BRAK";}
+                                        else if  (k==0 && element.getProcessLineMS().size()>1){
                                             before="BRAK";
 
-                                            if (s>=element.getProcessLines().size()){after="BRAK";}
-                                            else {after=element.getProcessLines().get(k+1).getProcess().getLocation().getName();}
+                                            if (s>=element.getProcessLineMS().size()){after="BRAK";}
+                                            else {after=element.getProcessLineMS().get(k+1).getProcess().getLocation().getName();}
                                         }
-                                         else if  (k>0 && element.getProcessLines().size()>1){
-                                            before=element.getProcessLines().get(k-1).getProcess().getLocation().getName();
-                                            if (s>=element.getProcessLines().size()){after="BRAK";}
-                                            else {after=element.getProcessLines().get(k+1).getProcess().getLocation().getName();}
+                                         else if  (k>0 && element.getProcessLineMS().size()>1){
+                                            before=element.getProcessLineMS().get(k-1).getProcess().getLocation().getName();
+                                            if (s>=element.getProcessLineMS().size()){after="BRAK";}
+                                            else {after=element.getProcessLineMS().get(k+1).getProcess().getLocation().getName();}
                                         }
 
 
@@ -302,10 +301,17 @@ public class Pdf {
                         PdfPTable tableId;
                         PdfPTable tableInfo ;
                         PdfPTable tablDataLable ;
+                        PdfPTable tablDataContainer;
                         PdfPTable tablData ;
+                        PdfPTable tablMaterialLable ;
+                        PdfPTable tableMatrial ;
+
+
                         PdfPTable tablToolProgram ;
                         PdfPTable tablTool;
+                        PdfPTable tablProgramLable ;
                         PdfPTable tablProgram ;
+                        PdfPTable tablProduktLable ;
                         PdfPTable tablProduct ;
 
 
@@ -357,6 +363,8 @@ public class Pdf {
                             table_Id=new PdfPTable(row2);
                             tableConteiner=new PdfPTable(columnDefinitionSize);
 
+
+
                             tableId=new PdfPTable(columnDefinitionSize);
                             tableId.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             tableId.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
@@ -365,6 +373,7 @@ public class Pdf {
                             //Nazwa - Czas -OpisElementu
 
                             tableInfo=new PdfPTable(rowInfo);
+
 //                            tableInfo.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
                             tableInfo.addCell(new Phrase("Nazwa:", font8));
 //                            tableInfo.getDefaultCell().setBackgroundColor(Color.WHITE);
@@ -375,6 +384,7 @@ public class Pdf {
 //                            tableInfo.getDefaultCell().setBackgroundColor(Color.WHITE);
                             tableInfo.addCell(new Phrase(e.getDescription(), font8));
 
+
                             //-Lable-DANE
                             tablDataLable=new PdfPTable(columnDefinitionSize);
                             tablDataLable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -383,7 +393,7 @@ public class Pdf {
 
                             //DLUGOSC-SZEROKOSC-WYSOKOSC-ILOSC
 
-
+                            tablDataContainer=new PdfPTable(1);
                             tablData=new PdfPTable(rowData);
                             tablData.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             tablData.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
@@ -401,9 +411,38 @@ public class Pdf {
                             tablData.addCell(new Phrase(l.getProcess().getTime().toString(), font8));
                             tablData.addCell(new Phrase(l.getUnit().setScale(0, BigDecimal.ROUND_HALF_UP).toString(), font8));
 
+
+
+
+
+
+
+
+// Materiał
+                            tableMatrial=new PdfPTable(3);
+
+
+                            tableMatrial.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                            tableMatrial.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
+
+                            tableMatrial.addCell(new Phrase("Material", font8));
+                            tableMatrial.addCell(new Phrase("OP.PRZED", font8));
+                            tableMatrial.addCell(new Phrase("OP.PO", font8));
+                            tableMatrial.getDefaultCell().setBackgroundColor(Color.WHITE);
+                            tableMatrial.addCell(new Phrase(e.getMaterial().getName().toString(), font8));
+                            tableMatrial.addCell(new Phrase(l.getBefore(), font8));
+                            tableMatrial.addCell(new Phrase(l.getAfter(), font8));
+
+
+
+
+
+
+
                             //
                             tablAuthor=new PdfPTable(rowAuthor);
                             tablAuthor.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+
                             tablAuthor.addCell(new Phrase("", font8));
                             tablAuthor.getDefaultCell().setBorder(Rectangle.BOX);
                             tablAuthor.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
@@ -426,10 +465,26 @@ public class Pdf {
                             tableConteiner.addCell(tableId);
                             tableConteiner.addCell(tableInfo);
                             tableConteiner.addCell(tablDataLable);
-                            tableConteiner.addCell(tablData);
+
+                            tablDataContainer.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+
+
+                            tablDataContainer.getDefaultCell().setPaddingBottom(1);
+                            tablDataContainer.addCell(tablData);
+
+                            tablDataContainer.getDefaultCell().setPaddingBottom(2);
+                            tablDataContainer.getDefaultCell().setPaddingTop(1);
+                            tablDataContainer.addCell(tableMatrial);
+
+                            tableConteiner.addCell(tablDataContainer);
+
+
 
                             if (!l.getProcess().getToolList().isEmpty() || !l.getProcess().getMachinePrograms().isEmpty()){
                                 tablToolProgram=new PdfPTable(2);
+//                                tablToolProgram.getDefaultCell().setPaddingBottom(5);
+//                                tablToolProgram.getDefaultCell().setPaddingTop(5);
+                                tablToolProgram.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 
                                 if (!l.getProcess().getMachinePrograms().isEmpty()){
                                     tablProgram=new PdfPTable(row3);
@@ -474,17 +529,23 @@ public class Pdf {
                                 }
 
 
-
+//                                tableConteiner.addCell(tablDataLable);
                                 tableConteiner.addCell(tablToolProgram);
                             }
 
 
-                            tablProduct=new PdfPTable(row4);
 
+
+
+
+
+
+                            tablProduct=new PdfPTable(row4);
+//                            tablProduct.getDefaultCell().setPaddingTop(5);
                             tablProduct.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                             tablProduct.getDefaultCell().setBackgroundColor(Color.getHSBColor(0.00F,0.00F,0.91F));
                             tablProduct.addCell(new Phrase("Nr.", font8));
-                            tablProduct.addCell(new Phrase("Produkt", font8));
+                            tablProduct.addCell(new Phrase("Nazwa", font8));
                             tablProduct.addCell(new Phrase("Ilsc(Ele)", font8));
                             tablProduct.addCell(new Phrase("Data", font8));
                             tablProduct.addCell(new Phrase("Ilosc(Prod)", font8));
@@ -507,8 +568,19 @@ public class Pdf {
 
 
 
+
+
+//                            tableConteiner.addCell(tablDataLable);
                             tableConteiner.addCell(tablProduct);
+
+
+                            tableConteiner.getDefaultCell().setPaddingTop(5);
+                            tableConteiner.getDefaultCell().setPaddingBottom(5);
+
                             tableConteiner.addCell(tablAuthor);
+
+                            tableConteiner.getDefaultCell().setPaddingTop(2);
+                            tableConteiner.getDefaultCell().setPaddingBottom(2);
 
 
 

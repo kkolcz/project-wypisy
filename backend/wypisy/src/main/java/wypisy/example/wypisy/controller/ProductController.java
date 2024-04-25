@@ -9,12 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wypisy.example.wypisy.model.DTO.ProductDetailsDTO;
+import wypisy.example.wypisy.model.DTO.ProductLineElementDTO;
 import wypisy.example.wypisy.model.DTO.ProductMElementDTO;
 import wypisy.example.wypisy.model.Product;
 import wypisy.example.wypisy.model.Response;
 import wypisy.example.wypisy.services.ProductService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
@@ -27,15 +29,15 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/addelement")
+    @PostMapping("/element")
     public ResponseEntity<Response> addElement(@Valid @NotNull @RequestParam Long id_product,
-                                               @Valid @NotNull @RequestParam Long id_element){
+                                               @RequestBody List<ProductLineElementDTO> productLineElementDTOS){
 
         try {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("addElementToProduct",productService.addElementToProduct(id_product,id_element)))
+                            .data(of("addElementsToProduct",productService.addElements(id_product,productLineElementDTOS)))
                             .message("addition Element to product was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -45,7 +47,34 @@ public class ProductController {
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("addElementToProduct", false))
+                            .data(of("addElementsToProduct", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+    }
+
+    @DeleteMapping("/element")
+    public ResponseEntity<Response> addElement(@Valid @NotNull @RequestParam Long id_product,
+                                               @Valid @NotNull @RequestParam Long elementLineId){
+
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("deleteElementsFromProduct",productService.deleteElement(id_product,elementLineId)))
+                            .message("deleteElementsFromProduct")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("deleteElementsFromProduct", false))
                             .message(e.getMessage())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())

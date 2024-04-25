@@ -1,44 +1,46 @@
-package wypisy.example.wypisy.model;
+package wypisy.example.wypisy.model.Line;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import wypisy.example.wypisy.enums.DEPARTMENT;
+import wypisy.example.wypisy.model.Line.WypisLine;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-public class ProcessCategory {
+public class WypisLineDate {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
-    private String name;
-    private DEPARTMENT department;
-
-    private String description;
 
 
-
-
-
-    @OneToMany(mappedBy = "category")
+    @ManyToOne()
+    @JoinColumn(name = "WYPISLINE")
     @JsonIgnore
-    private Collection<ManufacturingProcess> processes=new ArrayList<>();
+    private WypisLine wypisLine;
 
+
+
+    @NotNull
+    @Column(name = "unit" ,columnDefinition = "DECIMAL(7,2)")
+    @Digits(integer=9, fraction=2)
+    private BigDecimal unit;
+
+
+    @NotNull
+    private LocalDate localDate;
 
 
 

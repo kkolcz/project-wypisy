@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import wypisy.example.wypisy.model.*;
 import wypisy.example.wypisy.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,8 +34,10 @@ public class ProcessService {
                 process.getTime(),
                 process.getToolList(),
                 process.getMachinePrograms(),
-                process.getProcessLines(),
+                process.getProcessLineMS(),
+                process.getProcessLineES(),
                 process.getLocation()
+
 
 
         );
@@ -67,7 +68,7 @@ public class ProcessService {
         programRepository.saveAll(process.getMachinePrograms());
         locationRepository.save(location);
 
-        processLineRepository.deleteAll(process.getProcessLines());
+        processLineRepository.deleteAll(process.getProcessLineMS());
         processRepository.deleteById(process.getId());
 
         return true;

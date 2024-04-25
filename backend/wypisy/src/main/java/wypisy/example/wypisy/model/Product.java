@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import wypisy.example.wypisy.model.Line.ProductLineElement;
+import wypisy.example.wypisy.model.Line.ProductLineMElement;
+import wypisy.example.wypisy.model.Line.WypisLine;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -27,13 +29,6 @@ public class Product {
     private String nameM3;
     private String description;
 
-    @ManyToMany
-    @JoinTable(name="PRODUCT_ELEMENT",
-            joinColumns={@JoinColumn(name="PRODUCT_ID")},
-            inverseJoinColumns={@JoinColumn(name="ELEMENT_ID")}
-    )
-
-    private List<Element> elementList=new ArrayList<>();
 
 
     @OneToMany(mappedBy = "product")
@@ -43,5 +38,14 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<WypisLine> wypisLines=new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductLineElement> productLineElements=new ArrayList<>();
+
+
+
+
+
+
 
 }

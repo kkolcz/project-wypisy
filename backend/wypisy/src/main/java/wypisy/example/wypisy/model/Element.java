@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import wypisy.example.wypisy.model.Line.ElementMElementLine;
+import wypisy.example.wypisy.model.Line.ProcessLineE;
+import wypisy.example.wypisy.model.Line.ProductLineElement;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -46,20 +49,21 @@ public class Element {
     private BigDecimal height;
 
 
-
-
-
-    @NotNull
-    @Column(name = "unit" ,columnDefinition = "DECIMAL(7,2)")
-    @Digits(integer=9, fraction=2)
-    private BigDecimal unit;
-
-
     private String description;
 
-    @ManyToMany(mappedBy = "elementList")
+
+    @OneToMany(mappedBy = "element")
     @JsonIgnore
-    private Collection<Product> productList=new ArrayList<>();
+    private List<ProductLineElement> productLineElements=new ArrayList<>();
+
+    @OneToMany(mappedBy = "element")
+    private List<ProcessLineE> processLineES=new ArrayList<>();
+
+    @OneToMany(mappedBy = "element")
+    private List<ElementMElementLine> elementMElementLines=new ArrayList<>();
+
+
+
 
     @ManyToOne()
     @JoinColumn(name = "MATERIAL")
