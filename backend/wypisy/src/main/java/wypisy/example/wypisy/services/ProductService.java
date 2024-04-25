@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wypisy.example.wypisy.model.DTO.ProductDetailsDTO;
+import wypisy.example.wypisy.model.DTO.ProductLineElementDTO;
 import wypisy.example.wypisy.model.DTO.ProductMElementDTO;
 import wypisy.example.wypisy.model.Element;
+import wypisy.example.wypisy.model.Line.ProductLineElement;
 import wypisy.example.wypisy.model.ManufacturingElement;
 import wypisy.example.wypisy.model.Product;
-import wypisy.example.wypisy.model.ProductLineMElement;
+import wypisy.example.wypisy.model.Line.ProductLineMElement;
 import wypisy.example.wypisy.repository.*;
 
 import java.math.BigDecimal;
@@ -24,6 +26,7 @@ public class ProductService {
     private final ElementRepository elementRepository;
     private final ManufacturingElementRepository mElementRepository;
     private final ProductLineMElementRepository productLineMElementRepository;
+    private final ProductLineElementRepository productLineElementRepository;
 
     public Product createProduct(Product product){
 
@@ -47,19 +50,43 @@ public class ProductService {
 
     public Product getProductById(Long id){return productRepository.findById(id).orElseThrow(()->new IllegalStateException("Product don't exist"));}
 
-    public Product addElementToProduct(Long productId,Long elementId){
+    public Product addElements(Long productId, List<ProductLineElementDTO>elements){
 
         Product product =productRepository.findById(productId).orElseThrow(()->new IllegalStateException("Product don't exist"));
-        Element element= elementRepository.findById(elementId).orElseThrow(()->new IllegalStateException("Exist don't exist"));
+        ArrayList<ProductLineElement>productLineElements=new ArrayList<>();
 
+            elements.forEach(e->{
 
-            product.getElementList().add(element);
-            productRepository.save(product);
+                Element element= elementRepository.findById(e.getElementId()).orElseThrow(()->new IllegalStateException("Element don't exist"));
+                productLineElements.add(new ProductLineElement(null,product,element,e.getUnit()));
+
+            });
+            productLineElementRepository.saveAll(productLineElements);
 
         return product;
 
 
     }
+
+    public boolean deleteElement(Long productId,Long elementLineId){
+
+        Product product =productRepository.findById(productId).orElseThrow(()->new IllegalStateException("Product don't exist"));
+        ProductLineElement line =productLineElementRepository.findById(elementLineId).orElseThrow(()->new IllegalStateException("Element line don't exist"));
+
+
+
+        productLineElementRepository.deleteById(elementLineId);
+
+        return true;
+
+
+    }
+
+
+
+
+
+
 
     public Product addMElementToProduct(ProductMElementDTO productMElementDTO){
 

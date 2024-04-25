@@ -4,9 +4,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import wypisy.example.wypisy.enums.DEPARTMENT;
 import wypisy.example.wypisy.model.*;
+import wypisy.example.wypisy.model.Line.ProcessLineM;
+import wypisy.example.wypisy.model.Line.ProductLineMElement;
+import wypisy.example.wypisy.model.Line.WypisLine;
+import wypisy.example.wypisy.model.Line.WypisLineDate;
 import wypisy.example.wypisy.repository.*;
-import wypisy.example.wypisy.services.ProductService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -49,14 +53,14 @@ public class WypisyApplication {
 			Tool tool=new Tool(null,"Q12-T6","",new ArrayList<>());
 
 			Location location=new Location(null,"CNC","MaszynaCNC",new ArrayList<>());
-			ProcessCategory category=new ProcessCategory(null,"CNC","CNC",new ArrayList<>());
+			ProcessCategory category=new ProcessCategory(null,"CNC",DEPARTMENT.STOLARNIA,"CNC", new ArrayList<>());
 
 
 
-			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
-			ManufacturingProcess manufacturingProcess1= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
-			ManufacturingProcess manufacturingProcess2= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
-			ManufacturingProcess manufacturingProcess3= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess1= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess2= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
+			ManufacturingProcess manufacturingProcess3= new ManufacturingProcess(null,"Frezowanie-CNC",category,new BigDecimal("15.3"),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),location);
 
 
 			MachineProgram machineProgram=new MachineProgram(null,"CNC1","D00000012","",new BigDecimal("0"),new ArrayList<>());
@@ -73,7 +77,7 @@ public class WypisyApplication {
 
 
 
-			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),material);
+			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
 
 
 
@@ -81,15 +85,15 @@ public class WypisyApplication {
 			Product newProduct = new Product(null, "222", "222", "222", "222",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
 
-			Element newElement=new Element(null,"Element1",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),new BigDecimal("1.00"),"Opis",new ArrayList<>(),material);
+			Element newElement=new Element(null,"Element1",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"Opis",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
 
 
 			ProductLineMElement productLineMElement=new ProductLineMElement(null,newProduct,manufacturingElement,new BigDecimal("10"));
 
-			ProcessLine processLine=new ProcessLine(null,manufacturingElement,manufacturingProcess);
-			ProcessLine processLine1=new ProcessLine(null,manufacturingElement,manufacturingProcess1);
-			ProcessLine processLine2=new ProcessLine(null,manufacturingElement,manufacturingProcess2);
-			ProcessLine processLine3=new ProcessLine(null,manufacturingElement,manufacturingProcess3);
+			ProcessLineM processLineM =new ProcessLineM(null,manufacturingElement,manufacturingProcess);
+			ProcessLineM processLineM1 =new ProcessLineM(null,manufacturingElement,manufacturingProcess1);
+			ProcessLineM processLineM2 =new ProcessLineM(null,manufacturingElement,manufacturingProcess2);
+			ProcessLineM processLineM3 =new ProcessLineM(null,manufacturingElement,manufacturingProcess3);
 
 
 
@@ -155,10 +159,10 @@ public class WypisyApplication {
 
 
 
-			processLineRepository.save(processLine);
-			processLineRepository.save(processLine1);
-			processLineRepository.save(processLine2);
-			processLineRepository.save(processLine3);
+			processLineRepository.save(processLineM);
+			processLineRepository.save(processLineM1);
+			processLineRepository.save(processLineM2);
+			processLineRepository.save(processLineM3);
 
 		};
 	}

@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wypisy.example.wypisy.model.*;
+import wypisy.example.wypisy.model.Line.ProcessLineM;
 import wypisy.example.wypisy.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +32,8 @@ public class ManufacturingElementService {
                 element.getHeight(),
                 element.getDescription(),
                 element.getProductLineMElements(),
-                element.getProcessLines(),
+                element.getProcessLineMS(),
+                element.getElementMElementLines(),
                 element.getMaterial()
 
 
@@ -61,7 +62,7 @@ public class ManufacturingElementService {
 
 
         productLineMElementRepository.deleteAll(element.getProductLineMElements());
-        processLineRepository.deleteAll(element.getProcessLines());
+        processLineRepository.deleteAll(element.getProcessLineMS());
 
         element.setMaterial(null);
 
@@ -95,8 +96,8 @@ public class ManufacturingElementService {
         ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
         ManufacturingProcess process=processRepository.findById(processId).orElseThrow(()->new IllegalStateException("Process don't exist"));
 
-        ProcessLine processLine=new ProcessLine(null,element,process);
-        processLineRepository.save(processLine);
+        ProcessLineM processLineM =new ProcessLineM(null,element,process);
+        processLineRepository.save(processLineM);
 
 
         return true;
@@ -106,7 +107,7 @@ public class ManufacturingElementService {
 
 
         ManufacturingElement element=elementRepository.findById(mElementId).orElseThrow(()->new IllegalStateException("M Element don't exist"));
-        ProcessLine processLine=processLineRepository.findById(processLineId).orElseThrow(()->new IllegalStateException("Process Line don't exist"));
+        ProcessLineM processLineM =processLineRepository.findById(processLineId).orElseThrow(()->new IllegalStateException("Process Line don't exist"));
         processLineRepository.deleteById(processLineId);
 
 

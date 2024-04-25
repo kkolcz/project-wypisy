@@ -9,10 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import wypisy.example.wypisy.model.Line.ProcessLineE;
+import wypisy.example.wypisy.model.Line.ProcessLineM;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -60,7 +61,11 @@ public class ManufacturingProcess {
 
     @OneToMany(mappedBy = "process")
     @JsonIgnore
-    private List<ProcessLine> processLines=new ArrayList<>();
+    private List<ProcessLineM> processLineMS =new ArrayList<>();
+
+    @OneToMany(mappedBy = "process")
+    @JsonIgnore
+    private List<ProcessLineE> processLineES =new ArrayList<>();
 
 
     @ManyToOne()

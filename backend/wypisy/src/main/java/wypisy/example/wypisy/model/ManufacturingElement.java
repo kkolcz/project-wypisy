@@ -10,10 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import wypisy.example.wypisy.model.Line.ElementMElementLine;
+import wypisy.example.wypisy.model.Line.ProcessLineM;
+import wypisy.example.wypisy.model.Line.ProductLineMElement;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -57,8 +59,10 @@ public class ManufacturingElement {
 
 
     @OneToMany(mappedBy = "manufacturingElement")
+    private List<ProcessLineM> processLineMS =new ArrayList<>();
 
-    private List<ProcessLine> processLines=new ArrayList<>();
+    @OneToMany(mappedBy = "manufacturingElement")
+    private List<ElementMElementLine> elementMElementLines =new ArrayList<>();
 
 
     @ManyToOne()

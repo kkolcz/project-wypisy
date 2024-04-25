@@ -12,9 +12,10 @@ import wypisy.example.wypisy.PDF.Generator;
 import wypisy.example.wypisy.PDF.Pdf;
 import wypisy.example.wypisy.model.*;
 import wypisy.example.wypisy.model.DTO.WypisLineDTO;
+import wypisy.example.wypisy.model.Line.WypisLine;
+import wypisy.example.wypisy.model.Line.WypisLineDate;
 import wypisy.example.wypisy.repository.*;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
