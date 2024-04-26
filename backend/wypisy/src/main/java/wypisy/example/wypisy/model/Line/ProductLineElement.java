@@ -30,11 +30,13 @@ public class ProductLineElement {
     @ManyToOne()
     @JoinColumn(name = "PRODUCT")
     @JsonIgnore
+    @OrderBy("id")
     private Product product;
 
 
     @ManyToOne()
     @JoinColumn(name = "ELEMENT")
+    @OrderBy("id")
     private Element element;
 
     @NotNull

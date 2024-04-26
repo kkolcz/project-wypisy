@@ -24,6 +24,7 @@ public class Wypis  {
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "wypis")
+    @OrderBy("id")
     private List<WypisLine> wypisLines=new ArrayList<>();
     //todo
 

@@ -30,6 +30,7 @@ public class ManufacturingProcess {
 
     @ManyToOne()
     @JoinColumn(name = "CATEGORY")
+    @OrderBy("id")
     private ProcessCategory category;
 
 
@@ -44,6 +45,7 @@ public class ManufacturingProcess {
             joinColumns={@JoinColumn(name="PROCESS_ID")},
             inverseJoinColumns={@JoinColumn(name="TOOL_ID")}
     )
+    @OrderBy("id")
     private List<Tool> toolList=new ArrayList<>();
 
     @ManyToMany
@@ -51,6 +53,7 @@ public class ManufacturingProcess {
             joinColumns={@JoinColumn(name="PROCESS_ID")},
             inverseJoinColumns={@JoinColumn(name="PROGRAM_ID")}
     )
+    @OrderBy("id")
     private List<MachineProgram> machinePrograms=new ArrayList<>();
 
 
@@ -61,10 +64,12 @@ public class ManufacturingProcess {
 
     @OneToMany(mappedBy = "process")
     @JsonIgnore
+    @OrderBy("id")
     private List<ProcessLineM> processLineMS =new ArrayList<>();
 
     @OneToMany(mappedBy = "process")
     @JsonIgnore
+    @OrderBy("id")
     private List<ProcessLineE> processLineES =new ArrayList<>();
 
 

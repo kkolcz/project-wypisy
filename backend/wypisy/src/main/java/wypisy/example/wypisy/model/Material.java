@@ -47,10 +47,12 @@ public class Material {
 
     @OneToMany(mappedBy = "material")
     @JsonIgnore
+    @OrderBy("id")
     private Collection<Element> elementList=new ArrayList<>();
 
     @OneToMany(mappedBy = "material")
     @JsonIgnore
+    @OrderBy("id")
     private Collection<ManufacturingElement> mElementList=new ArrayList<>();
 
 

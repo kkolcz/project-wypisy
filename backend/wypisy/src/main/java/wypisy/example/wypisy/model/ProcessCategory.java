@@ -37,6 +37,7 @@ public class ProcessCategory {
 
     @OneToMany(mappedBy = "category")
     @JsonIgnore
+    @OrderBy("id")
     private Collection<ManufacturingProcess> processes=new ArrayList<>();
 
 

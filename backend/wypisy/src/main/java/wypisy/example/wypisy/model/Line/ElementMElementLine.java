@@ -27,12 +27,14 @@ public class ElementMElementLine {
 
     @ManyToOne()
     @JoinColumn(name = "ELEMENT")
+    @OrderBy("id")
     private Element element;
 
 
     @ManyToOne()
     @JoinColumn(name = "MELEMENT")
     @JsonIgnore
+    @OrderBy("id")
     private ManufacturingElement manufacturingElement;
 
     @NotNull
