@@ -9,20 +9,22 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class MaterialsService {
   materialsList = [];
   materialsListSub = new BehaviorSubject([]);
+  materialAdded: Subject<boolean>;
 
   API_URL = 'http://localhost:8080/api/v1';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.materialAdded = new Subject<boolean>();
+  }
 
   fetchMaterials(): Observable<IMaterialRes> {
     return this.http.get<IMaterialRes>(`${this.API_URL}/material/all`);
   }
 
-  getMaterials(): IMaterial[] {
-    this.fetchMaterials();
-    console.log(this.materialsList);
-    return this.materialsList.slice();
-  }
+  // getMaterials(): IMaterial[] {
+  //   // this.fetchMaterials();
+  //   return this.materialsList.slice();
+  // }
 
   getMaterial(id: number): IMaterial {
     const material = this.materialsList.find((item) => item.id === id);
@@ -32,17 +34,12 @@ export class MaterialsService {
   setMaterials() {}
 
   addMaterial(material: IMaterial): void {
-    console.log(this.materialsList);
-    this.materialsList.push(material);
     this.materialsListSub.next(this.materialsList);
-    console.log(this.materialsList);
-
-    // console.log(this.materialsList);
 
     this.http
       .post(`${this.API_URL}/material/add`, material)
       .subscribe((res) => {
-        // console.log(res);
+        this.materialAdded.next(true);
         return res;
       });
   }

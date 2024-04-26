@@ -17,16 +17,22 @@ export class MaterialsDatabaseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.materialsService.materialsListSub.subscribe((materialsList) => {
-      this.fetchMaterials();
-    });
-  }
-
-  fetchMaterials() {
     this.materialsService.fetchMaterials().subscribe((res) => {
       this.materialsList = res.data['Materials'];
     });
+
+    this.initGetMaterialsSub();
   }
+
+  // Inicjalize subsribe for materialAdded
+  initGetMaterialsSub() {
+    this.materialsService.materialAdded.subscribe((data: boolean) => {
+      this.materialsService.fetchMaterials().subscribe((res) => {
+        this.materialsList = res.data['Materials'];
+      });
+    });
+  }
+
   onAddNew() {
     this.router.navigate(['/', 'materials', 'add']);
   }
