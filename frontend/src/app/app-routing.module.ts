@@ -5,9 +5,9 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductsAddComponent } from './components/products/products-add/products-add.component';
 import { ProductsDatabaseComponent } from './components/products/products-database/products-database.component';
-import { ResourcesAddComponent } from './components/resources/resources-add/resources-add.component';
-import { ResourcesDatabaseComponent } from './components/resources/resources-database/resources-database.component';
-import { ResourcesComponent } from './components/resources/resources.component';
+import { MaterialsAddComponent } from './components/materials/materials-add/materials-add.component';
+import { MaterialsDatabaseComponent } from './components/materials/materials-database/materials-database.component';
+import { MaterialsComponent } from './components/materials/materials.component';
 import { ProcessesComponent } from './components/processes/processes.component';
 import { ProcessesAddComponent } from './components/processes/processes-add/processes-add.component';
 import { ProcessesDatabaseComponent } from './components/processes/processes-database/processes-database.component';
@@ -29,12 +29,12 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'resources',
+    path: 'materials',
     canActivate: [authGuard],
-    component: ResourcesComponent,
+    component: MaterialsComponent,
     children: [
-      { path: 'add', component: ResourcesAddComponent },
-      { path: 'database', component: ResourcesDatabaseComponent },
+      { path: 'add', component: MaterialsAddComponent },
+      { path: 'database', component: MaterialsDatabaseComponent },
     ],
   },
   {

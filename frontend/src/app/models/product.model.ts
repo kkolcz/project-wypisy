@@ -1,10 +1,7 @@
-import { IResource } from './resource.model';
+import { IMaterial } from './material.model';
+import { IResponse } from './response.model';
 
-export interface IProductsRes {
-  timeStamp: string;
-  statusCode: number;
-  status: string;
-  message: string;
+export interface IProductsRes extends IResponse {
   data: any;
 }
 
@@ -24,15 +21,15 @@ export interface IElement {
 export interface IProduct {
   id: number;
   name: string;
-  resources: IResource[];
+  resources: IMaterial[];
 }
 
 export class Product {
   public id: number;
   public name: string;
-  public resources: IResource[];
+  public resources: IMaterial[];
 
-  constructor(id: number, name: string, resources: IResource[]) {
+  constructor(id: number, name: string, resources: IMaterial[]) {
     this.id = id;
     this.name = name;
     this.resources = resources;

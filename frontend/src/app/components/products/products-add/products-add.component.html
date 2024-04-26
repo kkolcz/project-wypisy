@@ -18,7 +18,7 @@
                         (click)="onAddResource()">+</button></span>
                 <div class="form-group" *ngFor=" let resourceControl of getControls(); let i = index">
                     <select id="resource" class="form-control mt-2" name="resource" [formControlName]="i">
-                        <option [value]="resource.name" *ngFor="let resource of resourcesList">{{resource.name}}
+                        <option [value]="material.name" *ngFor="let material of materialsList">{{material.name}}
                         </option>
                     </select>
 

@@ -1,4 +1,6 @@
-export interface IResource {
+import { IResponse } from './response.model';
+
+export interface IMaterial {
   id: number;
   name: string;
   description: string;
@@ -7,15 +9,11 @@ export interface IResource {
   height: number;
 }
 
-export interface IResourceRes {
-  timeStamp: string;
-  statusCode: number;
-  status: string;
-  message: string;
+export interface IMaterialRes {
   data: any;
 }
 
-export class Resource {
+export class Material {
   public id: number;
   public name: string;
   public description: string;
