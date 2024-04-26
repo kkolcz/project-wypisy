@@ -32,14 +32,16 @@ public class Product {
 
 
     @OneToMany(mappedBy = "product")
-
+    @OrderBy("id")
     private List<ProductLineMElement> productLineMElements=new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
+    @OrderBy("id")
     private List<WypisLine> wypisLines=new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
+    @OrderBy("id")
     private List<ProductLineElement> productLineElements=new ArrayList<>();
 
 

@@ -29,10 +29,12 @@ public class WypisLine {
     @ManyToOne()
     @JoinColumn(name = "WYPIS")
     @JsonIgnore
+    @OrderBy("id")
     private Wypis wypis;
 
     @ManyToOne()
     @JoinColumn(name = "PRODUCT")
+    @OrderBy("id")
     private Product product;
 
 
@@ -42,7 +44,7 @@ public class WypisLine {
     private BigDecimal unit;
 
     @OneToMany(mappedBy = "wypisLine",cascade = CascadeType.ALL)
-
+    @OrderBy("id")
     private List<WypisLineDate> wypisLineDates=new ArrayList<>();
 
 

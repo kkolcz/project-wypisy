@@ -28,6 +28,7 @@ public class Location {
 
     @OneToMany(mappedBy = "location")
     @JsonIgnore
+    @OrderBy("id")
     private List<ManufacturingProcess> process=new ArrayList<>();
 
 

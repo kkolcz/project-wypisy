@@ -29,6 +29,7 @@ public class WypisLineDate {
     @ManyToOne()
     @JoinColumn(name = "WYPISLINE")
     @JsonIgnore
+    @OrderBy("id")
     private WypisLine wypisLine;
 
 

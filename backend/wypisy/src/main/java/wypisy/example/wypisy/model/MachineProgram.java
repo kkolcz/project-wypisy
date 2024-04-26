@@ -34,6 +34,7 @@ public class MachineProgram {
 
     @ManyToMany(mappedBy = "machinePrograms")
     @JsonIgnore
+    @OrderBy("id")
     private List<ManufacturingProcess> processList=new ArrayList<>();
 
 

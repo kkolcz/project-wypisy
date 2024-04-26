@@ -54,12 +54,16 @@ public class Element {
 
     @OneToMany(mappedBy = "element")
     @JsonIgnore
+    @OrderBy("id")
     private List<ProductLineElement> productLineElements=new ArrayList<>();
 
     @OneToMany(mappedBy = "element")
+    @OrderBy("id")
     private List<ProcessLineE> processLineES=new ArrayList<>();
 
     @OneToMany(mappedBy = "element")
+    @OrderBy("id")
+    @JsonIgnore
     private List<ElementMElementLine> elementMElementLines=new ArrayList<>();
 
 

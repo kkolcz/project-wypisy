@@ -24,6 +24,7 @@ public class ProcessLineM {
     @ManyToOne()
     @JoinColumn(name = "MELEMENT")
     @JsonIgnore
+    @OrderBy("id")
     private ManufacturingElement manufacturingElement;
 
     @ManyToOne()

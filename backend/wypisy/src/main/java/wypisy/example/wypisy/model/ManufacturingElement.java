@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import wypisy.example.wypisy.model.Line.ElementMElementLine;
+import wypisy.example.wypisy.model.Line.MelementMelemntLine;
 import wypisy.example.wypisy.model.Line.ProcessLineM;
 import wypisy.example.wypisy.model.Line.ProductLineMElement;
 
@@ -55,14 +56,31 @@ public class ManufacturingElement {
 
     @OneToMany(mappedBy = "manufacturingElement")
     @JsonIgnore
+    @OrderBy("id")
     private List<ProductLineMElement> productLineMElements=new ArrayList<>();
 
 
     @OneToMany(mappedBy = "manufacturingElement")
+    @OrderBy("id")
     private List<ProcessLineM> processLineMS =new ArrayList<>();
 
+
     @OneToMany(mappedBy = "manufacturingElement")
+    @OrderBy("id")
     private List<ElementMElementLine> elementMElementLines =new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "mElement")
+    @OrderBy("id")
+    private List<MelementMelemntLine> melemntLines =new ArrayList<>();
+
+    @OneToMany(mappedBy = "mElementIN")
+    @OrderBy("id")
+    @JsonIgnore
+    private List<MelementMelemntLine> melemntLinesIN =new ArrayList<>();
+
+
+
 
 
     @ManyToOne()

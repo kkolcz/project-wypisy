@@ -77,7 +77,7 @@ public class WypisyApplication {
 
 
 
-			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
+			ManufacturingElement manufacturingElement=new ManufacturingElement(null,"Formatka 2",new BigDecimal("1000"),new BigDecimal("500"),new BigDecimal("15"),"",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),material);
 
 
 
