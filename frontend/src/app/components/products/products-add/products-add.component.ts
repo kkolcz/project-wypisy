@@ -22,7 +22,7 @@ export class ProductsAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.materialsList = this.materialService.getMaterials();
+    // this.materialsList = this.materialService.getMaterials();
 
     this.productForm = new FormGroup({
       productName: new FormControl(null, Validators.required),
@@ -32,16 +32,12 @@ export class ProductsAddComponent implements OnInit {
 
   onAddProduct(): void {
     const resources: IMaterial[] = [
-      // new Resource(0, 'sdf'),
-      // new Resource(1, 'fgf'),
-      // new Resource(2, 'dfgdfg'),
+      // new Resource(0, 'Resource 1'),
     ];
 
     this.productForm.value.resourcesForm.map((material) => {
       // resources.push(new Resource(Math.random() * 1000, resource));
     });
-    // console.log(resources);
-    // console.log(this.productForm.value.resourcesForm);
 
     const newProduct = new Product(
       Math.random() * 1000,
@@ -50,14 +46,10 @@ export class ProductsAddComponent implements OnInit {
       // this.productForm.value.resource
     );
 
-    // console.log(newProduct);
-
     if (this.productForm.valid) {
       this.productsService.addProduct(newProduct);
       this.router.navigate(['/', 'products', 'database']);
     }
-
-    // console.log(this.newProduct.name);
   }
 
   onAddResource() {
