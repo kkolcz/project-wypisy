@@ -21,6 +21,10 @@ import { PrescriptionsComponent } from './components/prescriptions/prescriptions
 import { PrescriptionsAddComponent } from './components/prescriptions/prescriptions-add/prescriptions-add.component';
 import { PrescriptionsDatabaseComponent } from './components/prescriptions/prescriptions-database/prescriptions-database.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToolsComponent } from './components/tools/tools.component';
+import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-database.component';
+
+
 
 @NgModule({
   declarations: [
@@ -41,6 +45,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PrescriptionsComponent,
     PrescriptionsAddComponent,
     PrescriptionsDatabaseComponent,
+    ToolsComponent,
+    ToolsDatabaseComponent,
+   
+
   ],
   imports: [
     BrowserModule,

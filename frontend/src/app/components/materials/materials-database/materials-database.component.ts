@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IMaterial, IMaterialRes } from 'src/app/models/material.model';
+import { IMaterial, IMaterialRes,Material } from 'src/app/models/material.model';
 import { MaterialsService } from 'src/app/services/materials.service';
+
 
 @Component({
   selector: 'app-materials-database',
@@ -14,7 +15,11 @@ export class MaterialsDatabaseComponent implements OnInit {
   constructor(
     private materialsService: MaterialsService,
     private router: Router
-  ) {}
+  ) {
+
+
+
+  }
 
   ngOnInit(): void {
     this.materialsService.fetchMaterials().subscribe((res) => {
@@ -36,4 +41,14 @@ export class MaterialsDatabaseComponent implements OnInit {
   onAddNew() {
     this.router.navigate(['/', 'materials', 'add']);
   }
+
+  onEdit(id:number){
+    this.router.navigate(['/', 'materials', 'add',{id:id}]);
+  }
+
+  onDelete(materaialId:number){
+    this.materialsService.delMaterial(materaialId);
+  }
+
+
 }

@@ -55,7 +55,7 @@ public class MaterialController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Tool", materialService.getById(materialId)))
+                            .data(of("Material", materialService.getById(materialId)))
                             .message("Returned Material")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -134,7 +134,7 @@ public class MaterialController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Change Material",materialService.changeById(material)))
+                            .data(of("ChangeMaterial",materialService.changeById(material)))
                             .message("changed Material was successfully")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())

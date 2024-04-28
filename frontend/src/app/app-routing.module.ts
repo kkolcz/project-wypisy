@@ -15,6 +15,9 @@ import { PrescriptionsComponent } from './components/prescriptions/prescriptions
 import { PrescriptionsAddComponent } from './components/prescriptions/prescriptions-add/prescriptions-add.component';
 import { PrescriptionsDatabaseComponent } from './components/prescriptions/prescriptions-database/prescriptions-database.component';
 import { authGuard } from './guards/auth.guard';
+import { ToolsComponent } from './components/tools/tools.component';
+import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-database.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -55,6 +58,16 @@ const routes: Routes = [
       { path: 'database', component: ProcessesDatabaseComponent },
     ],
   },
+  {
+    path: 'tools',
+    canActivate: [authGuard],
+    component: ToolsComponent,
+    children: [
+
+      { path: 'database', component: ToolsDatabaseComponent },
+    ],
+  }
+
 ];
 
 @NgModule({
