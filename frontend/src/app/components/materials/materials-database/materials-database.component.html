@@ -1,8 +1,53 @@
-<h3>Baza zasobów</h3>
-<ul>
-    <li *ngFor="let material of materialsList">{{material.name}}</li>
-</ul>
+<h3>Baza Materiałów</h3>
 
 <div>
-    <button class="btn btn-primary" (click)="onAddNew()">Dodaj zasób</button>
+    <button class="btn btn-success" (click)="onAddNew()">Dodaj</button>
 </div>
+<div class="tbodyDiv , table-responsive">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nr.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Długość</th>
+                <th scope="col">Szerokość</th>
+                <th scope="col">Wysokość</th>
+                <th scope="col">Opis</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+    
+    
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let material of materialsList">
+                <th scope="row">{{material.id}}</th>
+                <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{material.name}}</td>
+                <td >{{material.length}}</td>
+                <td >{{material.width}}</td>
+                <td >{{material.height}}</td>
+                <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;" >{{material.description}}</td>
+
+                <td><div>
+                    <button class="btn btn-warning" (click)="onEdit(material.id)"></button>
+                </div></td>
+
+                <td><div>
+                    <button class="btn btn-danger" (click)="onDelete(material.id)">X</button>
+                </div></td>
+
+            </tr>
+    
+    
+    
+        </tbody>
+        
+        </table>
+
+
+</div>
+
+
+
+

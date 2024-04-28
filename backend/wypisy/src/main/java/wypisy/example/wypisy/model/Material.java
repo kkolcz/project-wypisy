@@ -23,6 +23,7 @@ public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy("id")
     private Long id;
     @NotEmpty
     private String name;

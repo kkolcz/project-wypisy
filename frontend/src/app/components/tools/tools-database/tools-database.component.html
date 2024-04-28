@@ -1,0 +1,35 @@
+<h3>Baza Narzędzi</h3>
+
+<div>
+    <button class="btn btn-success" >Dodaj</button>
+</div>
+<div>
+
+    
+</div>
+<div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nr.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Opis</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+
+        </tr>
+    </thead>
+        <tbody>
+                <tr *ngFor="let tool of toolList">
+                    <th scope="row">{{tool.id}}</th>
+                    <td>{{tool.name}}</td>
+                    <td>{{tool.description}}</td>
+
+                </tr>
+        </tbody>
+        
+    </table>
+
+
+</div>
