@@ -17,6 +17,7 @@ import { PrescriptionsDatabaseComponent } from './components/prescriptions/presc
 import { authGuard } from './guards/auth.guard';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-database.component';
+import { ToolsAddComponent } from './components/tools/tools-add/tools-add.component';
 
 
 const routes: Routes = [
@@ -65,6 +66,7 @@ const routes: Routes = [
     children: [
 
       { path: 'database', component: ToolsDatabaseComponent },
+      { path: 'add', component: ToolsAddComponent},
     ],
   }
 

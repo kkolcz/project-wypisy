@@ -1,7 +1,7 @@
 <h3>Baza Narzędzi</h3>
 
 <div>
-    <button class="btn btn-success" >Dodaj</button>
+    <button class="btn btn-success" (click)="onAddNew()">Dodaj</button>
 </div>
 <div>
 
@@ -23,8 +23,16 @@
         <tbody>
                 <tr *ngFor="let tool of toolList">
                     <th scope="row">{{tool.id}}</th>
-                    <td>{{tool.name}}</td>
-                    <td>{{tool.description}}</td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{tool.name}}</td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{tool.description}}</td>
+                    <td><div>
+                        <button class="btn btn-warning" (click)="onEdit(tool.id)">Zmień</button>
+                    </div></td>
+    
+                    <td><div>
+                        <button class="btn btn-danger" (click)="onDelete(tool.id)">X</button>
+                    </div></td>
+
 
                 </tr>
         </tbody>

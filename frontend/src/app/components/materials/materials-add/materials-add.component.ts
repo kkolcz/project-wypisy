@@ -47,7 +47,7 @@ export class MaterialsAddComponent implements OnInit {
 
     this.materialsService.getMaterialNew(this.staticMateraial).subscribe((rs:CustomResponse)=>{
 
-        this.material=rs.data.Material
+        this.material=rs.data["Material"]
 
         this.materialForm.setValue({
 

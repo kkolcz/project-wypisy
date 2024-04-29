@@ -23,6 +23,7 @@ import { PrescriptionsDatabaseComponent } from './components/prescriptions/presc
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-database.component';
+import { ToolsAddComponent } from './components/tools/tools-add/tools-add.component';
 
 
 
@@ -47,6 +48,7 @@ import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-
     PrescriptionsDatabaseComponent,
     ToolsComponent,
     ToolsDatabaseComponent,
+    ToolsAddComponent,
    
 
   ],
