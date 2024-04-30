@@ -19,7 +19,7 @@ export class ToolsDatabaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.toolService.getTools().subscribe((rs:CustomResponse)=>{ this.toolList=rs.data["Tools"] });
-   
+   this.initSub();
   }
 
   initSub() {
@@ -30,6 +30,18 @@ export class ToolsDatabaseComponent implements OnInit {
 
       });
     });
+  }
+
+  onAddNew() {
+    this.router.navigate(['/', 'tools', 'add']);
+  }
+
+  onEdit(id:number){
+    this.router.navigate(['/', 'tools', 'add',{id:id}]);
+  }
+
+  onDelete(toolId:number){
+    this.toolService.deleTool(toolId);
   }
   
 

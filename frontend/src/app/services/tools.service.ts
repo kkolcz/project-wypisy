@@ -22,11 +22,44 @@ export class ToolsService {
 
 
 getTools():any{
-  
+
    return this.http.get<CustomResponse>(`${this.API_URL}/tool/all`)
-   this.baseTool.next(true);
-  
+   
   }
+
+  getTool(toolId:number){
+    const params = new HttpParams().append('toolId',toolId );
+    return this.http.get<CustomResponse>(`${this.API_URL}/tool/`,{params:params})
+  }
+
+  addTool(tool:Tool):void{
+    this.http.post(`${this.API_URL}/tool/add`,tool).subscribe((res) => {
+      this.baseTool.next(true);
+      return res;
+    });
+
+  }
+  setTool(tool:Tool):void{
+    this.http.put(`${this.API_URL}/tool/`,tool).subscribe((res) => {
+      this.baseTool.next(true);
+      return res;
+    });
+
+  }
+
+  deleTool(id:number):void{
+
+    const params = new HttpParams().append('toolId', id );
+  
+    this.http
+    .delete(`${this.API_URL}/tool/`,{params:params} ).subscribe((res) => {
+      this.baseTool.next(true);
+      return res;
+    });
+  }
+
+
+
 
    
 }
