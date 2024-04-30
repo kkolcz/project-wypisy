@@ -1,7 +1,7 @@
 <h3>Baza Narzędzi</h3>
 
 <div>
-    <button class="btn btn-success" (click)="onAddNew()">Dodaj</button>
+    <button class="btn btn-outline-success" (click)="onAddNew()">Dodaj</button>
 </div>
 <div>
 
@@ -15,7 +15,7 @@
             <th scope="col">Name</th>
             <th scope="col">Opis</th>
             <th scope="col"></th>
-            <th scope="col"></th>
+
 
 
         </tr>
@@ -25,13 +25,13 @@
                     <th scope="row">{{tool.id}}</th>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{tool.name}}</td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{tool.description}}</td>
-                    <td><div>
-                        <button class="btn btn-warning" (click)="onEdit(tool.id)">Zmień</button>
-                    </div></td>
-    
-                    <td><div>
-                        <button class="btn btn-danger" (click)="onDelete(tool.id)">X</button>
-                    </div></td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-outline-dark" (click)="onEdit(tool.id)">Zmień</button>
+                            <button class="btn btn-outline-danger" (click)="onDelete(tool.id)">X</button>
+                        </div>
+                    </td>
+
 
 
                 </tr>

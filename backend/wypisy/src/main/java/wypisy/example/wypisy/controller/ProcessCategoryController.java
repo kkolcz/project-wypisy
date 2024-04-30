@@ -55,7 +55,7 @@ public class ProcessCategoryController {
             return ResponseEntity.ok(
                     Response.builder()
                             .timeStamp(now())
-                            .data(of("Process Category", categoryService.getById(pcategoryId)))
+                            .data(of("processCategory", categoryService.getById(pcategoryId)))
                             .message("Returned Process Category")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())

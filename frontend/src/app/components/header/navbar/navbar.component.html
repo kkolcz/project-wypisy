@@ -42,6 +42,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" [routerLink]="['/processes', 'add']">Dodaj proces</a></li>
                         <li><a class="dropdown-item" [routerLink]="['/processes', 'database']">Baza procesów</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/processcategory', 'database']">Kategorie processu</a></li>
                     </ul>
                 </li>
                 <!-- Narzędzia -->
@@ -64,6 +65,17 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" [routerLink]="['/materials', 'add']">Dodaj materiał</a></li>
                         <li><a class="dropdown-item" [routerLink]="['/materials', 'database']">Baza materiałów</a></li>
+                    </ul>
+                </li>
+                <!-- LOCATION -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Lokalizacje
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" [routerLink]="['/location', 'add']">Dodaj Lokalizację</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/location', 'database']">Baza Lokalizacji</a></li>
                     </ul>
                 </li>
 

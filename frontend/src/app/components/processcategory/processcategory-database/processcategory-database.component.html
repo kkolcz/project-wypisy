@@ -1,0 +1,45 @@
+<h3>Kategorie Procesów </h3>
+
+<div>
+    <button class="btn btn-outline-success" (click)="onAddNew()">Dodaj</button>
+</div>
+<div>
+
+    
+</div>
+<div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nr.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Dział</th>
+            <th scope="col">Opis</th>
+            <th scope="col"></th>
+
+
+
+        </tr>
+    </thead>
+        <tbody>
+                <tr *ngFor="let category of categoryList">
+                    <th scope="row">{{category.id}}</th>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{category.name}}</td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{category.department}}</td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{category.description}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-outline-dark" (click)="onEdit(category.id)">Zmień</button>
+                            <button class="btn btn-outline-danger" (click)="onDelete(category.id)">X</button>
+                        </div>
+                    </td>
+
+
+
+                </tr>
+        </tbody>
+        
+    </table>
+
+
+</div>

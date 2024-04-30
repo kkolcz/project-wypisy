@@ -106,4 +106,6 @@ export class MaterialsAddComponent implements OnInit {
 
     // console.log(this.materialForm.value.materialName);
   }
+  onBack(){this.router.navigate(['/', 'materials', 'database']);}
 }
+

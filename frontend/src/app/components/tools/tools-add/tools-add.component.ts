@@ -81,5 +81,9 @@ export class ToolsAddComponent implements OnInit {
 
     }
 
+    onBack(){
+      this.router.navigate(['/', 'tools', 'database']);
+    }
+
 
 }
