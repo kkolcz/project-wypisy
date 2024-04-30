@@ -14,8 +14,9 @@
                     <label class="form-check-label" for="toolDescription">Opis: </label>
                     <input type="text" formControlName="toolDescription" class="form-control" placeholder="Opis">
                 </div>
-                <div>
-                    <button  class="btn btn-primary" type="submit">Zapisz</button>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button  class="btn btn-outline-primary" type="submit">Zapisz</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="onBack()">Anuluj</button>
                 </div>
             </form>
         </div>

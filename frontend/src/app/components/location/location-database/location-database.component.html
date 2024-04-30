@@ -1,0 +1,43 @@
+<h3>Baza Lokalizacji</h3>
+
+<div>
+    <button class="btn btn-outline-success" (click)="onAddNew()">Dodaj</button>
+</div>
+<div>
+
+    
+</div>
+<div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nr.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Opis</th>
+            <th scope="col"></th>
+
+
+
+        </tr>
+    </thead>
+        <tbody>
+                <tr *ngFor="let loc of locList">
+                    <th scope="row">{{loc.id}}</th>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{loc.name}}</td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{loc.description}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-outline-dark" (click)="onEdit(loc.id)">Zmień</button>
+                            <button class="btn btn-outline-danger" (click)="onDelete(loc.id)">X</button>
+                        </div>
+                    </td>
+
+
+
+                </tr>
+        </tbody>
+        
+    </table>
+
+
+</div>

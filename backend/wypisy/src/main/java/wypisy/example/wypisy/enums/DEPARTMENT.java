@@ -5,5 +5,5 @@ public enum DEPARTMENT {
 
 
     STOLARNIA,
-    MASZYNOWNIA
+    MONTAZ
 }

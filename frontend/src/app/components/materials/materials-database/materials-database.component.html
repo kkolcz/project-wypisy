@@ -1,7 +1,7 @@
 <h3>Baza Materiałów</h3>
 
 <div>
-    <button class="btn btn-success" (click)="onAddNew()">Dodaj</button>
+    <button class="btn btn-outline-success" (click)="onAddNew()">Dodaj</button>
 </div>
 <div class="tbodyDiv , table-responsive">
 
@@ -15,7 +15,7 @@
                 <th scope="col">Wysokość</th>
                 <th scope="col">Opis</th>
                 <th scope="col"></th>
-                <th scope="col"></th>
+
     
     
             </tr>
@@ -29,13 +29,12 @@
                 <td >{{material.height}}</td>
                 <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;" >{{material.description}}</td>
 
-                <td><div>
-                    <button class="btn btn-warning" (click)="onEdit(material.id)">Zmień</button>
-                </div></td>
-
-                <td><div>
-                    <button class="btn btn-danger" (click)="onDelete(material.id)">X</button>
-                </div></td>
+                <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-outline-dark" (click)="onEdit(material.id)">Zmień</button>
+                        <button class="btn btn-outline-danger" (click)="onDelete(material.id)">X</button>
+                    </div>
+                </td>
 
             </tr>
     

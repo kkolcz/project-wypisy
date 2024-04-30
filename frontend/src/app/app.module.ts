@@ -24,6 +24,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-database.component';
 import { ToolsAddComponent } from './components/tools/tools-add/tools-add.component';
+import { LocationComponent } from './components/location/location.component';
+import { LocationDatabaseComponent } from './components/location/location-database/location-database.component';
+import { LocationAddComponent } from './components/location/location-add/location-add.component';
+import { ProcesscategoryComponent } from './components/processcategory/processcategory.component';
+import { ProcesscategoryDatabaseComponent } from './components/processcategory/processcategory-database/processcategory-database.component';
+import { ProcesscategoryAddComponent } from './components/processcategory/processcategory-add/processcategory-add.component';
+
 
 
 
@@ -49,6 +56,13 @@ import { ToolsAddComponent } from './components/tools/tools-add/tools-add.compon
     ToolsComponent,
     ToolsDatabaseComponent,
     ToolsAddComponent,
+    LocationComponent,
+    LocationDatabaseComponent,
+    LocationAddComponent,
+    ProcesscategoryComponent,
+    ProcesscategoryDatabaseComponent,
+    ProcesscategoryAddComponent
+
    
 
   ],

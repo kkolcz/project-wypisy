@@ -18,6 +18,12 @@ import { authGuard } from './guards/auth.guard';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ToolsDatabaseComponent } from './components/tools/tools-database/tools-database.component';
 import { ToolsAddComponent } from './components/tools/tools-add/tools-add.component';
+import { LocationComponent } from './components/location/location.component';
+import { LocationDatabaseComponent } from './components/location/location-database/location-database.component';
+import { LocationAddComponent } from './components/location/location-add/location-add.component';
+import { ProcesscategoryComponent } from './components/processcategory/processcategory.component';
+import { ProcesscategoryAddComponent } from './components/processcategory/processcategory-add/processcategory-add.component';
+import { ProcesscategoryDatabaseComponent } from './components/processcategory/processcategory-database/processcategory-database.component';
 
 
 const routes: Routes = [
@@ -67,6 +73,26 @@ const routes: Routes = [
 
       { path: 'database', component: ToolsDatabaseComponent },
       { path: 'add', component: ToolsAddComponent},
+    ],
+  },
+  {
+    path: 'location',
+    canActivate: [authGuard],
+    component: LocationComponent,
+    children: [
+      { path: 'database', component: LocationDatabaseComponent },
+      { path: 'add', component: LocationAddComponent },
+      
+    ],
+  },
+  {
+    path: 'processcategory',
+    canActivate: [authGuard],
+    component: ProcesscategoryComponent,
+    children: [
+      { path: 'add', component: ProcesscategoryAddComponent},
+      { path: 'database', component:ProcesscategoryDatabaseComponent },
+      
     ],
   }
 
