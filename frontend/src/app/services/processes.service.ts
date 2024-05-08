@@ -22,13 +22,18 @@ export class ProcessesService {
   }
 
 
-  getAll(){return this.http.get<CustomResponse>(`${this.API_URL}/process/all`)}
+  getAll(){return this.http.get<CustomResponse>(`${this.API_URL}/process/all`)};
+
+  getId(id:number){
+    const params = new HttpParams().append('processId',id );
+    return this.http.get<CustomResponse>(`${this.API_URL}/process/`,{params:params})
+  }
 
 
   delete(id:number):void{
     const params=new HttpParams().append('processId',id)
     this.http.delete<CustomResponse>(`${this.API_URL}/process/`,{params:params}).subscribe((res) => {
-
+      this.baseProcess.next(true)
       return res;
     });
   }

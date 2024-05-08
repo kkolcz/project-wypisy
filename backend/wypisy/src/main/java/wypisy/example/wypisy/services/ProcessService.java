@@ -59,14 +59,19 @@ public class ProcessService {
 
         ManufacturingProcess process =processRepository.findById(id).orElseThrow(()->new IllegalStateException("Process don't exist"));
 
-        Location location=process.getLocation();
-        location.getProcess().remove(process);
+       if (process.getLocation()!=null){
+           Location location=process.getLocation();
+           location.getProcess().remove(process);
+           locationRepository.save(location);
+       }
+
+
         process.getMachinePrograms().forEach(program -> program.getProcessList().remove(process));
         process.getToolList().forEach(tool -> tool.getProcessList().remove(process));
 
         toolRepository.saveAll( process.getToolList());
         programRepository.saveAll(process.getMachinePrograms());
-        locationRepository.save(location);
+
 
         processLineRepository.deleteAll(process.getProcessLineMS());
         processRepository.deleteById(process.getId());
