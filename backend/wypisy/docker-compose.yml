@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    container_name: pwypisy_psql_db
+    restart: no
+    environment:
+      - POSTGRES_USER=pwypisy
+      - POSTGRES_PASSWORD=pwypisy_secret_password
+      - POSTGRES_DB=pwypisy_db
+    ports:
+      - '5432:5432'

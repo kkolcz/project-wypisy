@@ -2,9 +2,15 @@ spring:
   datasource:
     hikari:
       maximum-pool-size: 2
+#    EXTERNAL DATABASE
     password: hNUmb6pIAgE3
     url: jdbc:postgresql://ep-royal-fog-a2dwl67l.eu-central-1.aws.neon.tech:5432/pwypisy
     username: pwypisy
+#
+#    LOCAL DOCKER DATABASE
+#    password: pwypisy_secret_password
+#    url: jdbc:postgresql://127.0.0.1:5432/pwypisy_db
+#    username: pwypisy
     driver-class-name: org.postgresql.Driver
 
   jpa:
