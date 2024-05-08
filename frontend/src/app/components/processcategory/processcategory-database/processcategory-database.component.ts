@@ -24,7 +24,6 @@ public categoryList:processCategory[]=[]
 
 
   ngOnInit(): void {
-    
     this.categoryService.getProcessCategories().subscribe((rs:CustomResponse)=>{this.categoryList=rs.data["Categories"]});
     this.initSub();
   }
