@@ -18,6 +18,14 @@ export class ProductsDatabaseComponent implements OnInit {
     private router: Router
   ) {}
 
+  onEditProductHandler = () => {
+    console.log('Edit');
+  };
+
+  onDeleteProductHandler = () => {
+    console.log('Delete');
+  };
+
   ngOnInit(): void {
     this.productsService.getProducts().subscribe((products: IProductsRes) => {
       this.productsList2 = products.data['Products'];

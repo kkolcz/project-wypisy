@@ -1,8 +1,39 @@
 <h3>Baza produktów</h3>
-<ul>
-    <li *ngFor="let product of productsList2">{{product.name}} <= <span *ngFor="let resource of product.elementList">
-            {{resource.name}} - </span></li>
-</ul>
+
+<table class="table" *ngIf="productsList2.length; else empty">
+    <thead>
+        <tr>
+            <th scope="col">Nr.</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Nr. M3</th>
+            <th scope="col">Nazwa M3</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Edycja</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of productsList2">
+            <th scope="row" *ngIf="product">{{product.id}}</th>
+            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{product.name}}</td>
+            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{product.nrM3}}</td>
+            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{product.nameM3}}</td>
+            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{product.description}}</td>
+
+
+
+            <td>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-outline-dark" (click)="onEditProductHandler()">Zmień</button>
+                    <button class="btn btn-outline-danger" (click)="onDeleteProductHandler()">X</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #empty>
+    <h5 style="word-wrap: break-word;">Brak produktów</h5>
+</ng-template>
+
 
 <div>
     <button class="btn btn-primary" (click)="onAddNew()">Dodaj produkt</button>
