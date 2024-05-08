@@ -33,9 +33,9 @@ import { ProcesscategoryAddComponent } from './components/processcategory/proces
 import { MachineProgramComponent } from './components/machine-program/machine-program.component';
 import { MachineProgramAddComponent } from './components/machine-program/machine-program-add/machine-program-add.component';
 import { MachineProgramDatabaseComponent } from './components/machine-program/machine-program-database/machine-program-database.component';
-
-
-
+import { ProductsAddStep1Component } from './components/products/products-add/products-add-step1/products-add-step1.component';
+import { ProductsAddStep2Component } from './components/products/products-add/products-add-step2/products-add-step2.component';
+import { ProductsAddStep3Component } from './components/products/products-add/products-add-step3/products-add-step3.component';
 
 @NgModule({
   declarations: [
@@ -67,10 +67,10 @@ import { MachineProgramDatabaseComponent } from './components/machine-program/ma
     ProcesscategoryAddComponent,
     MachineProgramComponent,
     MachineProgramAddComponent,
-    MachineProgramDatabaseComponent
-
-   
-
+    MachineProgramDatabaseComponent,
+    ProductsAddStep1Component,
+    ProductsAddStep2Component,
+    ProductsAddStep3Component,
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,33 @@
-<h3 class="mb-5">Dodaj produkt</h3>
+<app-products-add-step1 *ngIf="formStep === 1" [formStep1Group]="formStep1Group" />
+<app-products-add-step2 *ngIf="formStep === 2" [formStep2Group]="formStep2Group" />
+<app-products-add-step3 *ngIf="formStep === 3" [formStep3Group]="formStep3Group" />
+<div *ngIf="isFinish">
+    {{isFinish | json}}
+</div>
+
+<div class="controlsPanel">
+    <button class="btn btn-danger" (click)="onPrevStepHandler()" [disabled]="formStep === 1">Poprzednie</button>
+    <button class="btn btn-primary" (click)="onNextStepHandler()">Dalej</button>
+</div>
+
+
+
+<!-- <h3 class="mb-5">Dodaj produkt</h3>
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
 
         <form [formGroup]="productForm" (ngSubmit)="onAddProduct()">
             <div class="input-group mb-3">
                 <input type="text" formControlName="productName" class="form-control" placeholder="Nazwa produktu">
-            </div>
+            </div> -->
 
-            <!-- <div class="input-group mb-3">
+<!-- <div class="input-group mb-3">
                 <select id="resource" class="form-control" name="resource">
                     <option [value]="resource.name" *ngFor="let resource of resourcesList">{{resource.name}}</option>
                 </select>
             </div> -->
 
-            <div formArrayName="resourcesForm">
+<!-- <div formArrayName="resourcesForm">
                 <span>Dodaj zasób<button class="btn btn-primary m-1" type="button"
                         (click)="onAddResource()">+</button></span>
                 <div class="form-group" *ngFor=" let resourceControl of getControls(); let i = index">
@@ -31,4 +45,4 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
