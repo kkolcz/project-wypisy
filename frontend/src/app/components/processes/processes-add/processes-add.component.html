@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="mb-5">
+        <h3>Dodaj Lokalizacje</h3>
+    </div>
+    <div class="row">
+        <!-- col-xs-12 col-md-8 col-sm-offset-1 col-md-offset-2 col-sm-10 -->
+        <div class="col-md-10">
+            <form [formGroup]="processForm"  >
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="name">Nazwa: </label>
+                    <input type="text" formControlName="name" class="form-control" placeholder="Nazwa">
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="categoryName">Kategoria: </label>
+                    <input type="text" formControlName="categoryName" class="form-control" placeholder="Kategoria">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="categoryName">Czas: </label>
+                    <input type="text" formControlName="categoryName" class="form-control" placeholder="Czas">
+                </div>
+
+                    <div class="row form-group mb-3 border border-secondary rounded-1">
+                
+                        <div class="col">
+                           <label class="form-check-label" >Lista Narzędzi: </label> 
+                            <div class="table-responsive"><table class="table" name="productTool">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nr.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Opis</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                    <tr *ngFor="let tool of process.toolList">
+
+                                        <td> </td>
+                    
+                    
+                    
+                                    </tr>
+                            </tbody>
+                            
+                        </table></div>
+                             
+                        </div>
+                        <div class="col panel-body table-responsive">
+                            <label class="form-check-label" >Lista Narzędzi DB: </label>
+                            <div class="table-responsive"><table class="table  ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nr.</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Opis</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                            <tr *ngFor="let tooldb of toolList">
+        
+                                                <th scope="row">{{tooldb.id}}</th>
+                                                <td style="word-wrap: break-word;min-width: 100px;max-width: 100px;">{{tooldb.name}}</td>
+                                                <td style="word-wrap: break-word;min-width: 100px;max-width: 100px;">{{tooldb.description}}</td>
+                            
+                                            </tr>
+                                    </tbody>
+                                    
+                                </table></div>
+                            
+
+
+
+
+
+                        </div>
+                        
+                    </div>
+                    <div class="row form-group mb-3 border border-secondary rounded-1">
+                        <label class="form-check-label" >Lista Programów: </label>
+                        <div class="col">
+                             <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nr.</th>
+                                <th scope="col">Nr.Programu</th>
+                                <th scope="col">Opis</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                    <tr *ngFor="let tool of process.programList">
+
+                                        <td> </td>
+                    
+                    
+                    
+                                    </tr>
+                            </tbody>
+                            
+                        </table>
+                        </div>
+                        <div class="col"></div>
+                        
+                    </div>
+
+
+
+
+
+
+
+
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button  class="btn btn-outline-primary" type="submit">Zapisz</button>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
