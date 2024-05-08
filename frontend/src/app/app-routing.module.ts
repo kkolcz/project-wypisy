@@ -24,6 +24,9 @@ import { LocationAddComponent } from './components/location/location-add/locatio
 import { ProcesscategoryComponent } from './components/processcategory/processcategory.component';
 import { ProcesscategoryAddComponent } from './components/processcategory/processcategory-add/processcategory-add.component';
 import { ProcesscategoryDatabaseComponent } from './components/processcategory/processcategory-database/processcategory-database.component';
+import { MachineProgramComponent } from './components/machine-program/machine-program.component';
+import { MachineProgramAddComponent } from './components/machine-program/machine-program-add/machine-program-add.component';
+import { MachineProgramDatabaseComponent } from './components/machine-program/machine-program-database/machine-program-database.component';
 
 
 const routes: Routes = [
@@ -94,7 +97,23 @@ const routes: Routes = [
       { path: 'database', component:ProcesscategoryDatabaseComponent },
       
     ],
+  },
+  {
+    path: 'program',
+    canActivate: [authGuard],
+    component: MachineProgramComponent,
+    children: [
+      { path: 'add', component: MachineProgramAddComponent},
+      { path: 'database', component:MachineProgramDatabaseComponent },
+      
+    ],
   }
+
+
+
+
+
+
 
 ];
 
