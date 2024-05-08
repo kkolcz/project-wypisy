@@ -47,6 +47,34 @@ public class ProgramController {
 
 
     }
+    @GetMapping("/")
+    public ResponseEntity<Response> get(@RequestParam Long programId){
+        try {
+
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("machineProgram",programService.getProductById(programId)))
+                            .message("machineProgram")
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .build()
+            );
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(of("machineProgram", false))
+                            .message(e.getMessage())
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .build());
+        }
+
+
+    }
+
+
     @PostMapping("/add")
     public ResponseEntity<Response> addProgram(@RequestBody MachineProgram program){
 

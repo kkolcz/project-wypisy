@@ -30,6 +30,9 @@ import { LocationAddComponent } from './components/location/location-add/locatio
 import { ProcesscategoryComponent } from './components/processcategory/processcategory.component';
 import { ProcesscategoryDatabaseComponent } from './components/processcategory/processcategory-database/processcategory-database.component';
 import { ProcesscategoryAddComponent } from './components/processcategory/processcategory-add/processcategory-add.component';
+import { MachineProgramComponent } from './components/machine-program/machine-program.component';
+import { MachineProgramAddComponent } from './components/machine-program/machine-program-add/machine-program-add.component';
+import { MachineProgramDatabaseComponent } from './components/machine-program/machine-program-database/machine-program-database.component';
 
 
 
@@ -61,7 +64,10 @@ import { ProcesscategoryAddComponent } from './components/processcategory/proces
     LocationAddComponent,
     ProcesscategoryComponent,
     ProcesscategoryDatabaseComponent,
-    ProcesscategoryAddComponent
+    ProcesscategoryAddComponent,
+    MachineProgramComponent,
+    MachineProgramAddComponent,
+    MachineProgramDatabaseComponent
 
    
 

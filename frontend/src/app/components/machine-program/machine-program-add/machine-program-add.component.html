@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="mb-5">
+        <h3>Dodaj Program</h3>
+    </div>
+    <div class="row">
+        <!-- col-xs-12 col-md-8 col-sm-offset-1 col-md-offset-2 col-sm-10 -->
+        <div class="col-md-8">
+            <form [formGroup]="programForm" (ngSubmit)="onAdd()" >
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="nrProgram">Nr.Program: </label>
+                    <input type="text" formControlName="nrProgram" class="form-control" placeholder="Nr.Programu">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="nameMachine">Nazwa Maszyny: </label>
+                    <input type="text" formControlName="nameMachine" class="form-control" placeholder="Nazwa Maszyny">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="description">Opis: </label>
+                    <input type="text" formControlName="description" class="form-control" placeholder="Opis">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-check-label" for="qtyForProgram">Ilości: </label>
+                    <input type="number" step="0.01" formControlName="qtyForProgram" class="form-control" placeholder="Dla Ilości">
+                </div>
+
+
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button  class="btn btn-outline-primary" type="submit">Zapisz</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="onBack()">Anuluj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
