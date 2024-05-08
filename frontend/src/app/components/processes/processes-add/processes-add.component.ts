@@ -13,7 +13,24 @@ export class ProcessesAddComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
- 
+    this.processForm = new FormGroup({
+      processName: new FormControl(null, Validators.required),
+      processCategory: new FormControl(null, Validators.required),
+      processLocalization: new FormControl(null, Validators.required),
+      processTime: new FormControl(null, Validators.required),
+    });
   }
 
+  onAddProcess() {
+    if (this.processForm.valid) {
+      const newProcess = new Process(
+        this.processForm.value.processName,
+        this.processForm.value.processCategory,
+        this.processForm.value.processLocalization,
+        this.processForm.value.processTime
+      );
+
+      console.log(newProcess);
+    }
+  }
 }

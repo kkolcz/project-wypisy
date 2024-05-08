@@ -70,7 +70,7 @@ public class ProgramService {
         program.setDescription(newProgram.getDescription());
         program.setQtyForProgram(newProgram.getQtyForProgram());
 
-        machineProgramRepository.save(program);
+
 
         return program;
     }
